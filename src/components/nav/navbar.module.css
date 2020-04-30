@@ -1,0 +1,9 @@
+.nav{
+    background-color: #05B667;
+}
+.item {
+    font-size: 20px;
+}
+.item.active{
+    font-size: 30px;
+}
