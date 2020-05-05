@@ -1,9 +1,30 @@
-.nav{
+.nav {
     background-color: #05B667;
 }
-.item {
+
+.item a {
+    padding: 20px;
     font-size: 20px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
 }
-.item.active{
-    font-size: 30px;
+
+.item a.active{
+    color:blue;
+}
+.item a:link {
+    color: blue;
+}
+
+/*.item a:visited {*/
+/*    color: black;*/
+/*}*/
+
+.item a:hover {
+    color: red;
+}
+
+.item a:active {
+    color: goldenrod;
 }
