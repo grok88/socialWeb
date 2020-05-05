@@ -3,6 +3,7 @@ import classes from './myPosts.module.css';
 import Post from "./post/post";
 
 const MyPosts = () => {
+
     return (
             <div >
                 My Posts
@@ -11,10 +12,8 @@ const MyPosts = () => {
                     <button type='button'>Send</button>
                 </div>
                 <div>
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
+                    <Post message={'Hello, What are you doing?'} />
+                    <Post message={'Hi, I am learning TypeScript now.'}/>
                 </div>
             </div>
     );
