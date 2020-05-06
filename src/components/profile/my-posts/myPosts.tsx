@@ -1,11 +1,10 @@
 import React from 'react';
-import classes from './myPosts.module.css';
+import style from './myPosts.module.css';
 import Post from "./post/post";
 
 const MyPosts = () => {
-
     return (
-            <div >
+            <div className={style.myPosts}>
                 My Posts
                 <div>
                     <textarea></textarea>

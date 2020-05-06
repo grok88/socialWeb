@@ -1,9 +1,9 @@
 import React from 'react';
-import  classes from './news.module.css';
+import  style from './news.module.css';
 
 const News = () => {
     return (
-        <div className={classes.music}>
+        <div className={style.music}>
             News
         </div>
     );

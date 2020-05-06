@@ -12,6 +12,7 @@ import Settings from "./components/settings/settings";
 import {BrowserRouter, Route} from 'react-router-dom';
 
 
+
 function App() {
     return (
         <BrowserRouter>
@@ -19,9 +20,9 @@ function App() {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/music'} component={Music}/>
                     <Route path={'/profile'} component={Profile}/>
                     <Route path={'/dialogs'} component={Dialogs}/>
+                    <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>
                 </div>
