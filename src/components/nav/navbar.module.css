@@ -1,13 +1,17 @@
 .nav {
     background-color: #05B667;
 }
+.item {
+    padding: 10px;
+    outline: 1px solid;
+}
 
 .item a {
-    padding: 20px;
     font-size: 20px;
     color: white;
     text-decoration: none;
     cursor: pointer;
+    /*outline: 1px solid red;*/
 }
 
 .item a.active{
