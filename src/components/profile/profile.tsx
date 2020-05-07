@@ -1,19 +1,14 @@
 import React from 'react';
 import style from './profile.module.css';
 import MyPosts from "./my-posts/myPosts";
+import ProfileInfo from "./profileInfo/profileInfo";
+
 
 const Profile = () => {
     return (
         <section className={style.content}>
-            <div>
-                <img
-                    src="https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg"
-                    alt="main-fon"/>
-            </div>
-            <div>
-                ava + description
-            </div>
-            <MyPosts />
+            <ProfileInfo/>
+            <MyPosts/>
         </section>
     );
 }
