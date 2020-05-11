@@ -4,9 +4,6 @@ import {DialogItem, DialogItemType} from "./dialogItem/dialogItem";
 import {Message} from "./message/message";
 import {v1} from 'uuid';
 
-// type dialogsDateType = {
-//
-// }
 
 const dialogs: Array<DialogItemType> = [
     {id: v1(), name: "Alex"},
@@ -24,7 +21,7 @@ const messages = [
 ];
 
 let dialogsElements = dialogs.map(({name, id}) => <DialogItem name={name} id={id} key={id}/>);
-let messagesElements = messages.map(({id, message}) =>  <Message message={message} key={id}/>);
+let messagesElements = messages.map(({id, message}) => <Message message={message} key={id}/>);
 
 const Dialogs = () => {
     return (

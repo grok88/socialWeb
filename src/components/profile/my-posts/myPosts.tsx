@@ -1,14 +1,17 @@
 import React from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
-import {v1} from "uuid";
 
-const posts = [
-    {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
-    {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
-];
+type ObjType = {
+    id: string,
+    message: string,
+    likeCount: string
+}
+type PropsType = {
+    posts: Array<ObjType>
+}
 
-const MyPosts = () => {
+const MyPosts = (props: PropsType) => {
     return (
         <div className={style.postsBlock}>
             My Posts
@@ -22,7 +25,8 @@ const MyPosts = () => {
             </div>
             <div className={style.posts}>
                 {
-                    posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount} key={id}/>)
+                    props.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
+                                                                        key={id}/>)
                 }
             </div>
         </div>
