@@ -15,7 +15,6 @@ type propsType = {
 
 
 const Profile = (props:propsType) => {
-    console.log(props)
     return (
         <section className={style.content}>
             <ProfileInfo/>

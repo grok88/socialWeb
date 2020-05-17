@@ -12,6 +12,7 @@ import Settings from "./components/settings/settings";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {DialogItemType} from "./components/dialogs/dialogItem/dialogItem";
 import {messagesType, ObjType} from "./redux/state";
+import {friendsType} from "./components/nav/friends/Friends";
 
 export type propsType = {
     state: {
@@ -21,21 +22,24 @@ export type propsType = {
         dialogsPage: {
             dialogs: Array<DialogItemType>,
             messages: Array<messagesType>,
+        },
+        sidebar: {
+            friends: Array<friendsType>
         }
     }
 }
 
 function App(props: propsType) {
-    const {posts} = props.state.profilePage;
+    const {state:{profilePage, dialogsPage, sidebar}} = props;
 
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar/>
+                <Navbar state={sidebar}/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/profile'} render={() => <Profile posts={posts}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs data={props.state.dialogsPage}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={profilePage.posts}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs data={dialogsPage}/>}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>
