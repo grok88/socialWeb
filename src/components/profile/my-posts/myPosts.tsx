@@ -9,9 +9,12 @@ type ObjType = {
 }
 type PropsType = {
     posts: Array<ObjType>
+    addPost: (message: string) => void
 }
 
 const MyPosts = (props: PropsType) => {
+
+    const {posts, addPost} = props;
 
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
@@ -19,8 +22,8 @@ const MyPosts = (props: PropsType) => {
         let value = newPostElement.current;
 
         if (value) {
-            let text = value.value;
-            console.log(text)
+            let text = value.value.trim();
+            addPost(text);
             value.value = ''
         }
     }
@@ -44,8 +47,8 @@ const MyPosts = (props: PropsType) => {
             </div>
             <div className={style.posts}>
                 {
-                    props.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
-                                                                        key={id}/>)
+                    posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
+                                                                  key={id}/>)
                 }
             </div>
         </div>

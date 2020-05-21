@@ -9,16 +9,19 @@ type ObjType = {
     message: string,
     likeCount: string
 }
+
 type propsType = {
     posts: Array<ObjType>
+    addPost : (message:string) => void
 }
 
 
 const Profile = (props:propsType) => {
+
     return (
         <section className={style.content}>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.posts} addPost={props.addPost}/>
         </section>
     );
 }

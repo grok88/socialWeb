@@ -95,4 +95,14 @@ let state: StateType = {
     }
 }
 
+export const addPost = (message: string) => {
+    const newPost: ObjType = {
+        id: v1(),
+        message,
+        likeCount: "0"
+    }
+    state.profilePage.posts.push(newPost);
+    console.log(state.profilePage.posts);
+}
+
 export default state;
