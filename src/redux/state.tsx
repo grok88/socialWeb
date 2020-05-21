@@ -1,6 +1,7 @@
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {v1} from "uuid";
 import {friendsType} from "../components/nav/friends/Friends";
+import {rerenderEntireTree} from "../render";
 
 // Для message
 export type messagesType = {
@@ -15,7 +16,7 @@ export type ObjType = {
     likeCount: string
 }
 
-type StateType = {
+ export type StateType = {
     profilePage: {
         posts: Array<ObjType>
     },
@@ -102,7 +103,7 @@ export const addPost = (message: string) => {
         likeCount: "0"
     }
     state.profilePage.posts.push(newPost);
-    console.log(state.profilePage.posts);
+    rerenderEntireTree(state);
 }
 
 export default state;
