@@ -28,18 +28,24 @@ export type propsType = {
         }
     },
     addPost : (message:string) => void,
-    addMessage:(message:string) => void
+    addMessage:(message:string) => void,
+    addFriends:() => void,
+    addNameToNewFriends:(name:string) => void,
+    addUrlToNewFriends:(url:string) => void,
 }
 
 function App(props: propsType) {
 
-    const {state:{profilePage, dialogsPage, sidebar}, addPost, addMessage} = props;
+    const {state:{profilePage, dialogsPage, sidebar}, addPost, addMessage, addFriends, addNameToNewFriends, addUrlToNewFriends} = props;
 
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar state={sidebar}/>
+                <Navbar state={sidebar}
+                        addFriends={addFriends}
+                        addNameToNewFriends={addNameToNewFriends}
+                        addUrlToNewFriends={addUrlToNewFriends}/>
                 <div className='app-wrapper-content'>
                     <Route path={'/profile'} render={() => <Profile posts={profilePage.posts} addPost={addPost}/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs data={dialogsPage} addMessage={addMessage}/>}/>

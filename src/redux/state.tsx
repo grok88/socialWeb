@@ -16,7 +16,7 @@ export type ObjType = {
     likeCount: string
 }
 
- export type StateType = {
+export type StateType = {
     profilePage: {
         posts: Array<ObjType>
     },
@@ -26,6 +26,7 @@ export type ObjType = {
     },
     sidebar: {
         friends: Array<friendsType>
+        addFriends: friendsType
     }
 }
 
@@ -92,8 +93,28 @@ let state: StateType = {
                 name: 'Valentinka',
                 id: v1()
             }
-        ]
+        ],
+        addFriends: {
+            id: '',
+            url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSU8ZWLKMXxuUe7g8j7zCfYZ3BcxuXlxPwBmSV_Mv_Bf9kvMg6F&usqp=CAU',
+            name: 'Grok'
+        }
     }
+}
+
+export const addNameToNewFriends = (name: string) => {
+    state.sidebar.addFriends.name = name;
+}
+export const addUrlToNewFriends = (url: string) => {
+    if (url.trim().length !== 0) {
+        state.sidebar.addFriends.url = url;
+    }
+}
+
+export const addFriends = () => {
+    state.sidebar.addFriends.id = v1();
+    state.sidebar.friends.push({...state.sidebar.addFriends});
+    rerenderEntireTree(state);
 }
 
 export const addPost = (message: string) => {
@@ -105,12 +126,13 @@ export const addPost = (message: string) => {
     state.profilePage.posts.push(newPost);
     rerenderEntireTree(state);
 }
-export const addMessage = (message:string) => {
+export const addMessage = (message: string) => {
     let newMess = {
-        id:v1(),
+        id: v1(),
         message
     }
     state.dialogsPage.messages.push(newMess);
     rerenderEntireTree(state);
 }
+
 export default state;

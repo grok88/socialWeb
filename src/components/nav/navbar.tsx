@@ -6,12 +6,15 @@ import Friends, { friendsType } from "./friends/Friends";
 type PropsType = {
     state: {
         friends: Array<friendsType>
-    }
+    },
+    addFriends:() => void,
+    addNameToNewFriends:(name:string) => void,
+    addUrlToNewFriends:(url:string) => void,
 }
 
 const Navbar = (props: PropsType) => {
 
-    const {state: {friends}} = props;
+    const {state: {friends}, addFriends, addNameToNewFriends,addUrlToNewFriends} = props;
     return (
         <nav className={style.nav}>
             <div className={`${style.item} ${style.active}`}>
@@ -29,7 +32,10 @@ const Navbar = (props: PropsType) => {
             <div className={style.item}>
                 <NavLink to='settings' activeClassName={style.active}>Settings</NavLink>
             </div>
-            <Friends state={friends} />
+            <Friends state={friends}
+                     addFriends={addFriends}
+                     addNameToNewFriends={addNameToNewFriends}
+                     addUrlToNewFriends={addUrlToNewFriends}/>
         </nav>
     );
 }
