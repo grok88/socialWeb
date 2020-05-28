@@ -1,4 +1,4 @@
-import React, {RefObject, KeyboardEvent} from 'react';
+import React, {RefObject, KeyboardEvent, ChangeEvent} from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
 
@@ -8,23 +8,27 @@ type ObjType = {
     likeCount: string
 }
 type PropsType = {
-    posts: Array<ObjType>
-    addPost: (message: string) => void
+    posts: {
+        posts: Array<ObjType>,
+        newPostText: string,
+    },
+    addPost: () => void,
+    changeNewPostText: (text: string) => void
 }
 
 const MyPosts = (props: PropsType) => {
 
-    const {posts, addPost} = props;
+    const {posts, addPost, changeNewPostText} = props;
 
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
     const addPostHandler = () => {
         let value = newPostElement.current;
 
-        if (value) {
-            let text = value.value.trim();
-            addPost(text);
-            value.value = ''
+        if ( value && value.value.trim()) {
+            // let text = value.value.trim();
+            addPost();
+            // changeNewPostText('');
         }
     }
 
@@ -33,13 +37,22 @@ const MyPosts = (props: PropsType) => {
             addPostHandler();
         }
     }
+    const newPostChange = () => {
+        let value = newPostElement.current;
+        if (value) {
+            changeNewPostText(value.value);
+        }
+    }
 
     return (
         <div className={style.postsBlock}>
             My Posts
             <div>
                 <div>
-                    <textarea ref={newPostElement} onKeyPress={textareaAddPostHandler}></textarea>
+                    <textarea ref={newPostElement}
+                              onKeyPress={textareaAddPostHandler}
+                              value={posts.newPostText}
+                              onChange={newPostChange}/>
                 </div>
                 <div>
                     <button type='button' onClick={addPostHandler}>Send</button>
@@ -47,8 +60,8 @@ const MyPosts = (props: PropsType) => {
             </div>
             <div className={style.posts}>
                 {
-                    posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
-                                                                  key={id}/>)
+                    posts.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
+                                                                        key={id}/>)
                 }
             </div>
         </div>

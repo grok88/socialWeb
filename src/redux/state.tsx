@@ -18,7 +18,8 @@ export type ObjPostType = {
 
 export type StateType = {
     profilePage: {
-        posts: Array<ObjPostType>
+        posts: Array<ObjPostType>,
+        newPostText:string
     },
     dialogsPage: {
         dialogs: Array<DialogItemType>,
@@ -35,7 +36,8 @@ let state: StateType = {
         posts: [
             {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
             {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
-        ]
+        ],
+        newPostText:''
     },
     dialogsPage: {
         dialogs: [
@@ -110,20 +112,19 @@ export const addUrlToNewFriends = (url: string) => {
         state.sidebar.addFriends.url = url;
     }
 }
-
 export const addFriends = () => {
     state.sidebar.addFriends.id = v1();
     state.sidebar.friends.push({...state.sidebar.addFriends});
     rerenderEntireTree(state);
 }
-
-export const addPost = (message: string) => {
+export const addPost = () => {
     const newPost: ObjPostType = {
         id: v1(),
-        message,
+        message:state.profilePage.newPostText,
         likeCount: "0"
     }
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
     rerenderEntireTree(state);
 }
 export const addMessage = (message: string) => {
@@ -133,6 +134,11 @@ export const addMessage = (message: string) => {
     }
     state.dialogsPage.messages.push(newMess);
     rerenderEntireTree(state);
+}
+export const changeNewPostText = (text:string) => {
+    state.profilePage.newPostText = text;
+    rerenderEntireTree(state);
+
 }
 
 export default state;

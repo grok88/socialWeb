@@ -11,13 +11,14 @@ import Settings from "./components/settings/settings";
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import {DialogItemType} from "./components/dialogs/dialogItem/dialogItem";
-import {MessagesType, ObjPostType} from "./redux/state";
+import {changeNewPostText, MessagesType, ObjPostType} from "./redux/state";
 import {FriendsType} from "./components/nav/friends/Friends";
 
 export type propsType = {
     state: {
         profilePage: {
-            posts: Array<ObjPostType>
+            posts: Array<ObjPostType>,
+            newPostText:string
         },
         dialogsPage: {
             dialogs: Array<DialogItemType>,
@@ -27,17 +28,17 @@ export type propsType = {
             friends: Array<FriendsType>
         }
     },
-    addPost : (message:string) => void,
+    addPost : () => void,
     addMessage:(message:string) => void,
     addFriends:() => void,
     addNameToNewFriends:(name:string) => void,
     addUrlToNewFriends:(url:string) => void,
+    changeNewPostText:(text:string) => void
 }
 
 function App(props: propsType) {
 
-    const {state:{profilePage, dialogsPage, sidebar}, addPost, addMessage, addFriends, addNameToNewFriends, addUrlToNewFriends} = props;
-
+    const {state:{profilePage, dialogsPage, sidebar}, addPost, addMessage, addFriends, addNameToNewFriends, addUrlToNewFriends, changeNewPostText} = props;
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -47,7 +48,7 @@ function App(props: propsType) {
                         addNameToNewFriends={addNameToNewFriends}
                         addUrlToNewFriends={addUrlToNewFriends}/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/profile'} render={() => <Profile posts={profilePage.posts} addPost={addPost}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={profilePage} addPost={addPost} changeNewPostText={changeNewPostText}/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs data={dialogsPage} addMessage={addMessage}/>}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
