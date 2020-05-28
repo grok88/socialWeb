@@ -27,12 +27,13 @@ export type propsType = {
             friends: Array<friendsType>
         }
     },
-    addPost : (message:string) => void
+    addPost : (message:string) => void,
+    addMessage:(message:string) => void
 }
 
 function App(props: propsType) {
 
-    const {state:{profilePage, dialogsPage, sidebar}, addPost} = props;
+    const {state:{profilePage, dialogsPage, sidebar}, addPost, addMessage} = props;
 
     return (
         <BrowserRouter>
@@ -41,7 +42,7 @@ function App(props: propsType) {
                 <Navbar state={sidebar}/>
                 <div className='app-wrapper-content'>
                     <Route path={'/profile'} render={() => <Profile posts={profilePage.posts} addPost={addPost}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs data={dialogsPage}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs data={dialogsPage} addMessage={addMessage}/>}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>

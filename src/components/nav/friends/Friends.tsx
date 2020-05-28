@@ -23,6 +23,7 @@ const Friends = (props: PropsType) => {
             <div className={style.friends}>
                 {friendsElement}
             </div>
+            <div>Add friends</div>
         </div>
     );
 }

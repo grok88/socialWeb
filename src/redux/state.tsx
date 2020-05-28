@@ -1,7 +1,7 @@
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {v1} from "uuid";
 import {friendsType} from "../components/nav/friends/Friends";
-import {rerenderEntireTree} from "../render";
+import {rerenderEntireTree} from "./render";
 
 // Для message
 export type messagesType = {
@@ -105,5 +105,12 @@ export const addPost = (message: string) => {
     state.profilePage.posts.push(newPost);
     rerenderEntireTree(state);
 }
-
+export const addMessage = (message:string) => {
+    let newMess = {
+        id:v1(),
+        message
+    }
+    state.dialogsPage.messages.push(newMess);
+    rerenderEntireTree(state);
+}
 export default state;
