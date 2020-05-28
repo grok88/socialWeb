@@ -2,14 +2,15 @@ import React, {RefObject, ChangeEvent} from "react";
 import style from './Friends.module.css';
 import Friend from "./friend/Friend";
 
-export type friendsType = {
+export type FriendsType = {
     url: string,
     name: string,
     id: string
 }
 
+
 type PropsType = {
-    state: Array<friendsType>,
+    state: Array<FriendsType>,
     addFriends: () => void,
     addNameToNewFriends: (name: string) => void,
     addUrlToNewFriends: (url: string) => void,
@@ -18,8 +19,9 @@ type PropsType = {
 const Friends = (props: PropsType) => {
     const {state, addFriends, addNameToNewFriends, addUrlToNewFriends} = props;
 
-    // let inputNameElem: RefObject<HTMLInputElement> = React.createRef();
-    // let inputUrlElem: RefObject<HTMLInputElement> = React.createRef();
+    let inputNameElem = React.createRef<HTMLInputElement>();
+    let inputUrlElem: RefObject<HTMLInputElement> = React.createRef();
+
     const onAddNameToNewFriends = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value.trim()) {
             addNameToNewFriends(e.currentTarget.value);
@@ -39,12 +41,21 @@ const Friends = (props: PropsType) => {
             </div>
             <div>Add friends</div>
             <div>
-                <label> Name:<input type="text" onChange={onAddNameToNewFriends}/></label>
+                <label> Name:<input type="text" onChange={onAddNameToNewFriends} ref={inputNameElem}/></label>
             </div>
             <div>
-                <label> Url:<input type="text" onChange={onAddUrlToNewFriends}/></label>
+                <label> Url:<input type="text" onChange={onAddUrlToNewFriends} ref={inputUrlElem}/></label>
             </div>
-            <button onClick={() => addFriends()}>Add friend</button>
+            <button onClick={() => {
+                 if(inputNameElem.current && inputNameElem.current.value.trim()){
+                    addFriends();
+                    if (inputNameElem.current && inputUrlElem.current) {
+                        inputNameElem.current.value = '';
+                        inputUrlElem.current.value = '';
+                    }
+                 }
+            }}>Add friend
+            </button>
         </div>
     );
 }

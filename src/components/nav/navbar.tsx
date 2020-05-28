@@ -1,11 +1,11 @@
 import React from 'react';
 import style from './navbar.module.css';
 import {NavLink} from "react-router-dom";
-import Friends, { friendsType } from "./friends/Friends";
+import Friends, { FriendsType } from "./friends/Friends";
 
 type PropsType = {
     state: {
-        friends: Array<friendsType>
+        friends: Array<FriendsType>
     },
     addFriends:() => void,
     addNameToNewFriends:(name:string) => void,

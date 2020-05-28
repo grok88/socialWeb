@@ -11,20 +11,20 @@ import Settings from "./components/settings/settings";
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import {DialogItemType} from "./components/dialogs/dialogItem/dialogItem";
-import {messagesType, ObjType} from "./redux/state";
-import {friendsType} from "./components/nav/friends/Friends";
+import {MessagesType, ObjPostType} from "./redux/state";
+import {FriendsType} from "./components/nav/friends/Friends";
 
 export type propsType = {
     state: {
         profilePage: {
-            posts: Array<ObjType>
+            posts: Array<ObjPostType>
         },
         dialogsPage: {
             dialogs: Array<DialogItemType>,
-            messages: Array<messagesType>,
+            messages: Array<MessagesType>,
         },
         sidebar: {
-            friends: Array<friendsType>
+            friends: Array<FriendsType>
         }
     },
     addPost : (message:string) => void,

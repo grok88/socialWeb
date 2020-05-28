@@ -1,16 +1,16 @@
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {v1} from "uuid";
-import {friendsType} from "../components/nav/friends/Friends";
+import {FriendsType} from "../components/nav/friends/Friends";
 import {rerenderEntireTree} from "./render";
 
 // Для message
-export type messagesType = {
+export type MessagesType = {
     id: string,
     message: string
 }
 
 // Для постов
-export type ObjType = {
+export type ObjPostType = {
     id: string,
     message: string,
     likeCount: string
@@ -18,15 +18,15 @@ export type ObjType = {
 
 export type StateType = {
     profilePage: {
-        posts: Array<ObjType>
+        posts: Array<ObjPostType>
     },
     dialogsPage: {
         dialogs: Array<DialogItemType>,
-        messages: Array<messagesType>,
+        messages: Array<MessagesType>,
     },
     sidebar: {
-        friends: Array<friendsType>
-        addFriends: friendsType
+        friends: Array<FriendsType>
+        addFriends: FriendsType
     }
 }
 
@@ -118,7 +118,7 @@ export const addFriends = () => {
 }
 
 export const addPost = (message: string) => {
-    const newPost: ObjType = {
+    const newPost: ObjPostType = {
         id: v1(),
         message,
         likeCount: "0"
