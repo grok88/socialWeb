@@ -41,6 +41,7 @@ export type propsType = {
 function App(props: propsType) {
 
     const {state:{profilePage, dialogsPage, sidebar}, addPost, addMessage, addFriends, addNameToNewFriends, addUrlToNewFriends, changeNewPostText,changeNewMessageText} = props;
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

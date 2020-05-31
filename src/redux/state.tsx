@@ -1,7 +1,8 @@
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {v1} from "uuid";
 import {FriendsType} from "../components/nav/friends/Friends";
-import {rerenderEntireTree} from "./render";
+
+
 
 // Для message
 export type MessagesType = {
@@ -30,6 +31,10 @@ export type StateType = {
         friends: Array<FriendsType>
         addFriends: FriendsType
     }
+}
+
+// Заглушка для subscribe
+let rerenderEntireTree = (state:StateType) => {
 }
 
 let state: StateType = {
@@ -106,6 +111,9 @@ let state: StateType = {
     }
 }
 
+// Чтоб видеть state в консоле
+// window.state = state;
+
 // Добавление друзей блок
 export const addNameToNewFriends = (name: string) => {
     state.sidebar.addFriends.name = name;
@@ -153,6 +161,11 @@ export const addMessage = () => {
 export const changeNewMessageText = (text: string) => {
     state.dialogsPage.newMessageText = text;
     rerenderEntireTree(state);
+}
+
+// подписка на обсервер
+export const subscribe = (observer:any) => {
+    rerenderEntireTree = observer;
 }
 
 
