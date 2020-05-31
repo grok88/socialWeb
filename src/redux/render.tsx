@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "../App";
-import {addFriends, addMessage, addPost, StateType, addNameToNewFriends, addUrlToNewFriends, changeNewPostText} from "./state";
+import {addFriends, addMessage, addPost, StateType, addNameToNewFriends, addUrlToNewFriends, changeNewPostText, changeNewMessageText} from "./state";
 
  export function rerenderEntireTree(state:StateType) {
     ReactDOM.render(
@@ -12,7 +12,8 @@ import {addFriends, addMessage, addPost, StateType, addNameToNewFriends, addUrlT
                  addMessage={addMessage}
                  addFriends={addFriends}
                  addNameToNewFriends={addNameToNewFriends}
-                 addUrlToNewFriends={addUrlToNewFriends}/>
+                 addUrlToNewFriends={addUrlToNewFriends}
+                 changeNewMessageText={changeNewMessageText}/>
         </React.StrictMode>,
         document.getElementById('root')
     );

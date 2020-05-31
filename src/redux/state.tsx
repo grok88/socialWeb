@@ -19,11 +19,12 @@ export type ObjPostType = {
 export type StateType = {
     profilePage: {
         posts: Array<ObjPostType>,
-        newPostText:string
+        newPostText: string
     },
     dialogsPage: {
         dialogs: Array<DialogItemType>,
         messages: Array<MessagesType>,
+        newMessageText: string
     },
     sidebar: {
         friends: Array<FriendsType>
@@ -37,7 +38,7 @@ let state: StateType = {
             {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
             {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
         ],
-        newPostText:''
+        newPostText: ''
     },
     dialogsPage: {
         dialogs: [
@@ -76,7 +77,8 @@ let state: StateType = {
             {id: v1(), message: 'E-ho-ho'},
             {id: v1(), message: 'And the bottle of rum'},
             {id: v1(), message: 'Yes!'}
-        ]
+        ],
+        newMessageText: ''
     },
     sidebar: {
         friends: [
@@ -104,6 +106,7 @@ let state: StateType = {
     }
 }
 
+// Добавление друзей блок
 export const addNameToNewFriends = (name: string) => {
     state.sidebar.addFriends.name = name;
 }
@@ -117,28 +120,40 @@ export const addFriends = () => {
     state.sidebar.friends.push({...state.sidebar.addFriends});
     rerenderEntireTree(state);
 }
+
+//Добавление поста
 export const addPost = () => {
     const newPost: ObjPostType = {
         id: v1(),
-        message:state.profilePage.newPostText,
+        message: state.profilePage.newPostText,
         likeCount: "0"
     }
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = '';
     rerenderEntireTree(state);
 }
-export const addMessage = (message: string) => {
-    let newMess = {
-        id: v1(),
-        message
-    }
-    state.dialogsPage.messages.push(newMess);
-    rerenderEntireTree(state);
-}
-export const changeNewPostText = (text:string) => {
+// контролируемое добавление поста
+export const changeNewPostText = (text: string) => {
     state.profilePage.newPostText = text;
     rerenderEntireTree(state);
-
 }
+
+
+// Добавление сообщения в стате
+export const addMessage = () => {
+    let newMess = {
+        id: v1(),
+        message: state.dialogsPage.newMessageText
+    }
+    state.dialogsPage.messages.push(newMess);
+    state.dialogsPage.newMessageText = '';
+    rerenderEntireTree(state);
+}
+// Контролтруемое добавление сообщения
+export const changeNewMessageText = (text: string) => {
+    state.dialogsPage.newMessageText = text;
+    rerenderEntireTree(state);
+}
+
 
 export default state;

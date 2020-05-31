@@ -25,13 +25,13 @@ const MyPosts = (props: PropsType) => {
     const addPostHandler = () => {
         let value = newPostElement.current;
 
-        if ( value && value.value.trim()) {
+        if (value && value.value.trim()) {
             // let text = value.value.trim();
             addPost();
             // changeNewPostText('');
         }
     }
-
+    // Добавление сообщения ерез пробел
     const textareaAddPostHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.charCode === 13) {
             addPostHandler();

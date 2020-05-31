@@ -1,4 +1,4 @@
-import React, {RefObject} from 'react';
+import React, {RefObject, ChangeEvent, KeyboardEvent} from 'react';
 import style from './dialogs.module.css';
 import {DialogItem, DialogItemType} from "./dialogItem/dialogItem";
 import {Message} from "./message/message";
@@ -7,9 +7,11 @@ import {MessagesType} from "../../redux/state";
 type propsType = {
     data: {
         dialogs: Array<DialogItemType>,
-        messages: Array<MessagesType>
+        messages: Array<MessagesType>,
+        newMessageText: string
     },
-    addMessage: (message: string) => void
+    addMessage: () => void,
+    changeNewMessageText: (text: string) => void,
 }
 
 const Dialogs = (props: propsType) => {
@@ -17,13 +19,21 @@ const Dialogs = (props: propsType) => {
 
     let newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
+    // Добавление сообщения в state
     const addMess = () => {
-        let text = newMessageElement.current;
-        if(text){
-            props.addMessage(text.value);
-            text.value='';
-        }
+        props.addMessage();
     }
+    // Добавление сообщения ерез пробел
+    // const textareaAddMessHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    //     if (e.charCode === 13) {
+    //         props.addMessage();
+    //     }
+    // }
+    // Контролируемй текстареа
+    const onChangeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeNewMessageText(e.currentTarget.value);
+    }
+
 
     let dialogsElements = dialogs.map(({name, id, url}) => <DialogItem name={name} id={id} key={id} url={url}/>);
     let messagesElements = messages.map(({id, message}) => <Message message={message} key={id}/>);
@@ -40,7 +50,9 @@ const Dialogs = (props: propsType) => {
                     messagesElements
                 }
                 <div>
-                    <textarea ref={newMessageElement}></textarea>
+                    <textarea ref={newMessageElement}
+                              onChange={onChangeNewMessageText}
+                              value={props.data.newMessageText}></textarea>
                     <button onClick={addMess}>Add message</button>
                 </div>
             </div>
