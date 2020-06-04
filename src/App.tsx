@@ -11,7 +11,7 @@ import Settings from "./components/settings/settings";
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import {DialogItemType} from "./components/dialogs/dialogItem/dialogItem";
-import {changeNewPostText, MessagesType, ObjPostType} from "./redux/state";
+import { MessagesType, ObjPostType} from "./redux/state";
 import {FriendsType} from "./components/nav/friends/Friends";
 
 export type propsType = {
