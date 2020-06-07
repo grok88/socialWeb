@@ -17,7 +17,7 @@ type propsType = {
 const Dialogs = (props: propsType) => {
     const {dialogs, messages} = props.data;
 
-    let newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef();
+   // let newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
     // Добавление сообщения в state
     const addMess = () => {
@@ -29,6 +29,7 @@ const Dialogs = (props: propsType) => {
     //         props.addMessage();
     //     }
     // }
+
     // Контролируемй текстареа
     const onChangeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(changeNewMessageTextActionCreator(e.currentTarget.value));
@@ -51,7 +52,7 @@ const Dialogs = (props: propsType) => {
                     messagesElements
                 }
                 <div>
-                    <textarea ref={newMessageElement}
+                    <textarea
                               onChange={onChangeNewMessageText}
                               value={props.data.newMessageText}></textarea>
                     <button onClick={addMess}>Add message</button>
