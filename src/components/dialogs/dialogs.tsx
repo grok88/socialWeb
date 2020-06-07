@@ -2,7 +2,7 @@ import React, {RefObject, ChangeEvent, KeyboardEvent} from 'react';
 import style from './dialogs.module.css';
 import {DialogItem, DialogItemType} from "./dialogItem/dialogItem";
 import {Message} from "./message/message";
-import {MessagesType} from "../../redux/state";
+import {MessagesType, addMessActionCreator, changeNewMessageTextActionCreator} from "../../redux/state";
 
 type propsType = {
     data: {
@@ -10,9 +10,9 @@ type propsType = {
         messages: Array<MessagesType>,
         newMessageText: string
     },
-    addMessage: () => void,
-    changeNewMessageText: (text: string) => void,
+    dispatch: (action: any) => void
 }
+
 
 const Dialogs = (props: propsType) => {
     const {dialogs, messages} = props.data;
@@ -21,7 +21,7 @@ const Dialogs = (props: propsType) => {
 
     // Добавление сообщения в state
     const addMess = () => {
-        props.addMessage();
+        props.dispatch(addMessActionCreator());
     }
     // Добавление сообщения ерез пробел
     // const textareaAddMessHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -31,7 +31,8 @@ const Dialogs = (props: propsType) => {
     // }
     // Контролируемй текстареа
     const onChangeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessageText(e.currentTarget.value);
+        props.dispatch(changeNewMessageTextActionCreator(e.currentTarget.value));
+        // props.changeNewMessageText(e.currentTarget.value);
     }
 
 

@@ -11,24 +11,25 @@ export type FriendsType = {
 
 type PropsType = {
     state: Array<FriendsType>,
-    addFriends: () => void,
-    addNameToNewFriends: (name: string) => void,
-    addUrlToNewFriends: (url: string) => void,
+    dispatch: (action:any) => void,
+    // addFriends: () => void,
+    // addNameToNewFriends: (name: string) => void,
+    // addUrlToNewFriends: (url: string) => void,
 }
 
 const Friends = (props: PropsType) => {
-    const {state, addFriends, addNameToNewFriends, addUrlToNewFriends} = props;
+    const {state, dispatch} = props;
 
     let inputNameElem = React.createRef<HTMLInputElement>();
     let inputUrlElem: RefObject<HTMLInputElement> = React.createRef();
 
     const onAddNameToNewFriends = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value.trim()) {
-            addNameToNewFriends(e.currentTarget.value);
+           // addNameToNewFriends(e.currentTarget.value);
         }
     }
     const onAddUrlToNewFriends = (e: ChangeEvent<HTMLInputElement>) => {
-        addUrlToNewFriends(e.currentTarget.value);
+      //  addUrlToNewFriends(e.currentTarget.value);
     }
 
     let friendsElement = state.map(({url, name, id}) => <Friend url={url} name={name} id={id} key={id}/>);
@@ -48,7 +49,7 @@ const Friends = (props: PropsType) => {
             </div>
             <button onClick={() => {
                  if(inputNameElem.current && inputNameElem.current.value.trim()){
-                    addFriends();
+                   // addFriends();
                     if (inputNameElem.current && inputUrlElem.current) {
                         inputNameElem.current.value = '';
                         inputUrlElem.current.value = '';

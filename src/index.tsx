@@ -8,13 +8,14 @@ export function rerenderEntireTree(state:StateType) {
     ReactDOM.render(
         <React.StrictMode>
             <App state={state}
-                 changeNewPostText={store.changeNewPostText.bind(store)}
-                 addPost={store.addPost.bind(store)}
+                 dispatch={store.dispatch.bind(store)}/>
+
+                 {/* addPost={store.addPost.bind(store)}
                  addMessage={store.addMessage.bind(store)}
-                 addFriends={store.addFriends.bind(store)}
-                 addNameToNewFriends={store.addNameToNewFriends.bind(store)}
-                 addUrlToNewFriends={store.addUrlToNewFriends.bind(store)}
-                 changeNewMessageText={store.changeNewMessageText.bind(store)}/>
+                  addFriends={store.addFriends.bind(store)}
+                  addNameToNewFriends={store.addNameToNewFriends.bind(store)}
+                  addUrlToNewFriends={store.addUrlToNewFriends.bind(store)}
+                  changeNewMessageText={store.changeNewMessageText.bind(store)}/>*/}
         </React.StrictMode>,
         document.getElementById('root')
     );

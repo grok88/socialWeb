@@ -7,14 +7,15 @@ type PropsType = {
     state: {
         friends: Array<FriendsType>
     },
-    addFriends:() => void,
-    addNameToNewFriends:(name:string) => void,
-    addUrlToNewFriends:(url:string) => void,
+    dispatch: (action:any) => void,
+    // addFriends:() => void,
+    // addNameToNewFriends:(name:string) => void,
+    // addUrlToNewFriends:(url:string) => void,
 }
 
 const Navbar = (props: PropsType) => {
 
-    const {state: {friends}, addFriends, addNameToNewFriends,addUrlToNewFriends} = props;
+    const {state: {friends}, dispatch} = props;
     return (
         <nav className={style.nav}>
             <div className={`${style.item} ${style.active}`}>
@@ -33,9 +34,10 @@ const Navbar = (props: PropsType) => {
                 <NavLink to='settings' activeClassName={style.active}>Settings</NavLink>
             </div>
             <Friends state={friends}
-                     addFriends={addFriends}
+                     dispatch={dispatch}/>
+                   {/*  addFriends={addFriends}
                      addNameToNewFriends={addNameToNewFriends}
-                     addUrlToNewFriends={addUrlToNewFriends}/>
+                     addUrlToNewFriends={addUrlToNewFriends}/>*/}
         </nav>
     );
 }

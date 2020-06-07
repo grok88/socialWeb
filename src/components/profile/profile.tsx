@@ -15,8 +15,8 @@ type propsType = {
         posts: Array<ObjType>,
         newPostText:string,
     }
-    addPost : () => void,
-    changeNewPostText:(text:string) => void
+   dispatch: (action:any) => void,
+   // changeNewPostText:(text:string) => void
 }
 
 
@@ -25,7 +25,7 @@ const Profile = (props:propsType) => {
     return (
         <section className={style.content}>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addPost={props.addPost} changeNewPostText={props.changeNewPostText}/>
+            <MyPosts posts={props.posts} dispatch={props.dispatch}/>
         </section>
     );
 }

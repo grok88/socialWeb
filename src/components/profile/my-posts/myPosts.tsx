@@ -1,6 +1,7 @@
 import React, {RefObject, KeyboardEvent, ChangeEvent} from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/state";
 
 type ObjType = {
     id: string,
@@ -12,13 +13,16 @@ type PropsType = {
         posts: Array<ObjType>,
         newPostText: string,
     },
-    addPost: () => void,
-    changeNewPostText: (text: string) => void
+    dispatch: (action: any) => void,
+    // addPost: () => void,
+    // changeNewPostText: (text: string) => void
 }
+
+
 
 const MyPosts = (props: PropsType) => {
 
-    const {posts, addPost, changeNewPostText} = props;
+    const {posts, dispatch} = props;
 
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
@@ -27,7 +31,8 @@ const MyPosts = (props: PropsType) => {
 
         if (value && value.value.trim()) {
             // let text = value.value.trim();
-            addPost();
+            //addPost();
+            dispatch(addPostActionCreator());
             // changeNewPostText('');
         }
     }
@@ -40,7 +45,8 @@ const MyPosts = (props: PropsType) => {
     const newPostChange = () => {
         let value = newPostElement.current;
         if (value) {
-            changeNewPostText(value.value);
+            // changeNewPostText(value.value);
+            dispatch(updateNewPostTextActionCreator(value));
         }
     }
 

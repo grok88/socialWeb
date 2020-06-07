@@ -2,6 +2,8 @@ import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {v1} from "uuid";
 import {FriendsType} from "../components/nav/friends/Friends";
 
+
+//--------------ТИПИЗАЦИЯ----------------------
 // Для message
 export type MessagesType = {
     id: string,
@@ -34,17 +36,32 @@ export type StateType = {
 export type StoreType = {
     _state: StateType,
     getState: () => StateType,
+
     _callSubscriber: (_state: StateType) => void,
-    addPost: () => void,
-    changeNewPostText: (text: string) => void,
     subscribe: (observer: any) => void,
-    addMessage: () => void,
-    changeNewMessageText: (text: string) => void,
-    addNameToNewFriends: (name: string) => void,
-    addUrlToNewFriends: (url: string) => void,
-    addFriends: () => void,
+
+    dispatch: (action: any) => void
+
+    // addPost: () => void,
+    // changeNewPostText: (text: string) => void,
+
+    // addMessage: () => void,
+    // changeNewMessageText: (text: string) => void,
+    // addNameToNewFriends: (name: string) => void,
+    // addUrlToNewFriends: (url: string) => void,
+    // addFriends: () => void,
+
 }
 
+//--------------Константы----------------------
+const ACTION_CREATOR = {
+    ADD_POST: 'ADD-POST',
+    UPDATE_NEW_POST_TEXT: 'UPDATE-NEW-POST-TEXT',
+    ADD_MESSAGE: 'ADD-MESSAGE',
+    UPDATE_NEW_MESSAGE_TEXT: 'UPDATE-NEW-MESSAGE-TEXT',
+};
+
+//--------------STORE----------------------
 let store: StoreType = {
     _state: {
         profilePage: {
@@ -119,63 +136,98 @@ let store: StoreType = {
             }
         }
     },
-    getState() {
-        return this._state;
-    },
     // Заглушка для subscribe
     _callSubscriber() {
         console.log('State changed');
     },
+    getState() {
+        return this._state;
+    },
+
     // подписка на обсервер
     subscribe(observer: any) {
         this._callSubscriber = observer;
     },
-    //Добавление поста
-    addPost() {
 
-        const newPost: ObjPostType = {
-            id: v1(),
-            message: this._state.profilePage.newPostText,
-            likeCount: "0"
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    // контролируемое добавление поста
-    changeNewPostText(text: string) {
-        this._state.profilePage.newPostText = text;
-        this._callSubscriber(this._state);
-    },
+    dispatch(action) { // type: ADD-POST
 
-    // Добавление сообщения в стате
-    addMessage() {
-        let newMess = {
-            id: v1(),
-            message: this._state.dialogsPage.newMessageText
+        //Добавление поста
+        if (action.type === ACTION_CREATOR.ADD_POST) {
+            const newPost: ObjPostType = {
+                id: v1(),
+                message: this._state.profilePage.newPostText,
+                likeCount: "0"
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
         }
-        this._state.dialogsPage.messages.push(newMess);
-        this._state.dialogsPage.newMessageText = '';
-        this._callSubscriber(this._state);
-    },
-    // Контролтруемое добавление сообщения
-    changeNewMessageText(text: string) {
-        this._state.dialogsPage.newMessageText = text;
-        this._callSubscriber(this._state);
-    },
-    // Добавление друзей блок
-    addNameToNewFriends(name: string) {
-        this._state.sidebar.addFriends.name = name;
-    },
-    addUrlToNewFriends(url: string) {
-        if (url.trim().length !== 0) {
-            this._state.sidebar.addFriends.url = url;
+        // контролируемое добавление поста
+        else if (action.type === ACTION_CREATOR.UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.text;
+            this._callSubscriber(this._state);
         }
-    },
-    addFriends() {
-        this._state.sidebar.addFriends.id = v1();
-        this._state.sidebar.friends.push({...this._state.sidebar.addFriends});
-        this._callSubscriber(this._state);
+
+        // Добавление сообщения в стате
+        else if (action.type === ACTION_CREATOR.ADD_MESSAGE) {
+            let newMess = {
+                id: v1(),
+                message: this._state.dialogsPage.newMessageText
+            }
+            this._state.dialogsPage.messages.push(newMess);
+            this._state.dialogsPage.newMessageText = '';
+            this._callSubscriber(this._state);
+        }
+        // Контролтруемое добавление сообщения
+        else if (action.type === ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.dialogsPage.newMessageText = action.text;
+            this._callSubscriber(this._state);
+        }
+
+        // Контролтруемое добавление имени друга
+        else if (action.type === "ADD-NEW-FRIENDS-NAME") {
+            this._state.sidebar.addFriends.name = action.name;
+        }
+        // Контролтруемое добавление URL друга
+        else if (action.type === "ADD-NEW-FRIENDS-URL") {
+            if (action.url.trim().length !== 0) {
+                this._state.sidebar.addFriends.url = action.url;
+            }
+        }
+        // Добавление друзей блок
+        else if (action.type === "ADD-FRIENDS") {
+            this._state.sidebar.addFriends.id = v1();
+            this._state.sidebar.friends.push({...this._state.sidebar.addFriends});
+            this._callSubscriber(this._state);
+        }
+    }
+}
+
+//--------------ACTION CREATOR----------------------
+export const addPostActionCreator = () => {
+
+    return {
+        type: ACTION_CREATOR.ADD_POST
+    }
+}
+export const updateNewPostTextActionCreator = (value: HTMLTextAreaElement) => {
+
+    return {
+        type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT,
+        text: value.value
+    }
+}
+
+export const addMessActionCreator = () => {
+    return {
+        type: ACTION_CREATOR.ADD_MESSAGE
+    }
+}
+
+export const changeNewMessageTextActionCreator = (value: string) => {
+    return {
+        type: ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT,
+        text: value
     }
 }
 
