@@ -42,8 +42,8 @@ const MyPosts = (props: PropsType) => {
             addPostHandler();
         }
     }
-    const newPostChange = () => {
-        let value = newPostElement.current;
+    const newPostChange = (e: any) => {
+        let value: any = e.currentTarget && e.currentTarget.value;
         if (value) {
             // changeNewPostText(value.value);
             dispatch(updateNewPostTextActionCreator(value));
@@ -55,7 +55,7 @@ const MyPosts = (props: PropsType) => {
             My Posts
             <div>
                 <div>
-                    <textarea ref={newPostElement}
+                    <textarea
                               onKeyPress={textareaAddPostHandler}
                               value={posts.newPostText}
                               onChange={newPostChange}/>
