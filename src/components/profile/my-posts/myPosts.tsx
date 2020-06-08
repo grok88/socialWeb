@@ -1,7 +1,7 @@
 import React, {RefObject, KeyboardEvent, ChangeEvent} from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/state";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 type ObjType = {
     id: string,
@@ -17,7 +17,6 @@ type PropsType = {
     // addPost: () => void,
     // changeNewPostText: (text: string) => void
 }
-
 
 
 const MyPosts = (props: PropsType) => {
@@ -41,12 +40,9 @@ const MyPosts = (props: PropsType) => {
             addPostHandler();
         }
     }
-    const newPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+    const newPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let value = e.currentTarget && e.currentTarget.value;
-        if (value) {
-            console.log(value)
-            dispatch(updateNewPostTextActionCreator(value));
-        }
+        dispatch(updateNewPostTextActionCreator(value));
     }
 
     return (
@@ -56,9 +52,9 @@ const MyPosts = (props: PropsType) => {
                 <div>
                     <textarea
                         ref={newPostElement}
-                              onKeyPress={textareaAddPostHandler}
-                              value={posts.newPostText}
-                              onChange={newPostChange}/>
+                        onKeyPress={textareaAddPostHandler}
+                        value={posts.newPostText}
+                        onChange={newPostChange}/>
                 </div>
                 <div>
                     <button type='button' onClick={addPostHandler}>Send</button>

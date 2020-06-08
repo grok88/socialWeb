@@ -11,7 +11,7 @@ import Settings from "./components/settings/settings";
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import {DialogItemType} from "./components/dialogs/dialogItem/dialogItem";
-import {MessagesType, ObjPostType} from "./redux/state";
+import {MessagesType, ObjPostType, actionUpdateTypes} from "./redux/state";
 import {FriendsType} from "./components/nav/friends/Friends";
 
 export type propsType = {
@@ -29,14 +29,7 @@ export type propsType = {
             friends: Array<FriendsType>
         }
     },
-    dispatch: (action: any) => void
-    // addPost : () => void,
-    // addMessage:() => void,
-    // addFriends:() => void,
-    // addNameToNewFriends:(name:string) => void,
-    // addUrlToNewFriends:(url:string) => void,
-    // changeNewPostText:(text:string) => void,
-    // changeNewMessageText:(text:string) => void,
+    dispatch: (action:actionUpdateTypes) => void
 }
 
 function App(props: propsType) {

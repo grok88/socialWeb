@@ -1,6 +1,8 @@
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {v1} from "uuid";
 import {FriendsType} from "../components/nav/friends/Friends";
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
 
 
 //--------------ТИПИЗАЦИЯ----------------------
@@ -45,7 +47,7 @@ export type StoreType = {
 
 //--------------Константы----------------------
 
-const ACTION_CREATOR = {
+export const ACTION_CREATOR = {
     ADD_POST: 'ADD-POST',
     UPDATE_NEW_POST_TEXT: 'UPDATE-NEW-POST-TEXT',
     ADD_MESSAGE: 'ADD-MESSAGE',
@@ -142,39 +144,10 @@ let store: StoreType = {
     },
 
     dispatch(action) { // type: ADD-POST
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
 
-        //Добавление поста
-        if (action.type === ACTION_CREATOR.ADD_POST) {
-            const newPost: ObjPostType = {
-                id: v1(),
-                message: this._state.profilePage.newPostText,
-                likeCount: "0"
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        }
-        // контролируемое добавление поста
-        else if (action.type === ACTION_CREATOR.UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.text as string;
-            this._callSubscriber(this._state);
-        }
-
-        // Добавление сообщения в стате
-        else if (action.type === ACTION_CREATOR.ADD_MESSAGE) {
-            let newMess = {
-                id: v1(),
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMess);
-            this._state.dialogsPage.newMessageText = '';
-            this._callSubscriber(this._state);
-        }
-        // Контролтруемое добавление сообщения
-        else if (action.type === ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.text as string;
-            this._callSubscriber(this._state);
-        }
+        this._callSubscriber(this._state);
 
         /* // Контролтруемое добавление имени друга
          else if (action.type === "ADD-NEW-FRIENDS-NAME") {
@@ -211,29 +184,8 @@ export type actionUpdateTypes = {
 //
 //  type actionTypes = updateNewPostTextActionCreatorType
 
-export const addPostActionCreator = () => {
-    return {
-        type: ACTION_CREATOR.ADD_POST
-    }
-}
-export const updateNewPostTextActionCreator = (text: string) => {
-    return {
-        type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT,
-        text: text
-    }
-}
 
-export const addMessActionCreator = () => {
-    return {
-        type: ACTION_CREATOR.ADD_MESSAGE
-    }
-}
 
-export const changeNewMessageTextActionCreator = (text: string) => {
-    return {
-        type: ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT,
-        text: text
-    }
-}
+
 
 export default store;
