@@ -21,7 +21,6 @@ type PropsType = {
 
 
 const MyPosts = (props: PropsType) => {
-
     const {posts, dispatch} = props;
 
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
@@ -42,10 +41,10 @@ const MyPosts = (props: PropsType) => {
             addPostHandler();
         }
     }
-    const newPostChange = (e: any) => {
-        let value: any = e.currentTarget && e.currentTarget.value;
+    const newPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        let value = e.currentTarget && e.currentTarget.value;
         if (value) {
-            // changeNewPostText(value.value);
+            console.log(value)
             dispatch(updateNewPostTextActionCreator(value));
         }
     }
@@ -56,6 +55,7 @@ const MyPosts = (props: PropsType) => {
             <div>
                 <div>
                     <textarea
+                        ref={newPostElement}
                               onKeyPress={textareaAddPostHandler}
                               value={posts.newPostText}
                               onChange={newPostChange}/>

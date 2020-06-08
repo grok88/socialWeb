@@ -41,19 +41,10 @@ export type StoreType = {
     subscribe: (observer: any) => void,
 
     dispatch: (action: actionUpdateTypes) => void
-
-    // addPost: () => void,
-    // changeNewPostText: (text: string) => void,
-
-    // addMessage: () => void,
-    // changeNewMessageText: (text: string) => void,
-    // addNameToNewFriends: (name: string) => void,
-    // addUrlToNewFriends: (url: string) => void,
-    // addFriends: () => void,
-
 }
 
 //--------------Константы----------------------
+
 const ACTION_CREATOR = {
     ADD_POST: 'ADD-POST',
     UPDATE_NEW_POST_TEXT: 'UPDATE-NEW-POST-TEXT',
@@ -62,6 +53,7 @@ const ACTION_CREATOR = {
 };
 
 //--------------STORE----------------------
+
 let store: StoreType = {
     _state: {
         profilePage: {
