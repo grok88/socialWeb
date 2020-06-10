@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {ACTION_CREATOR, ObjPostType} from "./state";
 
+
 const profileReducer = (state: any, action: any) => {
     switch (action.type) {
         // добавление нового поста
@@ -15,18 +16,28 @@ const profileReducer = (state: any, action: any) => {
             return state;
         // контролируемое добавление поста
         case ACTION_CREATOR.UPDATE_NEW_POST_TEXT :
-            state.newPostText = action.text as string;
-            return state;
+            return {
+                ...state,
+                newPostText: action.text
+            };
         default :
             return state;
     }
 }
+
+// export type ProfileActionsTypes = InferActionsTypes<typeof actions>
+
+// export const actions = {
+//    addPostActionCreator:() => ({type: ACTION_CREATOR.ADD_POST} as const),
+//    updateNewPostTextActionCreator: (text: string) => ({type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT, text} as const),
+// }
 
 export const addPostActionCreator = () => {
     return {
         type: ACTION_CREATOR.ADD_POST
     }
 }
+
 export const updateNewPostTextActionCreator = (text: string) => {
     return {
         type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT,

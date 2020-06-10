@@ -9,13 +9,6 @@ export function rerenderEntireTree(state:StateType) {
         <React.StrictMode>
             <App state={state}
                  dispatch={store.dispatch.bind(store)}/>
-
-                 {/* addPost={store.addPost.bind(store)}
-                 addMessage={store.addMessage.bind(store)}
-                  addFriends={store.addFriends.bind(store)}
-                  addNameToNewFriends={store.addNameToNewFriends.bind(store)}
-                  addUrlToNewFriends={store.addUrlToNewFriends.bind(store)}
-                  changeNewMessageText={store.changeNewMessageText.bind(store)}/>*/}
         </React.StrictMode>,
         document.getElementById('root')
     );

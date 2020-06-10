@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ACTION_CREATOR, ObjPostType} from "./state";
+import {ACTION_CREATOR} from "./state";
 
 const dialogsReducer = (state: any, action: any) => {
     switch (action.type) {
@@ -26,6 +26,7 @@ export const addMessActionCreator = () => {
         type: ACTION_CREATOR.ADD_MESSAGE
     }
 }
+
 export const changeNewMessageTextActionCreator = (text: string) => {
     return {
         type: ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT,

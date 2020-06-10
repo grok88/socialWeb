@@ -2,12 +2,13 @@ import React from 'react';
 import style from './navbar.module.css';
 import {NavLink} from "react-router-dom";
 import Friends, { FriendsType } from "./friends/Friends";
+import {actionUpdateTypes} from "../../redux/state";
 
 type PropsType = {
     state: {
         friends: Array<FriendsType>
     },
-    dispatch: (action:any) => void,
+    dispatch: (action:actionUpdateTypes) => void,
     // addFriends:() => void,
     // addNameToNewFriends:(name:string) => void,
     // addUrlToNewFriends:(url:string) => void,
@@ -35,9 +36,6 @@ const Navbar = (props: PropsType) => {
             </div>
             <Friends state={friends}
                      dispatch={dispatch}/>
-                   {/*  addFriends={addFriends}
-                     addNameToNewFriends={addNameToNewFriends}
-                     addUrlToNewFriends={addUrlToNewFriends}/>*/}
         </nav>
     );
 }

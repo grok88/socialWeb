@@ -3,6 +3,7 @@ import {v1} from "uuid";
 import {FriendsType} from "../components/nav/friends/Friends";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
+import navbarReducer from "./navbar-reducer";
 
 
 //--------------ТИПИЗАЦИЯ----------------------
@@ -52,6 +53,9 @@ export const ACTION_CREATOR = {
     UPDATE_NEW_POST_TEXT: 'UPDATE-NEW-POST-TEXT',
     ADD_MESSAGE: 'ADD-MESSAGE',
     UPDATE_NEW_MESSAGE_TEXT: 'UPDATE-NEW-MESSAGE-TEXT',
+    ADD_NEW_FRIENDS_NAME: 'ADD-NEW-FRIENDS-NAME',
+    ADD_NEW_FRIENDS_URL: 'ADD-NEW-FRIENDS-URL',
+    ADD_FRIENDS: 'ADD-FRIENDS',
 };
 
 //--------------STORE----------------------
@@ -146,46 +150,41 @@ let store: StoreType = {
     dispatch(action) { // type: ADD-POST
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = navbarReducer(this._state.sidebar, action);
 
         this._callSubscriber(this._state);
-
-        /* // Контролтруемое добавление имени друга
-         else if (action.type === "ADD-NEW-FRIENDS-NAME") {
-             this._state.sidebar.addFriends.name = action.name;
-         }
-         // Контролтруемое добавление URL друга
-         else if (action.type === "ADD-NEW-FRIENDS-URL") {
-             if (action.url.trim().length !== 0) {
-                 this._state.sidebar.addFriends.url = action.url;
-             }
-         }
-           // Добавление друзей блок
-         else if (action.type === "ADD-FRIENDS") {
-             this._state.sidebar.addFriends.id = v1();
-             this._state.sidebar.friends.push({...this._state.sidebar.addFriends});
-             this._callSubscriber(this._state);
-         }*/
     }
 }
 
 //--------------ACTION CREATOR----------------------
 
 export type actionUpdateTypes = {
-    type: typeof ACTION_CREATOR.UPDATE_NEW_POST_TEXT | typeof ACTION_CREATOR.ADD_MESSAGE | typeof ACTION_CREATOR.ADD_POST | typeof ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT
+    type: typeof ACTION_CREATOR.UPDATE_NEW_POST_TEXT |
+        typeof ACTION_CREATOR.ADD_MESSAGE |
+        typeof ACTION_CREATOR.ADD_POST |
+        typeof ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT |
+        typeof ACTION_CREATOR.ADD_FRIENDS |
+        typeof ACTION_CREATOR.ADD_NEW_FRIENDS_URL |
+        typeof ACTION_CREATOR.ADD_NEW_FRIENDS_NAME
     text?: string
+    name?: string
+    url?: string
 }
 
-// export type addPostActionCreatorType = { type: typeof ACTION_CREATOR.ADD_POST}
+// export type ActionTypes<T> = T extends {[key: string]: infer U} ? U : never
+// export type InferActionsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<ActionTypes<T>>
+
+
+//  export type addPostActionCreatorType = { type: typeof ACTION_CREATOR.ADD_POST}
+//
 // export type updateNewPostTextActionCreatorType = {
 //     type: typeof ACTION_CREATOR.UPDATE_NEW_POST_TEXT
 //     text: string
 // }
 // export type addMessActionCreatorType = { type: typeof ACTION_CREATOR.ADD_MESSAGE}
 //
-//  type actionTypes = updateNewPostTextActionCreatorType
-
-
-
+//  // type actionTypes = updateNewPostTextActionCreatorType
+//   export type actionTypes = updateNewPostTextActionCreatorType | addPostActionCreatorType | addMessActionCreatorType
 
 
 export default store;
