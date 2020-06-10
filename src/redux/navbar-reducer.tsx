@@ -1,8 +1,32 @@
 import {v1} from "uuid";
 import {ACTION_CREATOR, ObjPostType} from "./state";
 
+let initialState = {
+    friends: [
+        {
+            url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSU8ZWLKMXxuUe7g8j7zCfYZ3BcxuXlxPwBmSV_Mv_Bf9kvMg6F&usqp=CAU',
+            name: 'Jora',
+            id: v1()
+        },
+        {
+            url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9uTTJjpx3SiyINwLxuAGskswRNgZXcu8q0PmAHsodRgEtPja3&usqp=CAU',
+            name: 'Edyardo',
+            id: v1()
+        },
+        {
+            url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT6yM6JujrHFOvFH9NvuV2lWnyXECBr1SWeF-I0tMdYmK942MXr&usqp=CAU',
+            name: 'Valentinka',
+            id: v1()
+        }
+    ],
+    addFriends: {
+        id: '',
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSU8ZWLKMXxuUe7g8j7zCfYZ3BcxuXlxPwBmSV_Mv_Bf9kvMg6F&usqp=CAU',
+        name: 'Grok'
+    }
+}
 
-const navbarReducer = (state: any, action: any) => {
+const navbarReducer = (state: any = initialState, action: any) => {
     switch (action.type) {
         // Контролируемое добавление имени друга
         case ACTION_CREATOR.ADD_NEW_FRIENDS_NAME :
@@ -31,7 +55,7 @@ export const addFriendsActionCreator = () => {
 
 export const addNameToNewFriendsActionCreator = (name: string) => {
     return {
-        type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT,
+        type: ACTION_CREATOR.ADD_NEW_FRIENDS_NAME,
         name
     }
 }

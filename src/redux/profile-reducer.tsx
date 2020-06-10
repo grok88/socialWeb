@@ -1,8 +1,15 @@
 import {v1} from "uuid";
 import {ACTION_CREATOR, ObjPostType} from "./state";
 
+let InitialState = {
+    posts: [
+        {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
+        {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
+    ],
+    newPostText: ''
+}
 
-const profileReducer = (state: any, action: any) => {
+const profileReducer = (state: any = InitialState, action: any) => {
     switch (action.type) {
         // добавление нового поста
         case ACTION_CREATOR.ADD_POST :
