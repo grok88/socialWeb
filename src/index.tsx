@@ -8,7 +8,7 @@ import { StateType } from "./redux/state";
 export function rerenderEntireTree(state:StateType) {
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state}
+            <App state={state} store={store}
                  dispatch={store.dispatch.bind(store)}/>
         </React.StrictMode>,
         document.getElementById('root')

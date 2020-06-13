@@ -2,6 +2,7 @@ import React from 'react';
 import style from './profile.module.css';
 import MyPosts from "./my-posts/myPosts";
 import ProfileInfo from "./profileInfo/profileInfo";
+import MyPostsContainer from "./my-posts/myPostsContainer";
 
 
 type ObjType = {
@@ -11,12 +12,13 @@ type ObjType = {
 }
 
 type propsType = {
-    posts:{
-        posts: Array<ObjType>,
-        newPostText:string,
-    }
-   dispatch: (action:any) => void,
+   //  posts:{
+   //      posts: Array<ObjType>,
+   //      newPostText:string,
+   //  }
+   // dispatch: (action:any) => void,
    // changeNewPostText:(text:string) => void
+    store:any
 }
 
 
@@ -25,7 +27,8 @@ const Profile = (props:propsType) => {
     return (
         <section className={style.content}>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} dispatch={props.dispatch}/>
+            <MyPostsContainer store={props.store} />
+            {/*<MyPosts posts={props.posts} dispatch={props.dispatch}/>*/}
         </section>
     );
 }

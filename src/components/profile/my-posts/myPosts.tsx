@@ -13,14 +13,14 @@ type PropsType = {
         posts: Array<ObjType>,
         newPostText: string,
     },
-    dispatch: (action: any) => void,
-    // addPost: () => void,
-    // changeNewPostText: (text: string) => void
+    // dispatch: (action: any) => void,
+    addPost: () => void,
+    changeNewPostText: (text: string) => void
 }
 
 
 const MyPosts = (props: PropsType) => {
-    const {posts, dispatch} = props;
+    const {posts, changeNewPostText, addPost} = props;
 
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
@@ -29,12 +29,12 @@ const MyPosts = (props: PropsType) => {
 
         if (value && value.value.trim()) {
             // let text = value.value.trim();
-            //addPost();
-            dispatch(addPostActionCreator());
+            addPost();
+            // dispatch(addPostActionCreator());
             // changeNewPostText('');
         }
     }
-    // Добавление сообщения ерез пробел
+    // Добавление сообщения через пробел
     const textareaAddPostHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.charCode === 13) {
             addPostHandler();
@@ -42,7 +42,8 @@ const MyPosts = (props: PropsType) => {
     }
     const newPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let value = e.currentTarget && e.currentTarget.value;
-        dispatch(updateNewPostTextActionCreator(value));
+        changeNewPostText(value);
+        //dispatch(updateNewPostTextActionCreator(value));
     }
 
     return (
@@ -62,8 +63,8 @@ const MyPosts = (props: PropsType) => {
             </div>
             <div className={style.posts}>
                 {
-                    posts.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
-                                                                        key={id}/>)
+                    props.posts.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
+                                                                              key={id}/>)
                 }
             </div>
         </div>

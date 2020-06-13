@@ -1,9 +1,8 @@
-import React, {RefObject, ChangeEvent, KeyboardEvent} from 'react';
-import style from './dialogs.module.css';
+import React, {ChangeEvent} from 'react';
 import {DialogItem, DialogItemType} from "./dialogItem/dialogItem";
-import {Message} from "./message/message";
-import {addMessActionCreator, changeNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
 import {MessagesType} from "../../redux/state";
+import {Message} from "./message/message";
+import style from "./dialogs.module.css";
 
 type propsType = {
     data: {
@@ -11,32 +10,26 @@ type propsType = {
         messages: Array<MessagesType>,
         newMessageText: string
     },
-    dispatch: (action: any) => void
+    addMess: () => void,
+    changeNewMessage: (text: string) => void
 }
 
 const Dialogs = (props: propsType) => {
-    const {dialogs, messages} = props.data;
-
-    // let newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef();
+    const {addMess, changeNewMessage, data} = props;
 
     // Добавление сообщения в state
-    const addMess = () => {
-        props.dispatch(addMessActionCreator());
+    const addMessText = () => {
+        addMess();
     }
-    // Добавление сообщения ерез пробел
-    // const textareaAddMessHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    //     if (e.charCode === 13) {
-    //         props.addMessage();
-    //     }
-    // }
 
     // Контролируемй текстареа
     const onChangeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewMessageTextActionCreator(e.currentTarget.value));
+        let text = e.currentTarget.value;
+        changeNewMessage(text);
     }
 
-    let dialogsElements = dialogs.map(({name, id, url}) => <DialogItem name={name} id={id} key={id} url={url}/>);
-    let messagesElements = messages.map(({id, message}) => <Message message={message} key={id}/>);
+    let dialogsElements = data.dialogs.map(({name, id, url}) => <DialogItem name={name} id={id} key={id} url={url}/>);
+    let messagesElements = data.messages.map(({id, message}) => <Message message={message} key={id}/>);
 
     return (
         <div className={style.dialogs}>
@@ -53,7 +46,7 @@ const Dialogs = (props: propsType) => {
                     <textarea
                         onChange={onChangeNewMessageText}
                         value={props.data.newMessageText}></textarea>
-                    <button onClick={addMess}>Add message</button>
+                    <button onClick={addMessText}>Add message</button>
                 </div>
             </div>
         </div>

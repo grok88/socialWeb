@@ -4,7 +4,6 @@ import './App.css';
 import Header from './components/header/header';
 import Navbar from './components/nav/navbar';
 import Profile from './components/profile/profile';
-import Dialogs from './components/dialogs/dialogs';
 import News from './components/news/news';
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
@@ -13,8 +12,11 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {DialogItemType} from "./components/dialogs/dialogItem/dialogItem";
 import {MessagesType, ObjPostType, actionUpdateTypes} from "./redux/state";
 import {FriendsType} from "./components/nav/friends/Friends";
+import Dialogs from "./components/dialogs/dialogsContainer";
+import DialogsContainer from "./components/dialogs/dialogsContainer";
 
 export type propsType = {
+    store:any
     state: {
         profilePage: {
             posts: Array<ObjPostType>,
@@ -42,12 +44,9 @@ function App(props: propsType) {
                 <Header/>
                 <Navbar state={sidebar}
                         dispatch={dispatch}/>
-                {/*// addFriends={addFriends}*/}
-                {/*// addNameToNewFriends={addNameToNewFriends}*/}
-                {/*// addUrlToNewFriends={addUrlToNewFriends}/>*/}
                 <div className='app-wrapper-content'>
-                    <Route path={'/profile'} render={() => <Profile posts={profilePage} dispatch={dispatch}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs data={dialogsPage} dispatch={dispatch}/>}/>
+                    <Route path={'/profile'} render={() => <Profile store={props.store}/>}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer store={props.store}/>}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>
