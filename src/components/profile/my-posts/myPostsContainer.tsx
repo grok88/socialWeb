@@ -1,6 +1,7 @@
 import React from 'react';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./myPosts";
+import StoreContext from "../../../StoreContext";
 
 type ObjType = {
     id: string,
@@ -15,26 +16,30 @@ type PropsType = {
     // dispatch: (action: any) => void,
     // addPost: () => void,
     // changeNewPostText: (text: string) => void
-    store: any
+    // store: any
 }
 
 
 const MyPostsContainer = (props: PropsType) => {
-    const {store} = props;
+    // const {store} = props;
 
-    let state = store.getState();
-
-
-    const addPostHandler = () => {
-        store.dispatch(addPostActionCreator());
-    }
-
-    const newPostChange = (value: string) => {
-        store.dispatch(updateNewPostTextActionCreator(value));
-    }
 
     return (
-        <MyPosts posts={state.profilePage} changeNewPostText={newPostChange} addPost={addPostHandler}/>
+        <StoreContext.Consumer>
+            {
+                (store) => {
+                    let state = store.getState();
+                    const addPostHandler = () => {
+                        store.dispatch(addPostActionCreator());
+                    }
+                    const newPostChange = (value: string) => {
+                        store.dispatch(updateNewPostTextActionCreator(value));
+                    }
+                    return <MyPosts posts={state.profilePage} changeNewPostText={newPostChange}
+                                    addPost={addPostHandler}/>
+                }
+            }
+        </StoreContext.Consumer>
     );
 }
 

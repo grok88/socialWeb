@@ -18,16 +18,17 @@ type propsType = {
    //  }
    // dispatch: (action:any) => void,
    // changeNewPostText:(text:string) => void
-    store:any
+   //  store:any
 }
 
 
 const Profile = (props:propsType) => {
-
     return (
         <section className={style.content}>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store} />
+            <MyPostsContainer
+                // store={props.store}
+            />
             {/*<MyPosts posts={props.posts} dispatch={props.dispatch}/>*/}
         </section>
     );
