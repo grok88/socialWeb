@@ -46,6 +46,7 @@ const dialogsReducer = (state: any = initialState, action: any) => {
     switch (action.type) {
         // Добавление сообщения в state
         case ACTION_CREATOR.ADD_MESSAGE :
+            console.log(11)
             let newMess = {
                 id: v1(),
                 message: state.newMessageText
@@ -55,6 +56,7 @@ const dialogsReducer = (state: any = initialState, action: any) => {
             return state;
         // Контролтруемое добавление сообщения
         case ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT :
+            console.log(22)
             state.newMessageText = action.text as string;
             return state;
         default :

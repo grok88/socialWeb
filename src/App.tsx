@@ -34,10 +34,7 @@ export type propsType = {
     // dispatch: (action:actionUpdateTypes) => void
 }
 
-function App(props: propsType) {
-
-    // const {state: {profilePage, dialogsPage, sidebar}, dispatch} = props;
-
+function App() {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -48,9 +45,7 @@ function App(props: propsType) {
                 />
                 <div className='app-wrapper-content'>
                     <Route path={'/profile'} render={() => <Profile/>}/>
-                    <Route path={'/dialogs'} render={() => <DialogsContainer
-                        // store={props.store}
-                    />}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>

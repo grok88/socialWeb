@@ -26,10 +26,7 @@ const Profile = (props:propsType) => {
     return (
         <section className={style.content}>
             <ProfileInfo/>
-            <MyPostsContainer
-                // store={props.store}
-            />
-            {/*<MyPosts posts={props.posts} dispatch={props.dispatch}/>*/}
+            <MyPostsContainer/>
         </section>
     );
 }

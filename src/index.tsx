@@ -3,18 +3,14 @@ import React from "react";
 import App from "./App";
 import store from "./redux/redux-store";
 import {StateType} from "./redux/state";
-import StoreContext from "./StoreContext";
+import { Provider } from 'react-redux'
 
 export function rerenderEntireTree(state: StateType) {
     ReactDOM.render(
         <React.StrictMode>
-            <StoreContext.Provider value={store}>
-                <App
-                    // state={state}
-                    // store={store}
-                    //  dispatch={store.dispatch.bind(store)}
-                />
-            </StoreContext.Provider>
+            <Provider store={store}>
+                <App />
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );

@@ -5,7 +5,7 @@ import {Message} from "./message/message";
 import style from "./dialogs.module.css";
 
 type propsType = {
-    data: {
+    dialogsPage: {
         dialogs: Array<DialogItemType>,
         messages: Array<MessagesType>,
         newMessageText: string
@@ -15,7 +15,7 @@ type propsType = {
 }
 
 const Dialogs = (props: propsType) => {
-    const {addMess, changeNewMessage, data} = props;
+    const {addMess, changeNewMessage, dialogsPage} = props;
 
     // Добавление сообщения в state
     const addMessText = () => {
@@ -28,8 +28,8 @@ const Dialogs = (props: propsType) => {
         changeNewMessage(text);
     }
 
-    let dialogsElements = data.dialogs.map(({name, id, url}) => <DialogItem name={name} id={id} key={id} url={url}/>);
-    let messagesElements = data.messages.map(({id, message}) => <Message message={message} key={id}/>);
+    let dialogsElements = dialogsPage.dialogs.map(({name, id, url}) => <DialogItem name={name} id={id} key={id} url={url}/>);
+    let messagesElements = dialogsPage.messages.map(({id, message}) => <Message message={message} key={id}/>);
 
     return (
         <div className={style.dialogs}>
@@ -45,7 +45,7 @@ const Dialogs = (props: propsType) => {
                 <div>
                     <textarea
                         onChange={onChangeNewMessageText}
-                        value={props.data.newMessageText}></textarea>
+                        value={props.dialogsPage.newMessageText}></textarea>
                     <button onClick={addMessText}>Add message</button>
                 </div>
             </div>

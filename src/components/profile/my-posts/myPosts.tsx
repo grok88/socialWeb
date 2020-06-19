@@ -9,7 +9,7 @@ type ObjType = {
     likeCount: string
 }
 type PropsType = {
-    posts: {
+    profilePage: {
         posts: Array<ObjType>,
         newPostText: string,
     },
@@ -20,7 +20,7 @@ type PropsType = {
 
 
 const MyPosts = (props: PropsType) => {
-    const {posts, changeNewPostText, addPost} = props;
+    const {profilePage, changeNewPostText, addPost} = props;
 
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
 
@@ -54,7 +54,7 @@ const MyPosts = (props: PropsType) => {
                     <textarea
                         ref={newPostElement}
                         onKeyPress={textareaAddPostHandler}
-                        value={posts.newPostText}
+                        value={profilePage.newPostText}
                         onChange={newPostChange}/>
                 </div>
                 <div>
@@ -63,7 +63,7 @@ const MyPosts = (props: PropsType) => {
             </div>
             <div className={style.posts}>
                 {
-                    props.posts.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
+                    props.profilePage.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
                                                                               key={id}/>)
                 }
             </div>
