@@ -1,12 +1,6 @@
-import React, {RefObject, ChangeEvent} from "react";
+import React, {ChangeEvent, RefObject} from "react";
 import style from './Friends.module.css';
 import Friend from "./friend/Friend";
-import {actionUpdateTypes} from "../../../redux/state";
-import {
-    addFriendsActionCreator,
-    addNameToNewFriendsActionCreator,
-    addUrlToNewFriendsActionCreator
-} from "../../../redux/navbar-reducer";
 
 export type FriendsType = {
     url: string,
@@ -14,35 +8,35 @@ export type FriendsType = {
     id: string
 }
 
-
 type PropsType = {
-    state: Array<FriendsType>,
-    dispatch: (action: actionUpdateTypes) => void,
-    // addFriends: () => void,
-    // addNameToNewFriends: (name: string) => void,
-    // addUrlToNewFriends: (url: string) => void,
+    // sidebar: Array<FriendsType>,
+    sidebar: {
+        friends: Array<FriendsType>
+        addFriends: FriendsType
+    }
+    addFriends: () => void,
+    addNameToNewFriends: (name: string) => void,
+    addUrlToNewFriends: (url: string) => void,
 }
 
 const Friends = (props: PropsType) => {
-    const {state, dispatch} = props;
+    const {sidebar, addFriends, addNameToNewFriends, addUrlToNewFriends} = props;
 
     let inputNameElem = React.createRef<HTMLInputElement>();
     let inputUrlElem: RefObject<HTMLInputElement> = React.createRef();
 
     const onAddNameToNewFriends = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value.trim()) {
-
-            dispatch(addNameToNewFriendsActionCreator(e.currentTarget.value));
-            // addNameToNewFriends(e.currentTarget.value);
+            let value = e.currentTarget.value;
+            addNameToNewFriends(value);
         }
     }
     const onAddUrlToNewFriends = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value)
-        dispatch(addUrlToNewFriendsActionCreator(e.currentTarget.value));
-        //  addUrlToNewFriends(e.currentTarget.value);
+        let value = e.currentTarget.value;
+        addUrlToNewFriends(value);
     }
 
-    let friendsElement = state.map(({url, name, id}) => <Friend url={url} name={name} id={id} key={id}/>);
+    let friendsElement = sidebar.friends.map(({url, name, id}) => <Friend url={url} name={name} id={id} key={id}/>);
 
     return (
         <div className={style.friendsBlock}>
@@ -59,7 +53,7 @@ const Friends = (props: PropsType) => {
             </div>
             <button onClick={() => {
                 if (inputNameElem.current && inputNameElem.current.value.trim()) {
-                    dispatch(addFriendsActionCreator());
+                    addFriends();
                     if (inputNameElem.current && inputUrlElem.current) {
                         inputNameElem.current.value = '';
                         inputUrlElem.current.value = '';

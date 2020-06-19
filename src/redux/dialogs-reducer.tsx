@@ -1,5 +1,21 @@
 import {v1} from "uuid";
-import {ACTION_CREATOR} from "./state";
+import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
+import {MessagesType} from "./state";
+
+// TS dialogsReducer
+export type addMessACType = {
+    type: 'ADD-MESSAGE'
+}
+export type changeNewMessageTextACType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    text: string
+}
+export type dialogsReducerAC = addMessACType | changeNewMessageTextACType;
+type initialStateType = {
+    dialogs: Array<DialogItemType>,
+    messages: Array<MessagesType>,
+    newMessageText: string
+}
 
 let initialState = {
     dialogs: [
@@ -42,11 +58,10 @@ let initialState = {
     newMessageText: ''
 }
 
-const dialogsReducer = (state: any = initialState, action: any) => {
+const dialogsReducer = (state: initialStateType = initialState, action: dialogsReducerAC) => {
     switch (action.type) {
         // Добавление сообщения в state
-        case ACTION_CREATOR.ADD_MESSAGE :
-            console.log(11)
+        case 'ADD-MESSAGE' :
             let newMess = {
                 id: v1(),
                 message: state.newMessageText
@@ -55,24 +70,22 @@ const dialogsReducer = (state: any = initialState, action: any) => {
             state.newMessageText = '';
             return state;
         // Контролтруемое добавление сообщения
-        case ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT :
-            console.log(22)
-            state.newMessageText = action.text as string;
+        case 'UPDATE-NEW-MESSAGE-TEXT' :
+            state.newMessageText = action.text;
             return state;
         default :
             return state;
     }
 }
 
-export const addMessActionCreator = () => {
+export const addMessAC = (): addMessACType => {
     return {
-        type: ACTION_CREATOR.ADD_MESSAGE
+        type: 'ADD-MESSAGE'
     }
 }
-
-export const changeNewMessageTextActionCreator = (text: string) => {
+export const changeNewMessageTextAC = (text: string): changeNewMessageTextACType => {
     return {
-        type: ACTION_CREATOR.UPDATE_NEW_MESSAGE_TEXT,
+        type: 'UPDATE-NEW-MESSAGE-TEXT',
         text: text
     }
 }

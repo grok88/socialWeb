@@ -1,7 +1,24 @@
 import {v1} from "uuid";
-import {ACTION_CREATOR, ObjPostType} from "./state";
+import {FriendsType} from "../components/nav/friends/Friends";
 
-let initialState = {
+// TS navbarReducer
+export type addFriendsACType = {
+    type: 'ADD-FRIENDS'
+}
+export type addNameToNewFriendsACType = {
+    type: 'ADD-NEW-FRIENDS-NAME',
+    name: string
+}
+export type addUrlToNewFriendsACType = {
+    type: 'ADD-NEW-FRIENDS-URL',
+    url: string
+}
+export type navbarReducerAC = addFriendsACType | addNameToNewFriendsACType | addUrlToNewFriendsACType;
+type initialStateType = {
+    friends: Array<FriendsType>
+    addFriends: FriendsType
+}
+let initialState: initialStateType = {
     friends: [
         {
             url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSU8ZWLKMXxuUe7g8j7zCfYZ3BcxuXlxPwBmSV_Mv_Bf9kvMg6F&usqp=CAU',
@@ -26,20 +43,21 @@ let initialState = {
     }
 }
 
-const navbarReducer = (state: any = initialState, action: any) => {
+
+const navbarReducer = (state: initialStateType = initialState, action: navbarReducerAC) => {
     switch (action.type) {
         // Контролируемое добавление имени друга
-        case ACTION_CREATOR.ADD_NEW_FRIENDS_NAME :
+        case 'ADD-NEW-FRIENDS-NAME':
             state.addFriends.name = action.name;
             return state;
         // Контролируемое добавление URL друга
-        case ACTION_CREATOR.ADD_NEW_FRIENDS_URL :
+        case 'ADD-NEW-FRIENDS-URL' :
             if (action.url.trim().length !== 0) {
                 state.addFriends.url = action.url;
             }
             return state;
         // Добавление друзей блок
-        case ACTION_CREATOR.ADD_FRIENDS :
+        case 'ADD-FRIENDS':
             state.addFriends.id = v1();
             state.friends.push({...state.addFriends});
         default :
@@ -47,22 +65,20 @@ const navbarReducer = (state: any = initialState, action: any) => {
     }
 }
 
-export const addFriendsActionCreator = () => {
+export const addFriendsAC = (): addFriendsACType => {
     return {
-        type: ACTION_CREATOR.ADD_FRIENDS
+        type: 'ADD-FRIENDS'
     }
 }
-
-export const addNameToNewFriendsActionCreator = (name: string) => {
+export const addNameToNewFriendsAC = (name: string): addNameToNewFriendsACType => {
     return {
-        type: ACTION_CREATOR.ADD_NEW_FRIENDS_NAME,
+        type: 'ADD-NEW-FRIENDS-NAME',
         name
     }
 }
-
-export const addUrlToNewFriendsActionCreator = (url: string) => {
+export const addUrlToNewFriendsAC = (url: string): addUrlToNewFriendsACType => {
     return {
-        type: ACTION_CREATOR.ADD_NEW_FRIENDS_URL,
+        type: 'ADD-NEW-FRIENDS-URL',
         url
     }
 }

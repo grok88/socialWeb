@@ -1,5 +1,28 @@
 import {v1} from "uuid";
-import {ACTION_CREATOR, ObjPostType} from "./state";
+import {ObjPostType} from "./state";
+
+export const ACTION_CREATOR = {
+    ADD_POST: 'ADD-POST',
+    UPDATE_NEW_POST_TEXT: 'UPDATE-NEW-POST-TEXT',
+    ADD_MESSAGE: 'ADD-MESSAGE',
+    UPDATE_NEW_MESSAGE_TEXT: 'UPDATE-NEW-MESSAGE-TEXT',
+    ADD_NEW_FRIENDS_NAME: 'ADD-NEW-FRIENDS-NAME',
+    ADD_NEW_FRIENDS_URL: 'ADD-NEW-FRIENDS-URL',
+    ADD_FRIENDS: 'ADD-FRIENDS',
+};
+// TS profileReducer
+export type addPostACType = {
+    type: 'ADD-POST'
+}
+export type updateNewPostTextACType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    text: string
+}
+export type profileReducerType = addPostACType | updateNewPostTextACType;
+type InitialStateType = {
+    posts: Array<ObjPostType>,
+    newPostText: string
+}
 
 let InitialState = {
     posts: [
@@ -9,10 +32,10 @@ let InitialState = {
     newPostText: ''
 }
 
-const profileReducer = (state: any = InitialState, action: any) => {
+const profileReducer = (state: InitialStateType = InitialState, action: profileReducerType) => {
     switch (action.type) {
         // добавление нового поста
-        case ACTION_CREATOR.ADD_POST :
+        case 'ADD-POST' :
             const newPost: ObjPostType = {
                 id: v1(),
                 message: state.newPostText,
@@ -22,7 +45,7 @@ const profileReducer = (state: any = InitialState, action: any) => {
             state.newPostText = '';
             return state;
         // контролируемое добавление поста
-        case ACTION_CREATOR.UPDATE_NEW_POST_TEXT :
+        case 'UPDATE-NEW-POST-TEXT' :
             return {
                 ...state,
                 newPostText: action.text
@@ -32,22 +55,14 @@ const profileReducer = (state: any = InitialState, action: any) => {
     }
 }
 
-// export type ProfileActionsTypes = InferActionsTypes<typeof actions>
-
-// export const actions = {
-//    addPostActionCreator:() => ({type: ACTION_CREATOR.ADD_POST} as const),
-//    updateNewPostTextActionCreator: (text: string) => ({type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT, text} as const),
-// }
-
-export const addPostActionCreator = () => {
+export const addPostAC = () => {
     return {
-        type: ACTION_CREATOR.ADD_POST
+        type: 'ADD-POST'
     }
 }
-
-export const updateNewPostTextActionCreator = (text: string) => {
+export const updateNewPostTextAC = (text: string) => {
     return {
-        type: ACTION_CREATOR.UPDATE_NEW_POST_TEXT,
+        type: 'UPDATE-NEW-POST-TEXT',
         text: text
     }
 }

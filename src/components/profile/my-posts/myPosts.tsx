@@ -1,7 +1,7 @@
 import React, {RefObject, KeyboardEvent, ChangeEvent} from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 type ObjType = {
     id: string,
