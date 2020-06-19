@@ -1,15 +1,7 @@
 import {v1} from "uuid";
 import {ObjPostType} from "./state";
 
-export const ACTION_CREATOR = {
-    ADD_POST: 'ADD-POST',
-    UPDATE_NEW_POST_TEXT: 'UPDATE-NEW-POST-TEXT',
-    ADD_MESSAGE: 'ADD-MESSAGE',
-    UPDATE_NEW_MESSAGE_TEXT: 'UPDATE-NEW-MESSAGE-TEXT',
-    ADD_NEW_FRIENDS_NAME: 'ADD-NEW-FRIENDS-NAME',
-    ADD_NEW_FRIENDS_URL: 'ADD-NEW-FRIENDS-URL',
-    ADD_FRIENDS: 'ADD-FRIENDS',
-};
+
 // TS profileReducer
 export type addPostACType = {
     type: 'ADD-POST'
@@ -36,14 +28,18 @@ const profileReducer = (state: InitialStateType = InitialState, action: profileR
     switch (action.type) {
         // добавление нового поста
         case 'ADD-POST' :
+            let stateCopy = {
+                ...state,
+                posts: [...state.posts]
+            }
             const newPost: ObjPostType = {
                 id: v1(),
-                message: state.newPostText,
+                message: stateCopy.newPostText,
                 likeCount: "0"
             }
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
+            stateCopy.posts.push(newPost);
+            stateCopy.newPostText = '';
+            return stateCopy;
         // контролируемое добавление поста
         case 'UPDATE-NEW-POST-TEXT' :
             return {
