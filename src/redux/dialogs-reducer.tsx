@@ -59,6 +59,11 @@ let initialState = {
 }
 
 const dialogsReducer = (state: initialStateType = initialState, action: dialogsReducerAC) => {
+
+    // = {
+    //     ...state,
+    //     messages: state.messages.map(elem => ({ ...elem}))
+    // }
     switch (action.type) {
         // Добавление сообщения в state
         case 'ADD-MESSAGE' :
@@ -66,13 +71,18 @@ const dialogsReducer = (state: initialStateType = initialState, action: dialogsR
                 id: v1(),
                 message: state.newMessageText
             }
-            state.messages.push(newMess);
-            state.newMessageText = '';
-            return state;
+            return {
+                ...state,
+                messages: [...state.messages, newMess],
+                newMessageText: ''
+            }
+
         // Контролтруемое добавление сообщения
         case 'UPDATE-NEW-MESSAGE-TEXT' :
-            state.newMessageText = action.text;
-            return state;
+            return {
+                ...state,
+                newMessageText: action.text
+            }
         default :
             return state;
     }
