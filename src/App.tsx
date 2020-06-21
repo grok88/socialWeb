@@ -10,6 +10,7 @@ import Settings from "./components/settings/settings";
 import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from "./components/dialogs/dialogsContainer";
 import {SidebarContainer} from './components/nav/SidebarContainer';
+import UsersContainer from './components/users/UsersContainer';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>

@@ -2,8 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
 import store from "./redux/redux-store";
-import {StateType} from "./redux/state";
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 
 // export function rerenderEntireTree(state: StateType) {
     ReactDOM.render(

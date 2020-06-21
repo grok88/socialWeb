@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navbar} from "./Navbar";
-import Friends, {FriendsType} from "./friends/Friends";
+import {FriendsType} from "./friends/Friends";
 
 type PropsType = {
     sidebar: {

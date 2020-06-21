@@ -8,7 +8,7 @@ type PropsType = {
 }
 
 const Friend = (props: PropsType) => {
-    const {url, name, id} = props;
+    const {url, name} = props;
     return (
         <div className={style.friend}>
             <img

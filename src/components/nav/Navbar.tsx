@@ -2,6 +2,7 @@ import style from "./sidebar.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
 import Friends, {FriendsType} from "./friends/Friends";
+
 type PropsType = {
     sidebar: {
         friends: Array<FriendsType>
@@ -12,7 +13,7 @@ type PropsType = {
     addUrlToNewFriends: (value: string) => void
 }
 
-export const Navbar = (props:PropsType) => {
+export const Navbar = (props: PropsType) => {
     const {sidebar, addFriends, addNameToNewFriends, addUrlToNewFriends} = props;
     return (
         <nav className={style.nav}>
@@ -30,6 +31,9 @@ export const Navbar = (props:PropsType) => {
             </div>
             <div className={style.item}>
                 <NavLink to='settings' activeClassName={style.active}>Settings</NavLink>
+            </div>
+            <div className={style.item}>
+                <NavLink to='users' activeClassName={style.active}>Users</NavLink>
             </div>
             <Friends sidebar={sidebar} addFriends={addFriends} addNameToNewFriends={addNameToNewFriends}
                      addUrlToNewFriends={addUrlToNewFriends}/>

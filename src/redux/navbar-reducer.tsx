@@ -66,6 +66,7 @@ const navbarReducer = (state: initialStateType = initialState, action: navbarRed
                     }
                 }
             }
+            break;
         // Добавление друзей блок
         case 'ADD-FRIENDS':
             return {

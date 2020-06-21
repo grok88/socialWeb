@@ -1,5 +1,4 @@
 import {addMessAC, changeNewMessageTextAC} from "../../redux/dialogs-reducer";
-import React from "react";
 import Dialogs from "./dialogs";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";

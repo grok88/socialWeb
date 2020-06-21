@@ -60,10 +60,6 @@ let initialState = {
 
 const dialogsReducer = (state: initialStateType = initialState, action: dialogsReducerAC) => {
 
-    // = {
-    //     ...state,
-    //     messages: state.messages.map(elem => ({ ...elem}))
-    // }
     switch (action.type) {
         // Добавление сообщения в state
         case 'ADD-MESSAGE' :
