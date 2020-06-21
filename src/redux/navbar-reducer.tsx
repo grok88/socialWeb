@@ -48,18 +48,34 @@ const navbarReducer = (state: initialStateType = initialState, action: navbarRed
     switch (action.type) {
         // Контролируемое добавление имени друга
         case 'ADD-NEW-FRIENDS-NAME':
-            state.addFriends.name = action.name;
-            return state;
+            return {
+                ...state,
+                addFriends: {
+                    ...state.addFriends,
+                    name: action.name
+                }
+            }
         // Контролируемое добавление URL друга
         case 'ADD-NEW-FRIENDS-URL' :
             if (action.url.trim().length !== 0) {
-                state.addFriends.url = action.url;
+                return {
+                    ...state,
+                    addFriends: {
+                        ...state.addFriends,
+                        url: action.url
+                    }
+                }
             }
-            return state;
         // Добавление друзей блок
         case 'ADD-FRIENDS':
-            state.addFriends.id = v1();
-            state.friends.push({...state.addFriends});
+            return {
+                ...state,
+                friends: [...state.friends, state.addFriends],
+                addFriends: {
+                    ...state.addFriends,
+                    id: v1()
+                }
+            }
         default :
             return state;
     }
