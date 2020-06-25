@@ -14,11 +14,11 @@ export type addUrlToNewFriendsACType = {
     url: string
 }
 export type navbarReducerAC = addFriendsACType | addNameToNewFriendsACType | addUrlToNewFriendsACType;
-type initialStateType = {
+export type navbarReducerInitialStateType = {
     friends: Array<FriendsType>
     addFriends: FriendsType
 }
-let initialState: initialStateType = {
+let initialState: navbarReducerInitialStateType = {
     friends: [
         {
             url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSU8ZWLKMXxuUe7g8j7zCfYZ3BcxuXlxPwBmSV_Mv_Bf9kvMg6F&usqp=CAU',
@@ -44,7 +44,7 @@ let initialState: initialStateType = {
 }
 
 
-const navbarReducer = (state: initialStateType = initialState, action: navbarReducerAC) => {
+const navbarReducer = (state: navbarReducerInitialStateType = initialState, action: navbarReducerAC) => {
     switch (action.type) {
         // Контролируемое добавление имени друга
         case 'ADD-NEW-FRIENDS-NAME':
@@ -99,6 +99,4 @@ export const addUrlToNewFriendsAC = (url: string): addUrlToNewFriendsACType => {
         url
     }
 }
-
-
 export default navbarReducer;
