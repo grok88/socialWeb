@@ -11,7 +11,7 @@ export type userType = {
         city: string
     }
 }
-type initialStateType = {
+ export type usersReducerInitialStateType = {
     users: Array<userType>
 }
 export type followACType = { type: "FOLLOW", userId: string }
@@ -20,7 +20,7 @@ export type setUsersACType = { type: "SET-USERS", users: Array<userType> }
 
 export type usersReducerAC = followACType | unFollowACType | setUsersACType;
 
-let initialState: initialStateType = {
+let initialState: usersReducerInitialStateType = {
     users: [
         // {id: v1(),userUrl:'https://www.dw.com/image/47372909_303.jpg', followed: false, name: 'Alex', status: 'I am big', location: {country: 'Belarus', city: 'Minsk'}},
         // {
@@ -42,7 +42,7 @@ let initialState: initialStateType = {
     ]
 }
 
-const usersReducer = (state: initialStateType = initialState, action: usersReducerAC) => {
+const usersReducer = (state: usersReducerInitialStateType = initialState, action: usersReducerAC) => {
     switch (action.type) {
         case 'FOLLOW':
             return {
