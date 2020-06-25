@@ -11,12 +11,12 @@ export type updateNewPostTextACType = {
     text: string
 }
 export type profileReducerType = addPostACType | updateNewPostTextACType;
-type InitialStateType = {
+ export type ProfileReducerInitialStateType = {
     posts: Array<ObjPostType>,
     newPostText: string
 }
 
-let InitialState = {
+let InitialState:ProfileReducerInitialStateType = {
     posts: [
         {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
         {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
@@ -24,7 +24,7 @@ let InitialState = {
     newPostText: ''
 }
 
-const profileReducer = (state: InitialStateType = InitialState, action: profileReducerType) => {
+const profileReducer = (state: ProfileReducerInitialStateType = InitialState, action: profileReducerType) => {
     switch (action.type) {
         // добавление нового поста
         case 'ADD-POST' :
@@ -51,12 +51,12 @@ const profileReducer = (state: InitialStateType = InitialState, action: profileR
     }
 }
 
-export const addPostAC = () => {
+export const addPostAC = ():addPostACType => {
     return {
         type: 'ADD-POST'
     }
 }
-export const updateNewPostTextAC = (text: string) => {
+export const updateNewPostTextAC = (text: string):updateNewPostTextACType => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         text: text
