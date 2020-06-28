@@ -3,6 +3,10 @@
 export type userType = {
     id: string,
     userUrl:string,
+    photos:{
+        small:string | null,
+        large: string | null
+    }
     followed: boolean,
     name: string,
     status: string,
@@ -65,6 +69,7 @@ const usersReducer = (state: usersReducerInitialStateType = initialState, action
                 })
             }
         case 'SET-USERS' :
+            console.log(1)
             return {
                 ...state,
                 users: [...state.users, ...action.users]
