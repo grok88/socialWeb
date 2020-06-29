@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Users from "./Users";
+import Users from "./UsersClass";
 import {StateType} from "../../redux/redux-store";
 import {followAC, setUsersAC, unFollowAC, userType} from "../../redux/users-reducer";
 
