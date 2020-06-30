@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {userType} from "../../redux/users-reducer";
-import {v1} from "uuid";
 import axios from 'axios'
 import userPhoto from '../../assets/images/user.png'
 
@@ -12,21 +11,13 @@ export type UsersPropsType = {
 }
 
 class Users extends React.Component<UsersPropsType, any> {
-    constructor(props:UsersPropsType) {
-        super(props);
+
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(res => {
                 this.props.setUsers(res.data.items);
             });
     }
-    // getUsers = () => {
-    //     if(this.props.usersPage.length === 0){
-    //         axios.get('https://social-network.samuraijs.com/api/1.0/users')
-    //             .then(res => {
-    //                 this.props.setUsers(res.data.items);
-    //             });
-    //     }
-    // }
 
     render() {
         return (
