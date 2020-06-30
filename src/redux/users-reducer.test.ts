@@ -8,6 +8,10 @@ test('Status unfollow should be changed to follow', () => {
                 id: '1',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: false,
+                photos:{
+                    small: null,
+                    large:  null
+                },
                 name: 'Alex',
                 status: 'I am big',
                 location: {country: 'Belarus', city: 'Minsk'}
@@ -16,6 +20,10 @@ test('Status unfollow should be changed to follow', () => {
                 id: '2',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: true,
+                photos:{
+                    small: null,
+                    large:  null
+                },
                 name: 'Sergey',
                 status: 'I am big too',
                 location: {country: 'Belarus', city: 'Pinsk'}
@@ -36,6 +44,10 @@ test('Status follow should be changed to unfollow', () => {
                 id: '1',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: false,
+                photos:{
+                    small: null,
+                    large:  null
+                },
                 name: 'Alex',
                 status: 'I am big',
                 location: {country: 'Belarus', city: 'Minsk'}
@@ -44,6 +56,10 @@ test('Status follow should be changed to unfollow', () => {
                 id: '2',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: true,
+                photos:{
+                    small: null,
+                    large:  null
+                },
                 name: 'Sergey',
                 status: 'I am big too',
                 location: {country: 'Belarus', city: 'Pinsk'}
@@ -65,6 +81,10 @@ test('Sets correct user to usersReducer.users', () => {
                 id: '1',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: false,
+                photos:{
+                    small: null,
+                    large:  null
+                },
                 name: 'Alex',
                 status: 'I am big',
                 location: {country: 'Belarus', city: 'Minsk'}
@@ -77,6 +97,10 @@ test('Sets correct user to usersReducer.users', () => {
             id: '2',
             userUrl: 'https://www.dw.com/image/47372909_303.jpg',
             followed: true,
+            photos:{
+                small: null,
+                large:  null
+            },
             name: 'Sergey',
             status: 'I am big too',
             location: {country: 'Belarus', city: 'Pinsk'}

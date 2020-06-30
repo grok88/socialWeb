@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import {userType} from "../../redux/users-reducer";
 import {v1} from "uuid";
 import axios from 'axios'
-import userPhoto from '../../assets/images/user.png'
+import userPhoto from '../../assets/images/green.png'
+
 
 export type UsersPropsType = {
     usersPage: Array<userType>,

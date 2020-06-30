@@ -1,7 +1,8 @@
 import React from "react";
 import {userType} from "../../redux/users-reducer";
 import axios from 'axios'
-import userPhoto from '../../assets/images/user.png'
+import userPhoto from '../../assets/images/green.png'
+import API from '../../assets/api';
 
 export type UsersPropsType = {
     usersPage: Array<userType>,
@@ -11,12 +12,37 @@ export type UsersPropsType = {
 }
 
 class Users extends React.Component<UsersPropsType, any> {
-
     componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(res => {
                 this.props.setUsers(res.data.items);
             });
+        // this.getUsers();
+        // this.me();
+        // this.getCapcha();
+    }
+
+    componentWillUnmount() {
+        this.props.setUsers([]);
+        console.log('unmount');
+        console.log(this.props.usersPage)
+    }
+
+    getUsers() {
+        API.get('users')
+            .then(res => {
+                console.log(res.data.items);
+                console.log(res);
+            })
+    }
+
+    me(){
+        API.get('/auth/me')
+            .then(res =>  console.log(res.data));
+    }
+    getCapcha(){
+        API.get('security/get-captcha-url')
+            .then(res =>  console.log(res.data));;
     }
 
     render() {
@@ -30,7 +56,7 @@ class Users extends React.Component<UsersPropsType, any> {
                                 <div>
                                     <div>
                                         <img src={user.photos.small !== null ? user.photos.small : userPhoto}
-                                             alt="user-avatar" width={150} height={100}/>
+                                             alt="user-avatar" width={100} height={100}/>
                                     </div>
                                     {user.followed
                                         ? <button onClick={() => {

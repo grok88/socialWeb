@@ -11,6 +11,8 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from "./components/dialogs/dialogsContainer";
 import {SidebarContainer} from './components/nav/SidebarContainer';
 import UsersContainer from './components/users/UsersContainer';
+import UsersTemp from "./components/users/UsersTemp";
+import UsersTempContainer from './components/users/UsersTempContainer';
 
 function App() {
     return (
@@ -25,6 +27,7 @@ function App() {
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/usersTemp'} render={() => <UsersTempContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>

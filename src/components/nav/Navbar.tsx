@@ -35,6 +35,9 @@ export const Navbar = (props: PropsType) => {
             <div className={style.item}>
                 <NavLink to='users' activeClassName={style.active}>Users</NavLink>
             </div>
+            <div className={style.item}>
+                <NavLink exact to='usersTemp' activeClassName={style.active}>UsersTemp</NavLink>
+            </div>
             <Friends sidebar={sidebar} addFriends={addFriends} addNameToNewFriends={addNameToNewFriends}
                      addUrlToNewFriends={addUrlToNewFriends}/>
         </nav>
