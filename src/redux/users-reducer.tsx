@@ -1,4 +1,4 @@
-export type userType = {
+export type UserType = {
     id: string,
     userUrl: string,
     photos: {
@@ -13,43 +13,38 @@ export type userType = {
         city: string
     }
 }
-export type usersReducerInitialStateType = {
-    users: Array<userType>
+export type UsersReducerInitialStateType = {
+    users: Array<UserType>,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
 }
-export type followACType = { type: "FOLLOW", userId: string }
-export type unFollowACType = { type: "UNFOLLOW", userId: string }
-export type setUsersACType = { type: "SET-USERS", users: Array<userType> }
+export type FollowACType = { type: "FOLLOW", userId: string }
+export type UnFollowACType = { type: "UNFOLLOW", userId: string }
+export type SetUsersACType = { type: "SET-USERS", users: Array<UserType> }
+export type SetCurrentPageACType = { type: "SET-CURRENT-PAGE", currentPage: number }
+export type setUsersTotalCountACType = { type: "SET-TOTAL-COUNT", totalCount: number }
 
-export type usersReducerAC = followACType | unFollowACType | setUsersACType;
+export type UsersReducerAC =
+    FollowACType
+    | UnFollowACType
+    | SetUsersACType
+    | SetCurrentPageACType
+    | setUsersTotalCountACType;
 
-let initialState: usersReducerInitialStateType = {
-    users: [
-        // {id: v1(),userUrl:'https://www.dw.com/image/47372909_303.jpg', followed: false, name: 'Alex', status: 'I am big', location: {country: 'Belarus', city: 'Minsk'}},
-        // {
-        //     id: v1(),
-        //     userUrl:'https://www.dw.com/image/47372909_303.jpg',
-        //     followed: true,
-        //     name: 'Sergey',
-        //     status: 'I am big too',
-        //     location: {country: 'Belarus', city: 'Pinsk'}
-        // },
-        // {
-        //     id: v1(),
-        //     userUrl:'https://www.dw.com/image/47372909_303.jpg',
-        //     followed: false,
-        //     name: 'Sveta',
-        //     status: 'I am big so so',
-        //     location: {country: 'Belarus', city: 'Vitebsk'}
-        // }
-    ]
+let initialState: UsersReducerInitialStateType = {
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 2
 }
 
-const usersReducer = (state: usersReducerInitialStateType = initialState, action: usersReducerAC) => {
+const usersReducer = (state: UsersReducerInitialStateType = initialState, action: UsersReducerAC): UsersReducerInitialStateType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
                 ...state,
-                users: state.users.map((user: userType) => {
+                users: state.users.map((user: UserType) => {
                     if (user.id === action.userId) {
                         return {...user, followed: true}
                     }
@@ -59,7 +54,7 @@ const usersReducer = (state: usersReducerInitialStateType = initialState, action
         case 'UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map((user: userType) => {
+                users: state.users.map((user: UserType) => {
                     if (user.id === action.userId) {
                         return {...user, followed: false}
                     }
@@ -69,30 +64,53 @@ const usersReducer = (state: usersReducerInitialStateType = initialState, action
         case 'SET-USERS' :
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
+            }
+        case 'SET-CURRENT-PAGE' :
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        case 'SET-TOTAL-COUNT' :
+            return {
+                ...state,
+                totalUsersCount: action.totalCount
             }
         default :
             return state
     }
 }
 
-export const followAC = (userId: string): followACType => {
+export const followAC = (userId: string): FollowACType => {
     return {
         type: "FOLLOW",
         userId
     }
 }
-export const unFollowAC = (userId: string): unFollowACType => {
+export const unFollowAC = (userId: string): UnFollowACType => {
     return {
         type: "UNFOLLOW",
         userId
     }
 }
-export const setUsersAC = (users: Array<userType>): setUsersACType => {
+export const setUsersAC = (users: Array<UserType>): SetUsersACType => {
     return {
         type: "SET-USERS",
         users
     }
 }
+export const SetCurrentPageAC = (currentPage: number): SetCurrentPageACType => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        currentPage
+    }
+}
+export const setUsersTotalCountAC = (totalCount: number): setUsersTotalCountACType => {
+    return {
+        type: "SET-TOTAL-COUNT",
+        totalCount
+    }
+}
+
 
 export default usersReducer;

@@ -1,8 +1,9 @@
 import {v1} from "uuid";
-import usersReducer, {followAC, usersReducerInitialStateType, unFollowAC, setUsersAC, userType} from "./users-reducer";
+import usersReducer, {followAC, UsersReducerInitialStateType, unFollowAC, setUsersAC, UserType} from "./users-reducer";
 
-test('Status unfollow should be changed to follow', () => {
-    const startState: usersReducerInitialStateType = {
+let startState : UsersReducerInitialStateType;
+beforeEach(() => {
+    startState = {
         users: [
             {
                 id: '1',
@@ -28,8 +29,15 @@ test('Status unfollow should be changed to follow', () => {
                 status: 'I am big too',
                 location: {country: 'Belarus', city: 'Pinsk'}
             },
-        ]
+        ],
+        pageSize:0,
+        totalUsersCount: 0,
+        currentPage: 0
     }
+})
+
+test('Status unfollow should be changed to follow', () => {
+
     const id = '1';
     const endState = usersReducer(startState, followAC(id));
 
@@ -38,34 +46,7 @@ test('Status unfollow should be changed to follow', () => {
 
 });
 test('Status follow should be changed to unfollow', () => {
-    const startState: usersReducerInitialStateType = {
-        users: [
-            {
-                id: '1',
-                userUrl: 'https://www.dw.com/image/47372909_303.jpg',
-                followed: false,
-                photos:{
-                    small: null,
-                    large:  null
-                },
-                name: 'Alex',
-                status: 'I am big',
-                location: {country: 'Belarus', city: 'Minsk'}
-            },
-            {
-                id: '2',
-                userUrl: 'https://www.dw.com/image/47372909_303.jpg',
-                followed: true,
-                photos:{
-                    small: null,
-                    large:  null
-                },
-                name: 'Sergey',
-                status: 'I am big too',
-                location: {country: 'Belarus', city: 'Pinsk'}
-            },
-        ]
-    }
+
     const id = '2';
     const endState = usersReducer(startState, unFollowAC(id));
 
@@ -75,26 +56,10 @@ test('Status follow should be changed to unfollow', () => {
 });
 
 test('Sets correct user to usersReducer.users', () => {
-    const startState: usersReducerInitialStateType = {
-        users: [
-            {
-                id: '1',
-                userUrl: 'https://www.dw.com/image/47372909_303.jpg',
-                followed: false,
-                photos:{
-                    small: null,
-                    large:  null
-                },
-                name: 'Alex',
-                status: 'I am big',
-                location: {country: 'Belarus', city: 'Minsk'}
-            },
 
-        ]
-    }
-    const newUsers: Array<userType> = [
+    const newUsers: Array<UserType> = [
         {
-            id: '2',
+            id: '3',
             userUrl: 'https://www.dw.com/image/47372909_303.jpg',
             followed: true,
             photos:{
@@ -109,9 +74,8 @@ test('Sets correct user to usersReducer.users', () => {
 
     const endState = usersReducer(startState, setUsersAC(newUsers));
 
-    expect(endState.users[0]).toEqual(startState.users[0]);
-    expect(endState.users[1]).toBeDefined();
-    expect(endState.users[1].id).toBe('2');
-    expect(endState.users[1].name).toBe('Sergey');
-    expect(endState.users.length).toBe(2);
+    expect(endState.users[0]).toBeDefined();
+    expect(endState.users[0].id).toBe('3');
+    expect(endState.users[0].name).toBe('Sergey');
+    expect(endState.users.length).toBe(1);
 });

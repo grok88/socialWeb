@@ -1,5 +1,5 @@
 import React from "react";
-import {usersReducerInitialStateType} from "../../redux/users-reducer";
+import {UsersReducerInitialStateType} from "../../redux/users-reducer";
 import userPhoto from '../../assets/images/green.png'
 import style from './UsersTemp.module.css'
 import {NavLink} from "react-router-dom";

@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
-import {userType} from "../../redux/users-reducer";
+import {UserType} from "../../redux/users-reducer";
 import {v1} from "uuid";
 import axios from 'axios'
 import userPhoto from '../../assets/images/green.png'
 
 
 export type UsersPropsType = {
-    usersPage: Array<userType>,
+    usersPage: Array<UserType>,
     follow: (userId: string) => void,
     unFollow: (userId: string) => void,
-    setUsers: (users: Array<userType>) => void,
+    setUsers: (users: Array<UserType>) => void,
 }
 const Users = (props: UsersPropsType) => {
     const {follow, unFollow, setUsers, usersPage} = props;

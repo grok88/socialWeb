@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {usersReducerInitialStateType} from "../../redux/users-reducer";
+import {UsersReducerInitialStateType} from "../../redux/users-reducer";
 import {StateType} from "../../redux/redux-store";
 import UsersTemp from "./UsersTemp";
 import {usersTempReducerType, setUsersAC, setStatusAC} from "../../redux/usersTemp-reducer";

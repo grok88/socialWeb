@@ -1,4 +1,4 @@
-import {usersReducerInitialStateType} from "./users-reducer";
+import {UsersReducerInitialStateType} from "./users-reducer";
 
 export type setUsersACType = {
     type: 'SET-USERS',

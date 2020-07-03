@@ -4,7 +4,7 @@ import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {FriendsType} from "../components/nav/friends/Friends";
-import usersReducer, {userType} from "./users-reducer";
+import usersReducer, {UsersReducerInitialStateType, UserType} from "./users-reducer";
 import usersTempReducer from "./usersTemp-reducer";
 
 export type MessagesType = {
@@ -33,11 +33,9 @@ export type StateType = {
         friends: Array<FriendsType>
         addFriends: FriendsType
     },
-    usersPage : {
-        users:Array<userType>
-    } ,
+    usersPage : UsersReducerInitialStateType,
     usersPageTemp : {
-        users:Array<userType>,
+        users:Array<UserType>,
         status:string
     }
 }
