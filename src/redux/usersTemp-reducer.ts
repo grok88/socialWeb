@@ -1,15 +1,17 @@
-import {UsersReducerInitialStateType} from "./users-reducer";
-
 export type setUsersACType = {
-    type: 'SET-USERS',
-    users: Array<usersTempReducerType>
+    type: 'SET-USERS-TEMP',
+    usersTemp: Array<usersTempReducerType>
 }
 export type setStatusACType = {
     type: 'SET-STATUS',
-    status:string
+    status: string
+}
+export type setUsersCurrentPageACType = {
+    type: 'SET-USERS-TEMP-CURRENT-PAGE',
+    currentPage: number
 }
 
-export type UsersTempReducerAC = setUsersACType | setStatusACType;
+export type UsersTempReducerAC = setUsersACType | setStatusACType | setUsersCurrentPageACType;
 
 export type usersTempReducerType = {
     id: number,
@@ -32,29 +34,40 @@ export const statuses = {
     SUCCESS: 'SUCCESS'
 }
 
-export  type usersTempReducerInitialStateType = {
+export  type UsersTempReducerInitialStateType = {
     status: string,
-    users: Array<any>
+    usersTemp: Array<any>,
+    currentPage: number,
+    pageSize: number,
+    totalUserTempCount: number
 }
 let initialState = {
     status: statuses.NOT_INITIALAZED,
-    users: []
+    usersTemp: [],
+    currentPage: 1,
+    pageSize: 5,
+    totalUserTempCount:56
 }
 
 
-const usersTempReducer = (state: usersTempReducerInitialStateType = initialState, action: UsersTempReducerAC) => {
-
+const usersTempReducer = (state: UsersTempReducerInitialStateType = initialState, action: UsersTempReducerAC) => {
     switch (action.type) {
-        case 'SET-STATUS' :{
+        case 'SET-STATUS' : {
             return {
                 ...state,
-                status:action.status
+                status: action.status
             }
         }
-        case 'SET-USERS' :{
+        case 'SET-USERS-TEMP' : {
             return {
                 ...state,
-                users:action.users
+                usersTemp: action.usersTemp
+            }
+        }
+        case 'SET-USERS-TEMP-CURRENT-PAGE' : {
+            return {
+                ...state,
+                currentPage: action.currentPage
             }
         }
         default:
@@ -62,13 +75,19 @@ const usersTempReducer = (state: usersTempReducerInitialStateType = initialState
     }
 }
 
-export const setUsersAC = (users: Array<usersTempReducerType>): setUsersACType => {
+export const setUsersAC = (usersTemp: Array<usersTempReducerType>): setUsersACType => {
     return {
-        type: 'SET-USERS',
-        users
+        type: 'SET-USERS-TEMP',
+        usersTemp
     }
 }
-export const setStatusAC = (status:string ): setStatusACType => {
+export const setUsersCurrentPageAC = (currentPage: number): setUsersCurrentPageACType => {
+    return {
+        type: 'SET-USERS-TEMP-CURRENT-PAGE',
+        currentPage
+    }
+}
+export const setStatusAC = (status: string): setStatusACType => {
     return {
         type: 'SET-STATUS',
         status

@@ -1,22 +1,27 @@
 import {connect} from "react-redux";
-import {UsersReducerInitialStateType} from "../../redux/users-reducer";
 import {StateType} from "../../redux/redux-store";
 import UsersTemp from "./UsersTemp";
-import {usersTempReducerType, setUsersAC, setStatusAC} from "../../redux/usersTemp-reducer";
+import {setStatusAC, setUsersAC, setUsersCurrentPageAC, usersTempReducerType} from "../../redux/usersTemp-reducer";
 
 const mapStateToProps = (state: StateType) => {
     return {
-        users: state.usersPageTemp.users,
-        status: state.usersPageTemp.status
+        usersTemp: state.usersPageTemp.usersTemp,
+        status: state.usersPageTemp.status,
+        currentPage: state.usersPageTemp.currentPage,
+        pageSize: state.usersPageTemp.pageSize,
+        totalUserTempCount: state.usersPageTemp.totalUserTempCount
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        setUsers: (users: Array<usersTempReducerType>) => {
-            dispatch(setUsersAC(users));
+        setUsers: (usersTemp: Array<usersTempReducerType>) => {
+            dispatch(setUsersAC(usersTemp));
         },
         setStatus: (status: string) => {
             dispatch(setStatusAC(status))
+        },
+        setCurrentPage: (curretPage: number) => {
+            dispatch(setUsersCurrentPageAC(curretPage))
         }
     }
 }

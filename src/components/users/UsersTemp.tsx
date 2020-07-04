@@ -1,34 +1,62 @@
-import React from "react";
-import {UsersReducerInitialStateType} from "../../redux/users-reducer";
+import React, {useEffect} from "react";
 import userPhoto from '../../assets/images/green.png'
 import style from './UsersTemp.module.css'
 import {NavLink} from "react-router-dom";
-import {statuses, usersTempReducerInitialStateType, usersTempReducerType} from "../../redux/usersTemp-reducer";
+import {statuses, usersTempReducerType} from "../../redux/usersTemp-reducer";
 import API from '../../assets/api';
 
 type usersTempPropsType = {
     status: string,
-    users: Array<any>,
+    usersTemp: Array<any>,
     setUsers: (users: Array<usersTempReducerType>) => void,
-    setStatus: (status: string) => void
+    setStatus: (status: string) => void,
+    currentPage: number,
+    pageSize: number,
+    totalUserTempCount: number,
+    setCurrentPage: (curretPage: number) => void
 }
 const UsersTemp = (props: usersTempPropsType) => {
-    const {users = [], status,setStatus,setUsers} = props;
+    const {usersTemp = [], status, setStatus, setUsers, currentPage, pageSize, totalUserTempCount, setCurrentPage} = props;
 
-    if (status === statuses.NOT_INITIALAZED) {
-        API.get('users')
+    useEffect(() => {
+        console.log(currentPage);
+        API.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => {
-                console.log(res.data.items);
                 setStatus(statuses.SUCCESS);
                 setUsers(res.data.items);
             })
+    }, []);
+
+    if (status === statuses.NOT_INITIALAZED) {
         return <span>...</span>
+    }
+
+    let countPage = Math.ceil(totalUserTempCount / pageSize);
+    let countPageArr = [];
+    for (let i = 1; i <= countPage; i++) {
+        countPageArr.push(i);
+    }
+
+    const changePage = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+        API.get(`users?page=${pageNumber}&count=${pageSize}`)
+            .then(res => {
+                setUsers(res.data.items);
+            })
     }
 
     return (
         <div>
-            {!users.length && <span>Users not found</span>}
-            {users.map(user => <div key={user.id} className={style.user}>
+            {!usersTemp.length && <span>Users not found</span>}
+            {
+                countPageArr.map(page => <span key={page}
+                                               className={currentPage === page ? style.currentPage : ""}
+                                               onClick={() => {
+                                                   changePage(page);
+                                               }}
+                >{page}</span>)
+            }
+            {usersTemp.map(user => <div key={user.id} className={style.user}>
                 <div>
                     <img src={user.photos.small ? user.photos.small : userPhoto} alt=""/>
                 </div>
