@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Users from "./UsersClass";
+import UsersAPIComponent from "./UsersClass";
 import {StateType} from "../../redux/redux-store";
 import {
     followAC,
@@ -37,4 +37,4 @@ let mapDispatchToProps = (dispatch: any) => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
