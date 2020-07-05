@@ -4,6 +4,7 @@ import style from './UsersTemp.module.css'
 import {NavLink} from "react-router-dom";
 import {statuses, usersTempReducerType} from "../../redux/usersTemp-reducer";
 import API from '../../assets/api';
+import preloader from '../../assets/images/puff.svg';
 
 type usersTempPropsType = {
     status: string,
@@ -28,7 +29,7 @@ const UsersTemp = (props: usersTempPropsType) => {
     }, []);
 
     if (status === statuses.NOT_INITIALAZED) {
-        return <span>...</span>
+        return <img src={preloader} alt="preloader"/>
     }
 
     let countPage = Math.ceil(totalUserTempCount / pageSize);

@@ -4,7 +4,7 @@ import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {FriendsType} from "../components/nav/friends/Friends";
-import usersReducer, {UsersReducerInitialStateType, UserType} from "./users-reducer";
+import usersReducer, {UsersReducerInitialStateType} from "./users-reducer";
 import usersTempReducer, {UsersTempReducerInitialStateType} from "./usersTemp-reducer";
 
 export type MessagesType = {
