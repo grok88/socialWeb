@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import usersReducer, {followAC, UsersReducerInitialStateType, unFollowAC, setUsersAC, UserType} from "./users-reducer";
+import usersReducer, {follow, UsersReducerInitialStateType, unFollow, setUsers, UserType} from "./users-reducer";
 
 let startState : UsersReducerInitialStateType;
 beforeEach(() => {
@@ -39,7 +39,7 @@ beforeEach(() => {
 test('Status unfollow should be changed to follow', () => {
 
     const id = '1';
-    const endState = usersReducer(startState, followAC(id));
+    const endState = usersReducer(startState, follow(id));
 
     expect(endState.users[1]).toEqual(endState.users[1]);
     expect(endState.users[0].followed).toBe(true);
@@ -48,7 +48,7 @@ test('Status unfollow should be changed to follow', () => {
 test('Status follow should be changed to unfollow', () => {
 
     const id = '2';
-    const endState = usersReducer(startState, unFollowAC(id));
+    const endState = usersReducer(startState, unFollow(id));
 
     expect(endState.users[0]).toEqual(endState.users[0]);
     expect(endState.users[1].followed).toBe(false);
@@ -72,7 +72,7 @@ test('Sets correct user to usersReducer.users', () => {
         }
     ]
 
-    const endState = usersReducer(startState, setUsersAC(newUsers));
+    const endState = usersReducer(startState, setUsers(newUsers));
 
     expect(endState.users[0]).toBeDefined();
     expect(endState.users[0].id).toBe('3');
