@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer from "./profile-reducer";
+import profileReducer, {ProfileReducerInitialStateType} from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
@@ -20,10 +20,7 @@ export type ObjPostType = {
 }
 
 export type StateType = {
-    profilePage: {
-        posts: Array<ObjPostType>,
-        newPostText: string
-    },
+    profilePage: ProfileReducerInitialStateType,
     dialogsPage: {
         dialogs: Array<DialogItemType>,
         messages: Array<MessagesType>,
@@ -33,8 +30,8 @@ export type StateType = {
         friends: Array<FriendsType>
         addFriends: FriendsType
     },
-    usersPage : UsersReducerInitialStateType,
-    usersPageTemp : UsersTempReducerInitialStateType
+    usersPage: UsersReducerInitialStateType,
+    usersPageTemp: UsersTempReducerInitialStateType
 }
 
 

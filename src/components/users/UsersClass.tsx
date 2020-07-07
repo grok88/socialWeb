@@ -4,6 +4,7 @@ import axios from 'axios'
 import userPhoto from '../../assets/images/green.png'
 import style from './UsersClass.module.css'
 import Preloader from "../../assets/preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 export type UsersAPIComponentPropsType = {
     usersPage: Array<UserType>,
@@ -93,8 +94,11 @@ const Users = (props: UsersPropsType) => {
                         <div key={user.id}>
                             <div>
                                 <div>
-                                    <img src={user.photos.small !== null ? user.photos.small : userPhoto}
-                                         alt="user-avatar" width={100} height={100}/>
+                                    <NavLink to={'/profile/' + user.id}>
+                                        <img src={user.photos.small !== null ? user.photos.small : userPhoto}
+                                             alt="user-avatar" width={100} height={100}/>
+                                    </NavLink>
+
                                 </div>
                                 {user.followed
                                     ? <button onClick={() => {

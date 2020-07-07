@@ -11,20 +11,16 @@ type ObjType = {
 }
 
 type propsType = {
-   //  posts:{
-   //      posts: Array<ObjType>,
-   //      newPostText:string,
-   //  }
-   // dispatch: (action:any) => void,
-   // changeNewPostText:(text:string) => void
-   //  store:any
+    setUserProfile: (profile: any) => void,
+    profile: any
 }
 
-
-const Profile = (props:propsType) => {
+// FC<ProfileContainerProps>
+const Profile = (props: propsType) => {
+    console.log(props)
     return (
         <section className={style.content}>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
         </section>
     );

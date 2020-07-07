@@ -12,6 +12,7 @@ import DialogsContainer from "./components/dialogs/dialogsContainer";
 import {SidebarContainer} from './components/nav/SidebarContainer';
 import UsersContainer from './components/users/UsersContainer';
 import UsersTempContainer from './components/users/UsersTempContainer';
+import ProfileContainer from './components/profile/profileContainer';
 
 function App() {
     return (
@@ -20,7 +21,7 @@ function App() {
                 <Header/>
                 <SidebarContainer/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/profile'} render={() => <Profile/>}/>
+                    <Route path={'/profile'} render={() => <ProfileContainer/>}/>
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/news'} component={News}/>
