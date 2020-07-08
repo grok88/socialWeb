@@ -1,8 +1,9 @@
 import React from 'react';
 import style from './profileInfo.module.css';
 import Preloader from "../../../assets/preloader/Preloader";
+import userPhoto from '../../../assets/images/green.png'
 
-type ProfileInfoType = {
+export type ProfileInfoType = {
     profile: {
         aboutMe: string,
         contacts: {
@@ -20,7 +21,6 @@ type ProfileInfoType = {
 }
 const ProfileInfo = (props: ProfileInfoType) => {
     const {profile} = props;
-    console.log(props.profile)
     if (!profile) {
         return <Preloader/>
     }
@@ -33,7 +33,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     alt="main-fon"/>
             </div>
             <div className={style.description}>
-                <img src={profile.photos.small} alt="user photo"/>
+                <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user photo"/>
                 <div>
                     <p>Name : {profile.fullName}</p>
                     <p>Description : {profile.aboutMe}</p>

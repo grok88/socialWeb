@@ -1,14 +1,7 @@
 import React from 'react';
 import style from './profile.module.css';
-import ProfileInfo from "./profileInfo/profileInfo";
+import ProfileInfo, {ProfileInfoType} from "./profileInfo/profileInfo";
 import MyPostsContainer from "./my-posts/myPostsContainer";
-
-
-type ObjType = {
-    id: string,
-    message: string,
-    likeCount: string
-}
 
 type propsType = {
     setUserProfile: (profile: any) => void,

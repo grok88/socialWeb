@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {ObjPostType} from "./state";
+import {ProfileInfoType} from "../components/profile/profileInfo/profileInfo";
 
 
 // TS profileReducer
@@ -19,7 +20,7 @@ export type profileReducerType = addPostACType | updateNewPostTextACType | setUs
 export type ProfileReducerInitialStateType = {
     posts: Array<ObjPostType>,
     newPostText: string,
-    profile: null
+    profile: ProfileInfoType | null
 }
 
 let InitialState: ProfileReducerInitialStateType = {
@@ -74,7 +75,7 @@ export const updateNewPostTextAC = (text: string): updateNewPostTextACType => {
         text: text
     }
 }
-export const setUserProfile = (profile: any): setUserProfileType => {
+export const setUserProfile = (profile: ProfileInfoType): setUserProfileType => {
     return {
         type: 'SET-USER-PROFILE',
         profile

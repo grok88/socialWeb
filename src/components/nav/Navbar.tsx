@@ -27,16 +27,16 @@ export const Navbar = (props: PropsType) => {
                 <NavLink to='/news' activeClassName={style.active}>News</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to='music' activeClassName={style.active}>Music</NavLink>
+                <NavLink to='/music' activeClassName={style.active}>Music</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to='settings' activeClassName={style.active}>Settings</NavLink>
+                <NavLink to='/settings' activeClassName={style.active}>Settings</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to='users' activeClassName={style.active}>Users</NavLink>
+                <NavLink to='/users' activeClassName={style.active}>Users</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink exact to='usersTemp' activeClassName={style.active}>UsersTemp</NavLink>
+                <NavLink exact to='/usersTemp' activeClassName={style.active}>UsersTemp</NavLink>
             </div>
             <Friends sidebar={sidebar} addFriends={addFriends} addNameToNewFriends={addNameToNewFriends}
                      addUrlToNewFriends={addUrlToNewFriends}/>
