@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 
 import Header from './components/header/header';
-import Profile from './components/profile/profile';
 import News from './components/news/news';
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
@@ -13,12 +12,13 @@ import {SidebarContainer} from './components/nav/SidebarContainer';
 import UsersContainer from './components/users/UsersContainer';
 import UsersTempContainer from './components/users/UsersTempContainer';
 import ProfileContainer from './components/profile/profileContainer';
+import HeaderContainer from "./components/header/headerContainer";
 
 function App() {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <SidebarContainer/>
                 <div className='app-wrapper-content'>
                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>

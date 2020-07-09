@@ -4,19 +4,19 @@ import {ProfileInfoType} from "../components/profile/profileInfo/profileInfo";
 
 
 // TS profileReducer
-export type addPostACType = {
+export type AddPostACType = {
     type: 'ADD-POST'
 }
-export type updateNewPostTextACType = {
+export type UpdateNewPostTextACType = {
     type: 'UPDATE-NEW-POST-TEXT',
     text: string
 }
-export type setUserProfileType = {
+export type SetUserProfileType = {
     type: 'SET-USER-PROFILE',
     profile: any
 }
 
-export type profileReducerType = addPostACType | updateNewPostTextACType | setUserProfileType;
+export type profileReducerType = AddPostACType | UpdateNewPostTextACType | SetUserProfileType;
 export type ProfileReducerInitialStateType = {
     posts: Array<ObjPostType>,
     newPostText: string,
@@ -32,7 +32,7 @@ let InitialState: ProfileReducerInitialStateType = {
     profile: null
 }
 
-const profileReducer = (state: ProfileReducerInitialStateType = InitialState, action: profileReducerType) => {
+const profileReducer = (state: ProfileReducerInitialStateType = InitialState, action: profileReducerType):ProfileReducerInitialStateType => {
     switch (action.type) {
         // добавление нового поста
         case 'ADD-POST' :
@@ -64,18 +64,18 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
     }
 }
 
-export const addPostAC = (): addPostACType => {
+export const addPostAC = (): AddPostACType => {
     return {
         type: 'ADD-POST'
     }
 }
-export const updateNewPostTextAC = (text: string): updateNewPostTextACType => {
+export const updateNewPostTextAC = (text: string): UpdateNewPostTextACType => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         text: text
     }
 }
-export const setUserProfile = (profile: ProfileInfoType): setUserProfileType => {
+export const setUserProfile = (profile: ProfileInfoType): SetUserProfileType => {
     return {
         type: 'SET-USER-PROFILE',
         profile

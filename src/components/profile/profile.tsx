@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './profile.module.css';
-import ProfileInfo, {ProfileInfoType} from "./profileInfo/profileInfo";
+import ProfileInfo from "./profileInfo/profileInfo";
 import MyPostsContainer from "./my-posts/myPostsContainer";
 
 type propsType = {

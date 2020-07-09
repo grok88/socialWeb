@@ -6,6 +6,7 @@ import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {FriendsType} from "../components/nav/friends/Friends";
 import usersReducer, {UsersReducerInitialStateType} from "./users-reducer";
 import usersTempReducer, {UsersTempReducerInitialStateType} from "./usersTemp-reducer";
+import authReducer, {AuthReducerTypeInitialStateType} from "./auth-reducer";
 
 export type MessagesType = {
     id: string,
@@ -31,7 +32,8 @@ export type StateType = {
         addFriends: FriendsType
     },
     usersPage: UsersReducerInitialStateType,
-    usersPageTemp: UsersTempReducerInitialStateType
+    usersPageTemp: UsersTempReducerInitialStateType,
+    auth: AuthReducerTypeInitialStateType
 }
 
 
@@ -40,11 +42,15 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: navbarReducer,
     usersPage: usersReducer,
-    usersPageTemp: usersTempReducer
+    usersPageTemp: usersTempReducer,
+    auth: authReducer
 });
 
 let store = createStore(reducers);
 
 // export type StateType = ReturnType<typeof reducers>;
+
+// @ts-ignore
+window.store = store;
 
 export default store;

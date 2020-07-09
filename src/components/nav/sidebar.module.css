@@ -21,14 +21,9 @@
     color: blue;
 }
 
-/*.item a:visited {*/
-/*    color: black;*/
-/*}*/
-
 .item a:hover {
     color: red;
 }
-
 .item a:active {
     color: goldenrod;
 }

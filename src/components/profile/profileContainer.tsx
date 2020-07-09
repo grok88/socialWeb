@@ -2,9 +2,9 @@ import React from "react";
 import Profile from "./profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {ProfileReducerInitialStateType, setUserProfile} from "../../redux/profile-reducer";
+import {setUserProfile} from "../../redux/profile-reducer";
 import {StateType} from "../../redux/redux-store";
-import {withRouter, RouteComponentProps} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileInfoType} from "./profileInfo/profileInfo";
 
 // export type ProfileContainerState = {
