@@ -23,7 +23,9 @@ export type UsersAPIComponentPropsType = {
 class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType, any> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{
+            withCredentials:true
+        })
             .then(res => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(res.data.items);
@@ -34,7 +36,9 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType, any>
     changedPage = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials:true
+        })
             .then(res => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(res.data.items);
@@ -102,10 +106,32 @@ const Users = (props: UsersPropsType) => {
                                 </div>
                                 {user.followed
                                     ? <button onClick={() => {
-                                        props.unFollow(user.id)
+                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                                            withCredentials: true,
+                                            headers:{
+                                                "api-key" : "d957613d-94bb-4388-aef0-47e775e83ac5"
+                                            }
+                                        })
+                                            .then(res => {
+                                                if (res.data.resultCode === 0) {
+                                                    props.unFollow(user.id);
+                                                    console.log('unfollow');
+                                                }
+                                            });
                                     }}>unfollow</button>
                                     : <button onClick={() => {
-                                        props.follow(user.id)
+                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
+                                            withCredentials: true,
+                                            headers: {
+                                                "api-key": "d957613d-94bb-4388-aef0-47e775e83ac5"
+                                            }
+                                        })
+                                            .then(res => {
+                                                if (res.data.resultCode === 0) {
+                                                    console.log('follow');
+                                                    props.follow(user.id);
+                                                }
+                                            });
                                     }}>follow</button>}
                             </div>
                             <div>
