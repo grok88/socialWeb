@@ -2,14 +2,31 @@ export type AuthReducerTypeInitialStateType = {
     id: null | number,
     email: null | string,
     login: null | string,
-    isAuth:boolean
+    isAuth: boolean,
+    authUser: AuthUserType | null
+}
+
+ export type AuthUserType = {
+    aboutMe: string,
+    contacts: {
+        [key: string]: string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
 }
 
 let initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth:false
+    isAuth: false,
+    authUser: null
 }
 type SetUserDataACType = {
     type: 'SET-USER-DATA',
@@ -19,8 +36,13 @@ type SetUserDataACType = {
         login: string
     }
 }
+type setAuthUserACType = {
+    type: 'SET-AUTH-USER',
+    authUser: AuthUserType
+}
 
-type AuthReducerType = SetUserDataACType;
+
+type AuthReducerType = SetUserDataACType | setAuthUserACType;
 
 const authReducer = (state: AuthReducerTypeInitialStateType = initialState, action: AuthReducerType): AuthReducerTypeInitialStateType => {
     switch (action.type) {
@@ -28,9 +50,14 @@ const authReducer = (state: AuthReducerTypeInitialStateType = initialState, acti
             return {
                 ...state,
                 ...action.data,
-                isAuth:true
+                isAuth: true
             }
         }
+        case 'SET-AUTH-USER':
+            return {
+                ...state,
+                authUser: action.authUser
+            }
         default:
             return state;
     }
@@ -46,5 +73,11 @@ export const setAuthUserData = (id: number, email: string, login: string): SetUs
             email,
             login
         }
+    }
+}
+export const setAuthUser = (authUser: AuthUserType): setAuthUserACType => {
+    return {
+        type: 'SET-AUTH-USER',
+        authUser
     }
 }
