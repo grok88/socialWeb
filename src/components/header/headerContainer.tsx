@@ -2,8 +2,8 @@ import React from 'react';
 import Header from "./header";
 import axios from "axios";
 import {connect} from "react-redux";
-import {StateType} from "../../redux/redux-store";
 import {AuthUserType, setAuthUser, setAuthUserData} from "../../redux/auth-reducer";
+import {AppRootState} from "../../redux/redux-store";
 
 type mapStateToProps = {
     isAuth: boolean,
@@ -35,13 +35,12 @@ class HeaderContainer extends React.Component<PropsType> {
     }
 
     render() {
-        return (
-            <Header {...this.props} authUser={this.props.authUser}/>
-        );
+        return   <Header {...this.props} authUser={this.props.authUser}/>
+
     }
 }
 
-const mapStateToProps = (state: StateType): mapStateToProps => ({
+const mapStateToProps = (state: AppRootState): mapStateToProps => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
     authUser: state.auth.authUser

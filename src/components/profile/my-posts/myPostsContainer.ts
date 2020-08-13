@@ -2,7 +2,7 @@
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import MyPosts from "./myPosts";
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
+import {AppRootState} from "../../../redux/redux-store";
 
 type ObjType = {
     id: string,
@@ -44,7 +44,7 @@ type PropsType = {
 //     );
 // }
 
-let mapStateToProps = (state:StateType) => {
+let mapStateToProps = (state:AppRootState) => {
     return {
         profilePage : state.profilePage
     }

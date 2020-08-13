@@ -20,21 +20,21 @@ export type ObjPostType = {
     likeCount: string
 }
 
-export type StateType = {
-    profilePage: ProfileReducerInitialStateType,
-    dialogsPage: {
-        dialogs: Array<DialogItemType>,
-        messages: Array<MessagesType>,
-        newMessageText: string
-    },
-    sidebar: {
-        friends: Array<FriendsType>
-        addFriends: FriendsType
-    },
-    usersPage: UsersReducerInitialStateType,
-    usersPageTemp: UsersTempReducerInitialStateType,
-    auth: AuthReducerTypeInitialStateType
-}
+// export type StateType = {
+//     profilePage: ProfileReducerInitialStateType,
+//     dialogsPage: {
+//         dialogs: Array<DialogItemType>,
+//         messages: Array<MessagesType>,
+//         newMessageText: string
+//     },
+//     sidebar: {
+//         friends: Array<FriendsType>
+//         addFriends: FriendsType
+//     },
+//     usersPage: UsersReducerInitialStateType,
+//     usersPageTemp: UsersTempReducerInitialStateType,
+//     auth: AuthReducerTypeInitialStateType
+// }
 
 
 let reducers = combineReducers({
@@ -48,7 +48,7 @@ let reducers = combineReducers({
 
 let store = createStore(reducers);
 
-// export type StateType = ReturnType<typeof reducers>;
+ export type AppRootState = ReturnType<typeof reducers>;
 
 // @ts-ignore
 window.store = store;

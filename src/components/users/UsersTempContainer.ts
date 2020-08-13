@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
-import {StateType} from "../../redux/redux-store";
+import {AppRootState} from "../../redux/redux-store";
 import UsersTemp from "./UsersTemp";
 import {setStatusAC, setUsersAC, setUsersCurrentPageAC, usersTempReducerType} from "../../redux/usersTemp-reducer";
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppRootState) => {
     return {
         usersTemp: state.usersPageTemp.usersTemp,
         status: state.usersPageTemp.status,

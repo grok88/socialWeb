@@ -3,7 +3,7 @@ import Profile from "./profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profile-reducer";
-import {StateType} from "../../redux/redux-store";
+import {AppRootState} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileInfoType} from "./profileInfo/profileInfo";
 
@@ -49,7 +49,7 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
-const mapStateToProps = (state: StateType): MapStatePropsType => ({
+const mapStateToProps = (state: AppRootState): MapStatePropsType => ({
     profile: state.profilePage.profile
 });
 

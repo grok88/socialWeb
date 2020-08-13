@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import UsersAPIComponent from "./UsersClass";
-import {StateType} from "../../redux/redux-store";
+import {AppRootState} from "../../redux/redux-store";
 import {
     follow,
     setCurrentPage,
@@ -10,7 +10,7 @@ import {
     unFollow
 } from "../../redux/users-reducer";
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: AppRootState) => {
     return {
         usersPage: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
