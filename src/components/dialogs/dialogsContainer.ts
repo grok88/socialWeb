@@ -1,14 +1,23 @@
-import {addMessAC, changeNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {addMessAC, changeNewMessageTextAC, DialogsReducerInitialStateType} from "../../redux/dialogs-reducer";
 import Dialogs from "./dialogs";
 import {connect} from "react-redux";
 import {AppRootState} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
-let mapStateToProps = (state: AppRootState) => {
+type MapStateToPropsType = {
+    dialogsPage: DialogsReducerInitialStateType
+}
+type MapDispatchToPropsType = {
+    addMess: () => void;
+    changeNewMessage: (text: string) => void;
+}
+
+let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
 }
-let mapDispatchToProps = (dispatch: any) => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addMess: () => {
             dispatch(addMessAC());
@@ -19,6 +28,6 @@ let mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;

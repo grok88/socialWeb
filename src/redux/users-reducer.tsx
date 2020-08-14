@@ -1,24 +1,24 @@
 export type UserType = {
-    id: string,
-    userUrl: string,
+    id: string;
+    userUrl: string;
     photos: {
-        small: string | null,
-        large: string | null
+        small: string | null;
+        large: string | null;
     }
-    followed: boolean,
-    name: string,
-    status: string,
+    followed: boolean;
+    name: string;
+    status: string;
     location: {
-        country: string,
-        city: string
+        country: string;
+        city: string;
     }
 }
 export type UsersReducerInitialStateType = {
-    users: Array<UserType>,
-    pageSize: number,
-    totalUsersCount: number,
-    currentPage: number,
-    isFetching: boolean
+    users: Array<UserType>;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    isFetching: boolean;
 }
 export type FollowACType = { type: 'FOLLOW', userId: string }
 export type UnFollowACType = { type: 'UNFOLLOW', userId: string }

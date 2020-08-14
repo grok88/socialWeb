@@ -36,13 +36,13 @@ type SetUserDataACType = {
         login: string
     }
 }
-type setAuthUserACType = {
+type SetAuthUserACType = {
     type: 'SET-AUTH-USER',
     authUser: AuthUserType
 }
 
 
-type AuthReducerType = SetUserDataACType | setAuthUserACType;
+type AuthReducerType = SetUserDataACType | SetAuthUserACType;
 
 const authReducer = (state: AuthReducerTypeInitialStateType = initialState, action: AuthReducerType): AuthReducerTypeInitialStateType => {
     switch (action.type) {
@@ -75,7 +75,7 @@ export const setAuthUserData = (id: number, email: string, login: string): SetUs
         }
     }
 }
-export const setAuthUser = (authUser: AuthUserType): setAuthUserACType => {
+export const setAuthUser = (authUser: AuthUserType): SetAuthUserACType => {
     return {
         type: 'SET-AUTH-USER',
         authUser

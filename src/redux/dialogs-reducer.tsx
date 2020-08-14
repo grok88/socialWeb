@@ -12,7 +12,7 @@ export type changeNewMessageTextACType = {
     text: string
 }
 export type dialogsReducerAC = addMessACType | changeNewMessageTextACType;
-type initialStateType = {
+export type DialogsReducerInitialStateType = {
     dialogs: Array<DialogItemType>,
     messages: Array<MessagesType>,
     newMessageText: string
@@ -59,7 +59,7 @@ let initialState = {
     newMessageText: ''
 }
 
-const dialogsReducer = (state: initialStateType = initialState, action: dialogsReducerAC) => {
+const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC) => {
 
     switch (action.type) {
         // Добавление сообщения в state

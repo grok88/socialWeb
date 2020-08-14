@@ -1,6 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, RefObject} from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
+import {ProfileInfoType} from "../profileInfo/profileInfo";
+import {ObjPostType} from "../../../redux/redux-store";
 
 type ObjType = {
     id: string,
@@ -9,10 +11,10 @@ type ObjType = {
 }
 type PropsType = {
     profilePage: {
-        posts: Array<ObjType>,
+        posts: Array<ObjPostType>,
         newPostText: string,
+        profile: ProfileInfoType | null
     },
-    // dispatch: (action: any) => void,
     addPost: () => void,
     changeNewPostText: (text: string) => void
 }
@@ -27,10 +29,7 @@ const MyPosts = (props: PropsType) => {
         let value = newPostElement.current;
 
         if (value && value.value.trim()) {
-            // let text = value.value.trim();
             addPost();
-            // dispatch(addPostActionCreator());
-            // changeNewPostText('');
         }
     }
     // Добавление сообщения через пробел
@@ -42,7 +41,6 @@ const MyPosts = (props: PropsType) => {
     const newPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let value = e.currentTarget && e.currentTarget.value;
         changeNewPostText(value);
-        //dispatch(updateNewPostTextActionCreator(value));
     }
 
     return (
@@ -62,8 +60,9 @@ const MyPosts = (props: PropsType) => {
             </div>
             <div className={style.posts}>
                 {
-                    props.profilePage.posts.map(({id, message, likeCount}) => <Post message={message} likeCount={likeCount}
-                                                                              key={id}/>)
+                    props.profilePage.posts.map(({id, message, likeCount}) => <Post message={message}
+                                                                                    likeCount={likeCount}
+                                                                                    key={id}/>)
                 }
             </div>
         </div>

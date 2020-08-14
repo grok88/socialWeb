@@ -1,6 +1,5 @@
 import React from "react";
 import {UserType} from "../../redux/users-reducer";
-import axios from 'axios'
 import userPhoto from '../../assets/images/green.png'
 import style from './UsersClass.module.css'
 import Preloader from "../../assets/preloader/Preloader";
@@ -8,7 +7,7 @@ import {NavLink} from "react-router-dom";
 import {userApi} from "../../api/api";
 
 export type UsersAPIComponentPropsType = {
-    usersPage: Array<UserType>,
+    users: Array<UserType>,
     follow: (userId: string) => void,
     unFollow: (userId: string) => void,
     setUsers: (users: Array<UserType>) => void,
@@ -21,7 +20,7 @@ export type UsersAPIComponentPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType, any> {
+class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         userApi.getUsers(this.props.currentPage, this.props.pageSize)
@@ -51,7 +50,7 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType, any>
                          follow={this.props.follow}
                          unFollow={this.props.unFollow}
                          pageSize={this.props.pageSize}
-                         usersPage={this.props.usersPage}
+                         usersPage={this.props.users}
                          totalUsersCount={this.props.totalUsersCount}
                 />}
         </>

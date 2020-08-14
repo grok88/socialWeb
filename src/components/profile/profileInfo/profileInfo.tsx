@@ -33,7 +33,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     alt="main-fon"/>
             </div>
             <div className={style.description}>
-                <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user photo"/>
+                <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator" width={100}/>
                 <div>
                     <p>Name : {profile.fullName}</p>
                     <p>Description : {profile.aboutMe}</p>

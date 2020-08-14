@@ -7,12 +7,23 @@ import {
     setUsers,
     setUsersTotalCount,
     toggleIsFetching,
-    unFollow
+    unFollow,
+    UsersReducerInitialStateType, UserType
 } from "../../redux/users-reducer";
 
-let mapStateToProps = (state: AppRootState) => {
+type MapStateToPropsType = UsersReducerInitialStateType;
+type MapDispatchToPropsType = {
+    follow: (userId: string) => void;
+    unFollow: (userId: string) => void;
+    setUsers: (users: Array<UserType>) => void;
+    setCurrentPage: (currentPage: number) => void;
+    setUsersTotalCount: (totalCount: number) => void;
+    toggleIsFetching: (isFetching: boolean) => void;
+}
+
+let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
-        usersPage: state.usersPage.users,
+        users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
@@ -42,7 +53,7 @@ let mapStateToProps = (state: AppRootState) => {
 //     }
 // }
 
-export default connect(mapStateToProps, {
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
     follow,
     unFollow,
     setUsers,
