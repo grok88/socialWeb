@@ -7,17 +7,19 @@ import {NavLink} from "react-router-dom";
 import {userApi} from "../../api/api";
 
 export type UsersAPIComponentPropsType = {
-    users: Array<UserType>,
-    follow: (userId: string) => void,
-    unFollow: (userId: string) => void,
-    setUsers: (users: Array<UserType>) => void,
-    pageSize: number,
-    totalUsersCount: number,
-    currentPage: number,
-    setCurrentPage: (currentPage: number) => void,
-    setUsersTotalCount: (totalCount: number) => void,
-    isFetching: boolean,
-    toggleIsFetching: (isFetching: boolean) => void
+    users: Array<UserType>;
+    follow: (userId: string) => void;
+    unFollow: (userId: string) => void;
+    setUsers: (users: Array<UserType>) => void;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    setCurrentPage: (currentPage: number) => void;
+    setUsersTotalCount: (totalCount: number) => void;
+    isFetching: boolean;
+    toggleIsFetching: (isFetching: boolean) => void;
+    followingInProgress: Array<string>;
+    toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
 }
 
 class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
@@ -52,6 +54,8 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
                          pageSize={this.props.pageSize}
                          usersPage={this.props.users}
                          totalUsersCount={this.props.totalUsersCount}
+                         followingInProgress={this.props.followingInProgress}
+                         toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                 />}
         </>
     }
@@ -60,13 +64,15 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
 export default UsersAPIComponent;
 
 export type UsersPropsType = {
-    usersPage: Array<UserType>,
-    follow: (userId: string) => void,
-    unFollow: (userId: string) => void,
-    pageSize: number,
-    totalUsersCount: number,
-    currentPage: number,
-    changedPage: (pageNumber: number) => void
+    usersPage: Array<UserType>;
+    follow: (userId: string) => void;
+    unFollow: (userId: string) => void;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    changedPage: (pageNumber: number) => void;
+    followingInProgress: Array<string>;
+    toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
 }
 
 const Users = (props: UsersPropsType) => {
@@ -90,6 +96,31 @@ const Users = (props: UsersPropsType) => {
             </div>
             {
                 props.usersPage.map(user => {
+                    const unFollowHandler = () => {
+                        console.log(props.followingInProgress)
+                        props.toggleFollowingInProgress(true, user.id);
+                        userApi.unFollow(user.id)
+                            .then(data => {
+                                console.log(props.followingInProgress)
+                                props.toggleFollowingInProgress(false, user.id);
+                                if (data.resultCode === 0) {
+                                    props.unFollow(user.id);
+                                }
+                            });
+                    }
+                    const followHandler = () => {
+                        console.log(props.followingInProgress)
+                        props.toggleFollowingInProgress(true, user.id);
+                        userApi.follow(user.id)
+                            .then(data => {
+                                console.log(props.followingInProgress)
+                                props.toggleFollowingInProgress(false, user.id);
+                                if (data.resultCode === 0) {
+                                    console.log('follow');
+                                    props.follow(user.id);
+                                }
+                            });
+                    }
                     return (
                         <div key={user.id}>
                             <div>
@@ -101,23 +132,10 @@ const Users = (props: UsersPropsType) => {
 
                                 </div>
                                 {user.followed
-                                    ? <button onClick={() => {
-                                        userApi.unFollow(user.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.unFollow(user.id);
-                                                }
-                                            });
-                                    }}>unfollow</button>
-                                    : <button onClick={() => {
-                                        userApi.follow(user.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    console.log('follow');
-                                                    props.follow(user.id);
-                                                }
-                                            });
-                                    }}>follow</button>}
+                                    ? <button onClick={unFollowHandler}
+                                              disabled={props.followingInProgress.some(id => id === user.id)}>unfollow</button>
+                                    : <button onClick={followHandler}
+                                              disabled={props.followingInProgress.some(id => id === user.id)}>follow</button>}
                             </div>
                             <div>
                                 <div>
