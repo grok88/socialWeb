@@ -4,13 +4,12 @@ import ProfileInfo from "./profileInfo/profileInfo";
 import MyPostsContainer from "./my-posts/myPostsContainer";
 
 type propsType = {
-    setUserProfile: (profile: any) => void,
-    profile: any
+    setUserProfile: (profile: any) => void;
+    profile: any;
 }
 
 // FC<ProfileContainerProps>
 const Profile = (props: propsType) => {
-    console.log(props)
     return (
         <section className={style.content}>
             <ProfileInfo profile={props.profile}/>

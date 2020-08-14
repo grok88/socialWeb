@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {userApi} from "../api/api";
 import {AppRootState} from "./redux-store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
@@ -188,7 +187,7 @@ export const follow = (userId: string): ThunkType => {
 export const unfollow = (userId: string): ThunkType => {
     return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         dispatch(toggleFollowingInProgress(true, userId));
-        userApi.follow(userId)
+        userApi.unFollow(userId)
             .then(data => {
                 dispatch(toggleFollowingInProgress(false, userId));
                 if (data.resultCode === 0) {

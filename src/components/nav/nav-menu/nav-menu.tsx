@@ -23,9 +23,6 @@ const NavMenu = () => {
             <div className={style.item}>
                 <NavLink to='/users' activeClassName={style.active}>Users</NavLink>
             </div>
-            <div className={style.item}>
-                <NavLink to='/temp' activeClassName={style.active}>Temp</NavLink>
-            </div>
         </>
     );
 }

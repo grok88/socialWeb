@@ -20,5 +20,11 @@ export const userApi = {
     unFollow(id: string) {
         return instance.delete(`follow/${id}`)
             .then(response => response.data);
+    },
+    authMe(){
+        return instance.get('auth/me')
+    },
+    getUserProfileById(id:string){
+      return instance.get(`profile/${id}`)
     }
 }

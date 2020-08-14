@@ -1,3 +1,8 @@
+import {SWActionType, ThunkType} from "./users-reducer";
+import {userApi} from "../api/api";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootState} from "./redux-store";
+
 export type AuthReducerTypeInitialStateType = {
     id: null | number,
     email: null | string,
@@ -6,7 +11,7 @@ export type AuthReducerTypeInitialStateType = {
     authUser: AuthUserType | null
 }
 
- export type AuthUserType = {
+export type AuthUserType = {
     aboutMe: string,
     contacts: {
         [key: string]: string
@@ -79,5 +84,22 @@ export const setAuthUser = (authUser: AuthUserType): SetAuthUserACType => {
     return {
         type: 'SET-AUTH-USER',
         authUser
+    }
+}
+
+export const authMe = (): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        userApi.authMe()
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    let {id, email, login} = res.data.data;
+                    dispatch(setAuthUserData(id, email, login));
+                    userApi.getUserProfileById(id)
+                        .then(res => {
+                                dispatch(setAuthUser(res.data));
+                            }
+                        )
+                }
+            });
     }
 }

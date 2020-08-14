@@ -1,10 +1,9 @@
 import React from "react";
-import {followSuccess, unFollowSuccess, UserType} from "../../redux/users-reducer";
+import {UserType} from "../../redux/users-reducer";
 import userPhoto from '../../assets/images/green.png'
 import style from './UsersClass.module.css'
 import Preloader from "../../assets/preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {userApi} from "../../api/api";
 
 export type UsersAPIComponentPropsType = {
     users: Array<UserType>;
@@ -19,7 +18,7 @@ export type UsersAPIComponentPropsType = {
     isFetching: boolean;
     // toggleIsFetching: (isFetching: boolean) => void;
     followingInProgress: Array<string>;
-    toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
+    // toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
     getUsers: (currentPage: number, pageSize: number) => void;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
@@ -46,7 +45,6 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
                          usersPage={this.props.users}
                          totalUsersCount={this.props.totalUsersCount}
                          followingInProgress={this.props.followingInProgress}
-                         toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                          follow={this.props.follow}
                          unfollow={this.props.unfollow}
                 />}
@@ -65,7 +63,7 @@ export type UsersPropsType = {
     currentPage: number;
     changedPage: (pageNumber: number) => void;
     followingInProgress: Array<string>;
-    toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
+    // toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
 }
