@@ -1,20 +1,21 @@
 import React from "react";
 import style from './Friend.module.css';
+import userImg from '../../../../assets/images/user.png';
+import {UserType} from "../../../../redux/users-reducer";
 
 type PropsType = {
-    url: string,
-    name: string,
-    id: string
+    user: UserType;
 }
 
 const Friend = (props: PropsType) => {
-    const {url, name} = props;
+    const {user: {photos, name, status}} = props;
     return (
         <div className={style.friend}>
             <img
-                src={url}
+                src={photos.small ? photos.small : userImg}
                 alt={`friend_${name}`} width={50} height={50}/>
             <p>{name}</p>
+            <p>{status ? status : 'no status'}</p>
         </div>
     );
 }

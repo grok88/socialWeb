@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
-import {MessagesType} from "./state";
+import { MessagesType } from "./redux-store";
+
 
 // TS dialogsReducer
 export type addMessACType = {

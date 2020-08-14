@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {ObjPostType} from "./state";
 import {ProfileInfoType} from "../components/profile/profileInfo/profileInfo";
+import { ObjPostType } from "./redux-store";
 
 
 // TS profileReducer

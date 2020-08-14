@@ -1,12 +1,10 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {ProfileReducerInitialStateType} from "./profile-reducer";
+import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
-import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
-import {FriendsType} from "../components/nav/friends/Friends";
-import usersReducer, {UsersReducerInitialStateType} from "./users-reducer";
-import usersTempReducer, {UsersTempReducerInitialStateType} from "./usersTemp-reducer";
-import authReducer, {AuthReducerTypeInitialStateType} from "./auth-reducer";
+import usersReducer from "./users-reducer";
+import usersTempReducer from "./usersTemp-reducer";
+import authReducer from "./auth-reducer";
 
 export type MessagesType = {
     id: string,
