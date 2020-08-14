@@ -2,25 +2,29 @@ import {connect} from "react-redux";
 import UsersAPIComponent from "./UsersClass";
 import {AppRootState} from "../../redux/redux-store";
 import {
-    follow,
+    followSuccess,
+    getUsers,
     setCurrentPage,
-    setUsers,
     setUsersTotalCount,
-    toggleIsFetching,
-    unFollow,
     toggleFollowingInProgress,
-    UsersReducerInitialStateType, UserType
+    unFollowSuccess,
+    follow,
+    unfollow,
+    UsersReducerInitialStateType
 } from "../../redux/users-reducer";
 
 type MapStateToPropsType = UsersReducerInitialStateType;
 type MapDispatchToPropsType = {
-    follow: (userId: string) => void;
-    unFollow: (userId: string) => void;
-    setUsers: (users: Array<UserType>) => void;
+    followSuccess: (userId: string) => void;
+    unFollowSuccess: (userId: string) => void;
+    // setUsers: (users: Array<UserType>) => void;
     setCurrentPage: (currentPage: number) => void;
     setUsersTotalCount: (totalCount: number) => void;
-    toggleIsFetching: (isFetching: boolean) => void;
+    // toggleIsFetching: (isFetching: boolean) => void;
     toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
+    getUsers: (currentPage: number, pageSize: number) => void;
+    follow: (userId: string) => void;
+    unfollow: (userId: string) => void;
 }
 
 let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
@@ -57,11 +61,12 @@ let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 // }
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
-    follow,
-    unFollow,
-    setUsers,
+    followSuccess,
+    unFollowSuccess,
     setCurrentPage,
     setUsersTotalCount,
-    toggleIsFetching,
-    toggleFollowingInProgress
+    toggleFollowingInProgress,
+    getUsers,
+    follow,
+    unfollow
 })(UsersAPIComponent);

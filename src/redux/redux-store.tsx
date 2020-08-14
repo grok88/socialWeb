@@ -1,10 +1,13 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 import usersReducer from "./users-reducer";
 import usersTempReducer from "./usersTemp-reducer";
 import authReducer from "./auth-reducer";
+
+// import thunk as thunkMiddleware from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk'
 
 export type MessagesType = {
     id: string,
@@ -44,7 +47,7 @@ let reducers = combineReducers({
     auth: authReducer
 });
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
  export type AppRootState = ReturnType<typeof reducers>;
 

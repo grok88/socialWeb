@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import usersReducer, {follow, UsersReducerInitialStateType, unFollow, setUsers, UserType} from "./users-reducer";
+import usersReducer, {followSuccess, UsersReducerInitialStateType, unFollowSuccess, setUsers, UserType} from "./users-reducer";
 
 let startState : UsersReducerInitialStateType;
 beforeEach(() => {
@@ -39,7 +39,7 @@ beforeEach(() => {
 test('Status unfollow should be changed to follow', () => {
 
     const id = '1';
-    const endState = usersReducer(startState, follow(id));
+    const endState = usersReducer(startState, followSuccess(id));
 
     expect(endState.users[1]).toEqual(endState.users[1]);
     expect(endState.users[0].followed).toBe(true);
@@ -48,7 +48,7 @@ test('Status unfollow should be changed to follow', () => {
 test('Status follow should be changed to unfollow', () => {
 
     const id = '2';
-    const endState = usersReducer(startState, unFollow(id));
+    const endState = usersReducer(startState, unFollowSuccess(id));
 
     expect(endState.users[0]).toEqual(endState.users[0]);
     expect(endState.users[1].followed).toBe(false);

@@ -1,3 +1,13 @@
+import {Dispatch} from "redux";
+import {userApi} from "../api/api";
+import {AppRootState} from "./redux-store";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AuthReducerType} from "./auth-reducer";
+import {dialogsReducerAC} from "./dialogs-reducer";
+import {NavbarReducerAC} from "./navbar-reducer";
+import {profileReducerType} from "./profile-reducer";
+
+
 export type UserType = {
     id: string;
     userUrl: string;
@@ -38,6 +48,8 @@ export type UsersReducerAC =
     | SetUsersACType
     | SetCurrentPageACType
     | SetUsersTotalCountACType | ToggleIsFetchingACType | toggleFollowingInProgressACType;
+
+export type SWActionType = AuthReducerType | dialogsReducerAC | NavbarReducerAC | profileReducerType | UsersReducerAC;
 
 let initialState: UsersReducerInitialStateType = {
     users: [],
@@ -93,22 +105,22 @@ const usersReducer = (state: UsersReducerInitialStateType = initialState, action
         case 'TOGGLE-FOLLOWING-IN-PROGRESS':
             return {
                 ...state,
-                followingInProgress : action.isFetching
-                    ? [ ...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id !==action.userId)
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
             }
         default :
             return state
     }
 }
 
-export const follow = (userId: string): FollowACType => {
+export const followSuccess = (userId: string): FollowACType => {
     return {
         type: 'FOLLOW',
         userId
     }
 }
-export const unFollow = (userId: string): UnFollowACType => {
+export const unFollowSuccess = (userId: string): UnFollowACType => {
     return {
         type: 'UNFOLLOW',
         userId
@@ -143,6 +155,46 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: string): 
         type: 'TOGGLE-FOLLOWING-IN-PROGRESS',
         isFetching,
         userId
+    }
+}
+
+export type ThunkType = ThunkAction<void, AppRootState, unknown, SWActionType>;
+
+
+export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        dispatch(toggleIsFetching(true));
+        userApi.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setUsersTotalCount(data.totalCount));
+            });
+    }
+}
+
+export const follow = (userId: string): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        userApi.follow(userId)
+            .then(data => {
+                dispatch(toggleFollowingInProgress(false, userId));
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userId));
+                }
+            });
+    }
+}
+export const unfollow = (userId: string): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        dispatch(toggleFollowingInProgress(true, userId));
+        userApi.follow(userId)
+            .then(data => {
+                dispatch(toggleFollowingInProgress(false, userId));
+                if (data.resultCode === 0) {
+                    dispatch(unFollowSuccess(userId));
+                }
+            });
     }
 }
 

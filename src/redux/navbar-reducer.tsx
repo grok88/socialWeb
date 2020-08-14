@@ -29,9 +29,9 @@ type setUsersFriendsACType = {
     users: Array<UserType>;
 }
 
-type ActionType = setStatusFriendsACType | setUsersFriendsACType;
+export type NavbarReducerAC = setStatusFriendsACType | setUsersFriendsACType;
 
-const navbarReducer = (state: NavbarReducerInitialState = initialState, action: ActionType):NavbarReducerInitialState => {
+const navbarReducer = (state: NavbarReducerInitialState = initialState, action: NavbarReducerAC):NavbarReducerInitialState => {
 
     switch (action.type) {
         case SET_STATUS :

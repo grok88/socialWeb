@@ -42,7 +42,7 @@ type SetAuthUserACType = {
 }
 
 
-type AuthReducerType = SetUserDataACType | SetAuthUserACType;
+export type AuthReducerType = SetUserDataACType | SetAuthUserACType;
 
 const authReducer = (state: AuthReducerTypeInitialStateType = initialState, action: AuthReducerType): AuthReducerTypeInitialStateType => {
     switch (action.type) {
