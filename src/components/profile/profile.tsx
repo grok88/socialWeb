@@ -4,7 +4,7 @@ import ProfileInfo from "./profileInfo/profileInfo";
 import MyPostsContainer from "./my-posts/myPostsContainer";
 
 type propsType = {
-    setUserProfile: (profile: any) => void;
+    getUserProfile: (userId:string) => void,
     profile: any;
 }
 

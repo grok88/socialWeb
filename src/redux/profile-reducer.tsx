@@ -1,6 +1,9 @@
 import {v1} from "uuid";
 import {ProfileInfoType} from "../components/profile/profileInfo/profileInfo";
-import { ObjPostType } from "./redux-store";
+import {AppRootState, ObjPostType} from "./redux-store";
+import {SWActionType, ThunkType} from "./users-reducer";
+import {ThunkDispatch} from "redux-thunk";
+import {userApi} from "../api/api";
 
 
 // TS profileReducer
@@ -81,5 +84,10 @@ export const setUserProfile = (profile: ProfileInfoType): SetUserProfileType => 
         profile
     }
 }
-
+export const getUserProfile = (userId:string):ThunkType => (dispatch:ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+    userApi.getUserProfileById(userId)
+        .then(res => {
+            dispatch(setUserProfile(res.data));
+        });
+}
 export default profileReducer;

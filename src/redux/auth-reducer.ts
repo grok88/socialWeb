@@ -1,5 +1,5 @@
 import {SWActionType, ThunkType} from "./users-reducer";
-import {userApi} from "../api/api";
+import {authApi, userApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
 
@@ -89,7 +89,7 @@ export const setAuthUser = (authUser: AuthUserType): SetAuthUserACType => {
 
 export const authMe = (): ThunkType => {
     return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        userApi.authMe()
+        authApi.authMe()
             .then(res => {
                 if (res.data.resultCode === 0) {
                     let {id, email, login} = res.data.data;

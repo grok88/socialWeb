@@ -5,7 +5,8 @@ import {AppRootState} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 
 type MapStateToPropsType = {
-    dialogsPage: DialogsReducerInitialStateType
+    dialogsPage: DialogsReducerInitialStateType;
+    isAuth:boolean;
 }
 type MapDispatchToPropsType = {
     addMess: () => void;
@@ -14,7 +15,8 @@ type MapDispatchToPropsType = {
 
 let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth:state.auth.isAuth
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

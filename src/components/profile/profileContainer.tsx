@@ -1,10 +1,9 @@
 import React from "react";
 import Profile from "./profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile} from "../../redux/profile-reducer";
 import {AppRootState} from "../../redux/redux-store";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 import {ProfileInfoType} from "./profileInfo/profileInfo";
 import {userApi} from "../../api/api";
 
@@ -18,13 +17,14 @@ import {userApi} from "../../api/api";
 // }
 
 type PathParamsType = {
-    userId: string,
+    userId: string;
 }
 type MapStatePropsType = {
-    profile: ProfileInfoType | null
+    profile: ProfileInfoType | null;
+    isAuth:boolean;
 }
 type MapDispatchToProps = {
-    setUserProfile: (profile: ProfileInfoType) => void,
+    getUserProfile: (userId:string) => void;
 }
 type OwnPropsType = MapStatePropsType & MapDispatchToProps;
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
@@ -37,13 +37,13 @@ class ProfileContainer extends React.Component<PropsType> {
         if (!userId) {
             userId = '2';
         }
-        userApi.getUserProfileById(userId)
-            .then(res => {
-                this.props.setUserProfile(res.data);
-            });
+        this.props.getUserProfile(userId);
     }
 
     render() {
+        if(!this.props.isAuth){
+            return <Redirect to={'/login'}/>
+        }
         return (
             <Profile  {...this.props} profile={this.props.profile}/>
         );
@@ -51,9 +51,10 @@ class ProfileContainer extends React.Component<PropsType> {
 }
 
 const mapStateToProps = (state: AppRootState): MapStatePropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth:state.auth.isAuth
 });
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect<MapStatePropsType, MapDispatchToProps, {}, AppRootState>(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+export default connect<MapStatePropsType, MapDispatchToProps, {}, AppRootState>(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);

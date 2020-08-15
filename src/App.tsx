@@ -10,6 +10,7 @@ import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/profileContainer';
 import HeaderContainer from "./components/header/headerContainer";
 import {Navbar} from "./components/nav/Navbar";
+import {Login} from "./components/login/Login";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path={'/news'} component={News}/>
                     <Route path={'/settings'} component={Settings}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
                 </div>
             </div>
         </BrowserRouter>

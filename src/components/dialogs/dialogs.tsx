@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {DialogItem, DialogItemType} from "./dialogItem/dialogItem";
 import {Message} from "./message/message";
 import style from "./dialogs.module.css";
+import { Redirect } from 'react-router-dom';
 
 export type MessagesType = {
     id: string,
@@ -13,14 +14,18 @@ type propsType = {
         dialogs: Array<DialogItemType>,
         messages: Array<MessagesType>,
         newMessageText: string
-    },
-    addMess: () => void,
-    changeNewMessage: (text: string) => void
+    };
+    addMess: () => void;
+    changeNewMessage: (text: string) => void;
+    isAuth:boolean;
 }
 
 const Dialogs = (props: propsType) => {
     const {addMess, changeNewMessage, dialogsPage} = props;
 
+    if(!props.isAuth){
+        return <Redirect to={'/login'}/>
+    }
     // Добавление сообщения в state
     const addMessText = () => {
         addMess();
