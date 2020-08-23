@@ -152,8 +152,8 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingACType =>
 export const toggleFollowingInProgress = (isFetching: boolean, userId: string): toggleFollowingInProgressACType => {
     return {
         type: 'TOGGLE-FOLLOWING-IN-PROGRESS',
-        isFetching,
-        userId
+            isFetching,
+            userId
     }
 }
 

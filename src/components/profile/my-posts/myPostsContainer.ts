@@ -19,6 +19,8 @@ type MapDispatchToPropsType = {
     changeNewPostText: (text: string) => void;
 }
 
+
+
 let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
         profilePage: state.profilePage

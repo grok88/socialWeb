@@ -12,6 +12,7 @@ import {
     unfollow,
     UsersReducerInitialStateType
 } from "../../redux/users-reducer";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 type MapStateToPropsType = UsersReducerInitialStateType;
 type MapDispatchToPropsType = {
@@ -60,7 +61,7 @@ let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 //     }
 // }
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
+export default  withAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
     followSuccess,
     unFollowSuccess,
     setCurrentPage,
@@ -69,4 +70,4 @@ export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootS
     getUsers,
     follow,
     unfollow
-})(UsersAPIComponent);
+})(UsersAPIComponent));
