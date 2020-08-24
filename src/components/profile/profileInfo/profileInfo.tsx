@@ -2,6 +2,7 @@ import React from 'react';
 import style from './profileInfo.module.css';
 import Preloader from "../../../assets/preloader/Preloader";
 import userPhoto from '../../../assets/images/green.png'
+import {ProfileStatus} from './profilestatus/ProfileStatus';
 
 export type ProfileInfoType = {
     profile: {
@@ -32,9 +33,13 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     src="https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg"
                     alt="main-fon"/>
             </div>
+
             <div className={style.description}>
-                <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"
-                     width={100}/>
+                <div>
+                    <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"
+                         width={100}/>
+                </div>
+                <ProfileStatus status={'I am a boss!!!'}/>
                 <div>
                     <p>Name : {profile.fullName}</p>
                     <p>Description : {profile.aboutMe}</p>
