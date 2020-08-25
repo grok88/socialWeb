@@ -3,7 +3,7 @@ import {ProfileInfoType} from "../components/profile/profileInfo/profileInfo";
 import {AppRootState, ObjPostType} from "./redux-store";
 import {SWActionType, ThunkType} from "./users-reducer";
 import {ThunkDispatch} from "redux-thunk";
-import {userApi} from "../api/api";
+import {userApi, profileApi} from "../api/api";
 
 
 // TS profileReducer
@@ -18,12 +18,17 @@ export type SetUserProfileType = {
     type: 'SET-USER-PROFILE',
     profile: any
 }
+export type SetUserStatusType = {
+    type: 'SET-USER-STATUS',
+    status: string
+}
 
-export type profileReducerType = AddPostACType | UpdateNewPostTextACType | SetUserProfileType;
+export type profileReducerType = AddPostACType | UpdateNewPostTextACType | SetUserProfileType | SetUserStatusType;
 export type ProfileReducerInitialStateType = {
     posts: Array<ObjPostType>,
     newPostText: string,
-    profile: ProfileInfoType | null
+    profile: ProfileInfoType | null;
+    status: string;
 }
 
 let InitialState: ProfileReducerInitialStateType = {
@@ -32,10 +37,11 @@ let InitialState: ProfileReducerInitialStateType = {
         {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: ''
 }
 
-const profileReducer = (state: ProfileReducerInitialStateType = InitialState, action: profileReducerType):ProfileReducerInitialStateType => {
+const profileReducer = (state: ProfileReducerInitialStateType = InitialState, action: profileReducerType): ProfileReducerInitialStateType => {
     switch (action.type) {
         // добавление нового поста
         case 'ADD-POST' :
@@ -62,6 +68,11 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
                 ...state,
                 profile: action.profile
             }
+        case 'SET-USER-STATUS':
+            return {
+                ...state,
+                status: action.status
+            }
         default :
             return state;
     }
@@ -84,10 +95,38 @@ export const setUserProfile = (profile: ProfileInfoType): SetUserProfileType => 
         profile
     }
 }
-export const getUserProfile = (userId:string):ThunkType => (dispatch:ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+export const setUserStatus = (status: string): SetUserStatusType => {
+    return {
+        type: 'SET-USER-STATUS',
+        status
+    }
+}
+
+//thunk
+export const getUserProfile = (userId: string): ThunkType => (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
     userApi.getUserProfileById(userId)
         .then(res => {
             dispatch(setUserProfile(res.data));
         });
 }
+
+export const getUserStatus = (userID: string): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        profileApi.getStatus(userID)
+            .then(resp => {
+                dispatch(setUserStatus(resp.data));
+            })
+    }
+}
+export const updateUserStatus = (status: string): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        profileApi.updateStatus(status)
+            .then(resp => {
+                if(resp.data.resultCode === 0){
+                    dispatch(setUserStatus(resp.data));
+                }
+            })
+    }
+}
+
 export default profileReducer;

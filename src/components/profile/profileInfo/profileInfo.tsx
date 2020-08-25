@@ -18,14 +18,15 @@ export type ProfileInfoType = {
             small: string,
             large: string
         }
-    }
+    },
+    status: string;
+    updateUserStatus: (status: string) => void;
 }
 const ProfileInfo = (props: ProfileInfoType) => {
     const {profile} = props;
     if (!profile) {
         return <Preloader/>
     }
-
     return (
         <div className={style.profileInfo}>
             <div>
@@ -39,7 +40,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"
                          width={100}/>
                 </div>
-                <ProfileStatus status={'I am a boss!!!'}/>
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
                 <div>
                     <p>Name : {profile.fullName}</p>
                     <p>Description : {profile.aboutMe}</p>
