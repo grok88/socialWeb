@@ -27,10 +27,20 @@ export class ProfileStatus extends React.Component<PropsType> {
     onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             status: e.currentTarget.value
-        })
+        });
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.status !== this.state.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
+        console.log('componentDidUpdate');
     }
 
     render() {
+        console.log('render');
         return (
             <div className={styles.profileStatusBlock}>
                 {this.state.editMode
