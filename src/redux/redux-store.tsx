@@ -4,6 +4,7 @@ import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
+import { reducer as formReducer } from 'redux-form'
 
 // import thunk as thunkMiddleware from 'redux-thunk';
 import thunkMiddleware from 'redux-thunk'
@@ -20,29 +21,13 @@ export type ObjPostType = {
     likeCount: string
 }
 
-// export type StateType = {
-//     profilePage: ProfileReducerInitialStateType,
-//     dialogsPage: {
-//         dialogs: Array<DialogItemType>,
-//         messages: Array<MessagesType>,
-//         newMessageText: string
-//     },
-//     sidebar: {
-//         friends: Array<FriendsType>
-//         addFriends: FriendsType
-//     },
-//     usersPage: UsersReducerInitialStateType,
-//     usersPageTemp: UsersTempReducerInitialStateType,
-//     auth: AuthReducerTypeInitialStateType
-// }
-
-
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: navbarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
