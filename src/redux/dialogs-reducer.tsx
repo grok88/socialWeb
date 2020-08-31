@@ -1,21 +1,19 @@
 import {v1} from "uuid";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
-import { MessagesType } from "./redux-store";
+import {MessagesType} from "./redux-store";
 
 
 // TS dialogsReducer
 export type addMessACType = {
-    type: 'ADD-MESSAGE'
+    type: 'ADD-MESSAGE';
+    value: string
 }
-export type changeNewMessageTextACType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    text: string
-}
-export type dialogsReducerAC = addMessACType | changeNewMessageTextACType;
+
+export type dialogsReducerAC = addMessACType ;
+
 export type DialogsReducerInitialStateType = {
-    dialogs: Array<DialogItemType>,
-    messages: Array<MessagesType>,
-    newMessageText: string
+    dialogs: Array<DialogItemType>;
+    messages: Array<MessagesType>;
 }
 
 let initialState = {
@@ -56,7 +54,6 @@ let initialState = {
         {id: v1(), message: 'And the bottle of rum'},
         {id: v1(), message: 'Yes!'}
     ],
-    newMessageText: ''
 }
 
 const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC) => {
@@ -66,35 +63,23 @@ const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, ac
         case 'ADD-MESSAGE' :
             let newMess = {
                 id: v1(),
-                message: state.newMessageText
+                message: action.value
             }
             return {
                 ...state,
-                messages: [...state.messages, newMess],
-                newMessageText: ''
-            }
-
-        // Контролтруемое добавление сообщения
-        case 'UPDATE-NEW-MESSAGE-TEXT' :
-            return {
-                ...state,
-                newMessageText: action.text
+                messages: [...state.messages, newMess]
             }
         default :
             return state;
     }
 }
 
-export const addMessAC = (): addMessACType => {
+export const addMessAC = (value: string): addMessACType => {
     return {
-        type: 'ADD-MESSAGE'
+        type: 'ADD-MESSAGE',
+        value
     }
 }
-export const changeNewMessageTextAC = (text: string): changeNewMessageTextACType => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        text: text
-    }
-}
+
 
 export default dialogsReducer;

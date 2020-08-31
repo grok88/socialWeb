@@ -8,25 +8,22 @@ import {userApi, profileApi} from "../api/api";
 
 // TS profileReducer
 export type AddPostACType = {
-    type: 'ADD-POST'
-}
-export type UpdateNewPostTextACType = {
-    type: 'UPDATE-NEW-POST-TEXT',
-    text: string
-}
-export type SetUserProfileType = {
-    type: 'SET-USER-PROFILE',
-    profile: any
-}
-export type SetUserStatusType = {
-    type: 'SET-USER-STATUS',
-    status: string
+    type: 'ADD-POST';
+    value: string;
 }
 
-export type profileReducerType = AddPostACType | UpdateNewPostTextACType | SetUserProfileType | SetUserStatusType;
+export type SetUserProfileType = {
+    type: 'SET-USER-PROFILE';
+    profile: any;
+}
+export type SetUserStatusType = {
+    type: 'SET-USER-STATUS';
+    status: string;
+}
+
+export type profileReducerType = AddPostACType | SetUserProfileType | SetUserStatusType;
 export type ProfileReducerInitialStateType = {
-    posts: Array<ObjPostType>,
-    newPostText: string,
+    posts: Array<ObjPostType>;
     profile: ProfileInfoType | null;
     status: string;
 }
@@ -36,7 +33,6 @@ let InitialState: ProfileReducerInitialStateType = {
         {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
         {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
     ],
-    newPostText: '',
     profile: null,
     status: ''
 }
@@ -51,18 +47,11 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
             }
             const newPost: ObjPostType = {
                 id: v1(),
-                message: stateCopy.newPostText,
+                message: action.value,
                 likeCount: "0"
             }
             stateCopy.posts.push(newPost);
-            stateCopy.newPostText = '';
             return stateCopy;
-        // контролируемое добавление поста
-        case 'UPDATE-NEW-POST-TEXT' :
-            return {
-                ...state,
-                newPostText: action.text
-            };
         case 'SET-USER-PROFILE':
             return {
                 ...state,
@@ -78,17 +67,13 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
     }
 }
 
-export const addPostAC = (): AddPostACType => {
+export const addPostAC = (value: string): AddPostACType => {
     return {
-        type: 'ADD-POST'
+        type: 'ADD-POST',
+        value
     }
 }
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextACType => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        text: text
-    }
-}
+
 export const setUserProfile = (profile: ProfileInfoType): SetUserProfileType => {
     return {
         type: 'SET-USER-PROFILE',
@@ -122,7 +107,7 @@ export const updateUserStatus = (status: string): ThunkType => {
     return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         profileApi.updateStatus(status)
             .then(resp => {
-                if(resp.data.resultCode === 0){
+                if (resp.data.resultCode === 0) {
                     dispatch(setUserStatus(resp.data));
                 }
             })
