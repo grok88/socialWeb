@@ -1,7 +1,11 @@
 import React from "react";
-import {Field, reduxForm, InjectedFormProps} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/formsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
+import {connect} from "react-redux";
+import {login, logout} from "../../redux/auth-reducer";
+import {AppRootState} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 type FormDataType = {
     login: string;
@@ -16,7 +20,8 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             />
         </div>
         <div>
-            <Field name={'password'} placeholder={'Password'} component={Input}   validate={[required]}/>
+            <Field name={'password'} placeholder={'Password'} type={'password'} component={Input}
+                   validate={[required]}/>
         </div>
         <div>
             <Field name={'checkbox'} type="checkbox" component={Input}/>
@@ -29,12 +34,38 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm);
 
-export const Login = () => {
+type MapStateToPropsType = {
+    isAuth: boolean;
+}
+type MapDispatchToPropsType = {
+    login: (email: string, password: string, rememberMe: boolean) => void;
+    logout: () => void;
+}
+
+type LoginPropsType = {
+    login: (email: string, password: string, rememberMe: boolean) => void;
+    isAuth: boolean;
+}
+
+const Login = (props: LoginPropsType) => {
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData);
+        props.login(formData.login, formData.password, formData.checkbox);
     }
     return <div>
         <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit}/>
     </div>
 }
+
+const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
+    login,
+    logout
+})(Login);

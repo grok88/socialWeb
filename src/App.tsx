@@ -10,7 +10,7 @@ import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/profileContainer';
 import HeaderContainer from "./components/header/headerContainer";
 import {Navbar} from "./components/nav/Navbar";
-import {Login} from "./components/login/Login";
+import Login from "./components/login/Login";
 
 function App() {
     return (

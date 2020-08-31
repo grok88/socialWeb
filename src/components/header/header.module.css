@@ -11,6 +11,11 @@
 .loginBlock {
     float: left;
 }
+.imgBlock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .loginBlock a {
     font-size: 20px;
@@ -33,4 +38,8 @@
 
 .loginBlock a:active {
     color: goldenrod;
+}
+
+.logout{
+
 }

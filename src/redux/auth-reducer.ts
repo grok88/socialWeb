@@ -34,16 +34,17 @@ let initialState = {
     authUser: null
 }
 type SetUserDataACType = {
-    type: 'SET-USER-DATA',
-    data: {
-        id: number,
-        email: string,
-        login: string
+    type: 'SET-USER-DATA';
+    payload: {
+        id: number | null;
+        email: string | null;
+        login: string | null;
+        isAuth: boolean;
     }
 }
 type SetAuthUserACType = {
-    type: 'SET-AUTH-USER',
-    authUser: AuthUserType
+    type: 'SET-AUTH-USER';
+    authUser: AuthUserType;
 }
 
 
@@ -54,8 +55,7 @@ const authReducer = (state: AuthReducerTypeInitialStateType = initialState, acti
         case 'SET-USER-DATA' : {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             }
         }
         case 'SET-AUTH-USER':
@@ -70,13 +70,14 @@ const authReducer = (state: AuthReducerTypeInitialStateType = initialState, acti
 
 export default authReducer;
 
-export const setAuthUserData = (id: number, email: string, login: string): SetUserDataACType => {
+export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): SetUserDataACType => {
     return {
         type: 'SET-USER-DATA',
-        data: {
+        payload: {
             id,
             email,
-            login
+            login,
+            isAuth
         }
     }
 }
@@ -93,7 +94,7 @@ export const authMe = (): ThunkType => {
             .then(res => {
                 if (res.data.resultCode === 0) {
                     let {id, email, login} = res.data.data;
-                    dispatch(setAuthUserData(id, email, login));
+                    dispatch(setAuthUserData(id, email, login, true));
                     userApi.getUserProfileById(id)
                         .then(res => {
                                 dispatch(setAuthUser(res.data));
@@ -101,5 +102,25 @@ export const authMe = (): ThunkType => {
                         )
                 }
             });
+    }
+}
+export const login = (email: string, password: string, rememberMe: boolean): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        authApi.login(email, password, rememberMe)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(authMe());
+                }
+            })
+    }
+}
+export const logout = (): ThunkType => {
+    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        authApi.logout()
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null,false));
+                }
+            })
     }
 }
