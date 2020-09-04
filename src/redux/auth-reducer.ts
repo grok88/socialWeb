@@ -2,6 +2,7 @@ import {SWActionType, ThunkType} from "./users-reducer";
 import {authApi, userApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type AuthReducerTypeInitialStateType = {
     id: null | number,
@@ -110,6 +111,10 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(authMe());
+                } else {
+                    const message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error occurred';
+                    // @ts-ignore
+                    dispatch(stopSubmit('login',{_error:message}));
                 }
             })
     }
