@@ -8,15 +8,6 @@ import {ProfileInfoType} from "./profileInfo/profileInfo";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-// export type ProfileContainerState = {
-//     profile:ProfileReducerInitialStateType
-// }
-//
-// export type ProfileContainerProps = {
-//     setUserProfile: (profile: any) => void,
-//     profile:any
-// }
-
 type PathParamsType = {
     userId: string;
 }
@@ -37,10 +28,15 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
+        debugger
         let userId = this.props.match.params.userId;
         if (!userId) {
             if (this.props.logginedUserId) {
                 userId = String(this.props.logginedUserId);
+            }
+            if (!userId) {
+                console.log('1')
+                this.props.history.push("/login");
             }
         }
         this.props.getUserProfile(userId);

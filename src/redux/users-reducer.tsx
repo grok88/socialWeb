@@ -5,6 +5,7 @@ import {AuthReducerType} from "./auth-reducer";
 import {dialogsReducerAC} from "./dialogs-reducer";
 import {NavbarReducerAC} from "./navbar-reducer";
 import {profileReducerType} from "./profile-reducer";
+import {AppReducerType} from "./app-reducer";
 
 
 export type UserType = {
@@ -48,7 +49,7 @@ export type UsersReducerAC =
     | SetCurrentPageACType
     | SetUsersTotalCountACType | ToggleIsFetchingACType | toggleFollowingInProgressACType;
 
-export type SWActionType = AuthReducerType | dialogsReducerAC | NavbarReducerAC | profileReducerType | UsersReducerAC;
+export type SWActionType = AuthReducerType | dialogsReducerAC | NavbarReducerAC | profileReducerType | UsersReducerAC | AppReducerType;
 
 let initialState: UsersReducerInitialStateType = {
     users: [],

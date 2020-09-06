@@ -114,7 +114,7 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
                 } else {
                     const message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error occurred';
                     // @ts-ignore
-                    dispatch(stopSubmit('login',{_error:message}));
+                    dispatch(stopSubmit('login', {_error: message}));
                 }
             })
     }
@@ -124,7 +124,7 @@ export const logout = (): ThunkType => {
         authApi.logout()
             .then(res => {
                 if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null,false));
+                    dispatch(setAuthUserData(null, null, null, false));
                 }
             })
     }
