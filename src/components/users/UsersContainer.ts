@@ -3,7 +3,7 @@ import UsersAPIComponent from "./UsersClass";
 import {AppRootState} from "../../redux/redux-store";
 import {
     followSuccess,
-    getUsers,
+    requestUsers,
     setCurrentPage,
     setUsersTotalCount,
     toggleFollowingInProgress,
@@ -13,6 +13,7 @@ import {
     UsersReducerInitialStateType
 } from "../../redux/users-reducer";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import {getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress} from "../../redux/users-selectors";
 
 type MapStateToPropsType = UsersReducerInitialStateType;
 type MapDispatchToPropsType = {
@@ -28,38 +29,29 @@ type MapDispatchToPropsType = {
     unfollow: (userId: string) => void;
 }
 
-let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
-    return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
-    }
-}
-// let mapDispatchToProps = (dispatch: any) => {
+// let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 //     return {
-//         follow: (userId: string) => {
-//             dispatch(followAC(userId))
-//         },
-//         unFollow: (userId: string) => {
-//             dispatch(unFollowAC(userId))
-//         },
-//         setUsers: (users: Array<UserType>) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (currentPage: number) => {
-//             dispatch(SetCurrentPageAC(currentPage));
-//         },
-//         setUsersTotalCount: (totalCount: number) => {
-//             dispatch(setUsersTotalCountAC(totalCount));
-//         },
-//         toggleIsFetching: (isFetching: boolean) => {
-//             dispatch(toggleIsFetchingAC(isFetching))
-//         }
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
 //     }
 // }
+
+//with selectors
+let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
+    }
+}
+
 
 export default  withAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
     followSuccess,
@@ -67,7 +59,7 @@ export default  withAuthRedirect(connect<MapStateToPropsType, MapDispatchToProps
     setCurrentPage,
     setUsersTotalCount,
     toggleFollowingInProgress,
-    getUsers,
+    getUsers: requestUsers,
     follow,
     unfollow
 })(UsersAPIComponent));
