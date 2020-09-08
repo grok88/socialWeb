@@ -2,18 +2,25 @@ import {connect} from "react-redux";
 import UsersAPIComponent from "./UsersClass";
 import {AppRootState} from "../../redux/redux-store";
 import {
+    follow,
     followSuccess,
     requestUsers,
     setCurrentPage,
     setUsersTotalCount,
     toggleFollowingInProgress,
-    unFollowSuccess,
-    follow,
     unfollow,
+    unFollowSuccess,
     UsersReducerInitialStateType
 } from "../../redux/users-reducer";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import {getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress} from "../../redux/users-selectors";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 type MapStateToPropsType = UsersReducerInitialStateType;
 type MapDispatchToPropsType = {
@@ -53,7 +60,7 @@ let mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 }
 
 
-export default  withAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
+export default withAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {
     followSuccess,
     unFollowSuccess,
     setCurrentPage,
