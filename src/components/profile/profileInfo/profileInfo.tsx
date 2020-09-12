@@ -3,6 +3,7 @@ import style from './profileInfo.module.css';
 import Preloader from "../../../assets/preloader/Preloader";
 import userPhoto from '../../../assets/images/green.png'
 import {ProfileStatus} from './profilestatus/ProfileStatus';
+import {ProfileStatusWithHooks} from "./profilestatus/ProfileStatusWithHooks";
 
 export type ProfileInfoType = {
     profile: {
@@ -40,7 +41,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"
                          width={100}/>
                 </div>
-                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
                 <div>
                     <p>Name : {profile.fullName}</p>
                     <p>Description : {profile.aboutMe}</p>
