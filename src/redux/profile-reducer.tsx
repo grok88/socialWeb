@@ -3,14 +3,17 @@ import {ProfileInfoType} from "../components/profile/profileInfo/profileInfo";
 import {AppRootState, ObjPostType} from "./redux-store";
 import {SWActionType, ThunkType} from "./users-reducer";
 import {ThunkDispatch} from "redux-thunk";
-import {userApi, profileApi} from "../api/api";
-import {debuglog} from "util";
+import {profileApi, userApi} from "../api/api";
 
 
 // TS profileReducer
 export type AddPostACType = {
     type: 'ADD-POST';
     value: string;
+}
+export type DeletePostACType = {
+    type: 'DELETE-POST';
+    postId: string;
 }
 
 export type SetUserProfileType = {
@@ -22,7 +25,7 @@ export type SetUserStatusType = {
     status: string;
 }
 
-export type profileReducerType = AddPostACType | SetUserProfileType | SetUserStatusType;
+export type profileReducerType = AddPostACType | SetUserProfileType | SetUserStatusType | DeletePostACType;
 export type ProfileReducerInitialStateType = {
     posts: Array<ObjPostType>;
     profile: ProfileInfoType | null;
@@ -53,6 +56,11 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
             }
             stateCopy.posts.push(newPost);
             return stateCopy;
+        case "DELETE-POST":
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.postId)
+            }
         case 'SET-USER-PROFILE':
             return {
                 ...state,
@@ -72,6 +80,12 @@ export const addPostAC = (value: string): AddPostACType => {
     return {
         type: 'ADD-POST',
         value
+    }
+}
+export const deleteAC = (postId: string): DeletePostACType => {
+    return {
+        type: 'DELETE-POST',
+        postId
     }
 }
 

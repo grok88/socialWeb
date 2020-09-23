@@ -5,21 +5,22 @@ import userPhoto from '../../../assets/images/green.png'
 import {ProfileStatus} from './profilestatus/ProfileStatus';
 import {ProfileStatusWithHooks} from "./profilestatus/ProfileStatusWithHooks";
 
-export type ProfileInfoType = {
-    profile: {
-        aboutMe: string,
-        contacts: {
-            [key: string]: string
-        },
-        lookingForAJob: boolean,
-        lookingForAJobDescription: string,
-        fullName: string,
-        userId: number,
-        photos: {
-            small: string,
-            large: string
-        }
+export type ProfileType =  {
+    aboutMe: string,
+    contacts: {
+        [key: string]: string
     },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
+}
+export type ProfileInfoType = {
+    profile:ProfileType,
     status: string;
     updateUserStatus: (status: string) => void;
 }

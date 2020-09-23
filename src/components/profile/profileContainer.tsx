@@ -34,7 +34,6 @@ class ProfileContainer extends React.Component<PropsType> {
                 userId = String(this.props.logginedUserId);
             }
             if (!userId) {
-                console.log('1')
                 this.props.history.push("/login");
             }
         }

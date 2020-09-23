@@ -5,7 +5,7 @@ import {ProfileInfoType} from "../profileInfo/profileInfo";
 import {ObjPostType} from "../../../redux/redux-store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {required, maxLengthCreator} from "../../../utils/validators/validators";
-import { Textarea } from '../../common/formsControls/FormsControls';
+import {Textarea} from '../../common/formsControls/FormsControls';
 
 type PropsType = {
     profilePage: {
@@ -17,12 +17,13 @@ type PropsType = {
 
 const maxLength30 = maxLengthCreator(30);
 
-const MyPosts = (props: PropsType) => {
+const MyPosts = React.memo((props: PropsType) => {
     const {profilePage, addPost} = props;
 
     const onSubmit = (formData: FormDataType) => {
         addPost(formData.newMessageBody)
     }
+    console.log('RENDER')
 
     return (
         <div className={style.postsBlock}>
@@ -39,7 +40,7 @@ const MyPosts = (props: PropsType) => {
             </div>
         </div>
     );
-}
+});
 
 type FormDataType = {
     newMessageBody: string
@@ -50,7 +51,7 @@ export const AddPostMessageForm: React.FC<InjectedFormProps<FormDataType>> = (pr
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name='newMessageBody' placeholder='Enter you Post message'  component={Textarea}
+                <Field name='newMessageBody' placeholder='Enter you Post message' component={Textarea}
                        validate={[required, maxLength30]}/>
             </div>
             <div>
