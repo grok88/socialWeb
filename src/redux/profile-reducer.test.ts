@@ -1,6 +1,5 @@
 import {v1} from "uuid";
-import profileReducer, {ProfileReducerInitialStateType, addPostAC, deleteAC, setUserStatus} from "./profile-reducer";
-import {ProfileInfoType, ProfileType} from "../components/profile/profileInfo/profileInfo";
+import profileReducer, {deleteAC, ProfileReducerInitialStateType, setUserStatus} from "./profile-reducer";
 
 let startState: ProfileReducerInitialStateType;
 beforeEach(() => {
@@ -15,22 +14,7 @@ beforeEach(() => {
     }
 });
 
-// test('correct post should be added to correct posts', () => {
-//     const userProfile:ProfileType ={
-//         userId:6,
-//         contacts:{
-//             'vk':'vk'
-//         },
-//
-//     }
-//     const endStart = profileReducer(startState, addPostAC(message));
-//
-//     expect(endStart.posts.length).toBe(4);
-//     expect(endStart.posts[3].message).toBe(message);
-//     expect(endStart.posts[3].likeCount).toBe('0');
-//     expect(endStart.posts[3]).toBeDefined();
-//
-// });
+
 test('correct statusText should be added to correct status', () => {
     const status = 'New Post message';
 

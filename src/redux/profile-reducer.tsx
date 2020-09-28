@@ -5,25 +5,16 @@ import {SWActionType, ThunkType} from "./users-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {profileApi, userApi} from "../api/api";
 
+const ADD_POST = 'profile/ADD-POST';
+const DELETE_POST = 'profile/DELETE-POST';
+const SET_USER_PROFILE = 'profile/SET-USER-PROFILE';
+const SET_USER_STATUS = 'profile/SET-USER-STATUS';
 
 // TS profileReducer
-export type AddPostACType = {
-    type: 'ADD-POST';
-    value: string;
-}
-export type DeletePostACType = {
-    type: 'DELETE-POST';
-    postId: string;
-}
-
-export type SetUserProfileType = {
-    type: 'SET-USER-PROFILE';
-    profile: any;
-}
-export type SetUserStatusType = {
-    type: 'SET-USER-STATUS';
-    status: string;
-}
+export type AddPostACType = ReturnType<typeof addPostAC>;
+export type DeletePostACType = ReturnType<typeof deleteAC>;
+export type SetUserProfileType = ReturnType<typeof setUserProfile>;
+export type SetUserStatusType = ReturnType<typeof setUserStatus>;
 
 export type profileReducerType = AddPostACType | SetUserProfileType | SetUserStatusType | DeletePostACType;
 export type ProfileReducerInitialStateType = {
@@ -43,8 +34,7 @@ let InitialState: ProfileReducerInitialStateType = {
 
 const profileReducer = (state: ProfileReducerInitialStateType = InitialState, action: profileReducerType): ProfileReducerInitialStateType => {
     switch (action.type) {
-        // добавление нового поста
-        case 'ADD-POST' :
+        case ADD_POST :
             let stateCopy = {
                 ...state,
                 posts: [...state.posts]
@@ -56,17 +46,17 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
             }
             stateCopy.posts.push(newPost);
             return stateCopy;
-        case "DELETE-POST":
+        case DELETE_POST:
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.postId)
             }
-        case 'SET-USER-PROFILE':
+        case SET_USER_PROFILE:
             return {
                 ...state,
                 profile: action.profile
             }
-        case 'SET-USER-STATUS':
+        case SET_USER_STATUS:
             return {
                 ...state,
                 status: action.status
@@ -76,56 +66,48 @@ const profileReducer = (state: ProfileReducerInitialStateType = InitialState, ac
     }
 }
 
-export const addPostAC = (value: string): AddPostACType => {
+export const addPostAC = (value: string) => {
     return {
-        type: 'ADD-POST',
+        type: ADD_POST,
         value
-    }
+    } as const;
 }
-export const deleteAC = (postId: string): DeletePostACType => {
+export const deleteAC = (postId: string) => {
     return {
-        type: 'DELETE-POST',
+        type: DELETE_POST,
         postId
-    }
+    } as const;
 }
-
-export const setUserProfile = (profile: ProfileInfoType): SetUserProfileType => {
+export const setUserProfile = (profile: ProfileInfoType) => {
     return {
-        type: 'SET-USER-PROFILE',
+        type: SET_USER_PROFILE,
         profile
-    }
+    } as const;
 }
-export const setUserStatus = (status: string): SetUserStatusType => {
+export const setUserStatus = (status: string) => {
     return {
-        type: 'SET-USER-STATUS',
+        type: SET_USER_STATUS,
         status
-    }
+    } as const;
 }
 
 //thunk
-export const getUserProfile = (userId: string): ThunkType => (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-    userApi.getUserProfileById(userId)
-        .then(res => {
-            dispatch(setUserProfile(res.data));
-        });
+export const getUserProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+    const res = await userApi.getUserProfileById(userId);
+    dispatch(setUserProfile(res.data));
 }
-
 export const getUserStatus = (userID: string): ThunkType => {
-    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        profileApi.getStatus(userID)
-            .then(resp => {
-                dispatch(setUserStatus(resp.data));
-            })
+    return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        const resp = await profileApi.getStatus(userID);
+        dispatch(setUserStatus(resp.data));
     }
 }
 export const updateUserStatus = (status: string): ThunkType => {
-    return (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        profileApi.updateStatus(status)
-            .then(resp => {
-                if (resp.data.resultCode === 0) {
-                    dispatch(setUserStatus(resp.data));
-                }
-            })
+    return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        const resp = await profileApi.updateStatus(status);
+        if (resp.data.resultCode === 0) {
+            dispatch(setUserStatus(resp.data));
+        }
     }
 }
 

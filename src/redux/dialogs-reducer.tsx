@@ -2,12 +2,9 @@ import {v1} from "uuid";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
 import {MessagesType} from "./redux-store";
 
+const ADD_MESSAGE = 'dialogs/ADD-MESSAGE';
 
-// TS dialogsReducer
-export type addMessACType = {
-    type: 'ADD-MESSAGE';
-    value: string
-}
+export type addMessACType = ReturnType<typeof addMessAC>;
 
 export type dialogsReducerAC = addMessACType ;
 
@@ -57,10 +54,8 @@ let initialState = {
 }
 
 const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC) => {
-
     switch (action.type) {
-        // Добавление сообщения в state
-        case 'ADD-MESSAGE' :
+        case ADD_MESSAGE :
             let newMess = {
                 id: v1(),
                 message: action.value
@@ -74,12 +69,11 @@ const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, ac
     }
 }
 
-export const addMessAC = (value: string): addMessACType => {
+export const addMessAC = (value: string) => {
     return {
-        type: 'ADD-MESSAGE',
+        type: ADD_MESSAGE,
         value
-    }
+    } as const;
 }
-
 
 export default dialogsReducer;

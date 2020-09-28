@@ -23,7 +23,6 @@ const MyPosts = React.memo((props: PropsType) => {
     const onSubmit = (formData: FormDataType) => {
         addPost(formData.newMessageBody)
     }
-    console.log('RENDER')
 
     return (
         <div className={style.postsBlock}>
