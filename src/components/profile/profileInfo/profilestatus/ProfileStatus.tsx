@@ -31,7 +31,7 @@ export class ProfileStatus extends React.Component<PropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.status !== this.state.status) {
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             });
@@ -42,15 +42,16 @@ export class ProfileStatus extends React.Component<PropsType> {
         return (
             <div className={styles.profileStatusBlock}>
                 {this.state.editMode
-                    ? <input type={'text'}
-                             value={this.state.status}
-                             autoFocus={true}
-                             onBlur={this.deactivateEditMode}
-                             onChange={this.onChangeStatus}
-                    />
-                    : <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status || 'No status'}</span>
-                    </div>
+                && <input type={'text'}
+						  value={this.state.status}
+						  autoFocus={true}
+						  onBlur={this.deactivateEditMode}
+						  onChange={this.onChangeStatus}
+				/>}
+
+                {!this.state.editMode && <div>
+					<span onDoubleClick={this.activateEditMode}>{this.props.status || 'No status'}</span>
+				</div>
                 }
             </div>
         );

@@ -106,7 +106,7 @@ export const updateUserStatus = (status: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         const resp = await profileApi.updateStatus(status);
         if (resp.data.resultCode === 0) {
-            dispatch(setUserStatus(resp.data));
+            dispatch(setUserStatus(status));
         }
     }
 }

@@ -42,7 +42,8 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"
                          width={100}/>
                 </div>
-                <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+                {/*<ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>*/}
                 <div>
                     <p>Name : {profile.fullName}</p>
                     <p>Description : {profile.aboutMe}</p>
