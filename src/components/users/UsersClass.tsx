@@ -63,7 +63,6 @@ export type UsersPropsType = {
     currentPage: number;
     changedPage: (pageNumber: number) => void;
     followingInProgress: Array<string>;
-    // toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
 }
@@ -72,8 +71,8 @@ const Users = (props: UsersPropsType) => {
     const {pageSize, totalUsersCount, currentPage, changedPage} = props;
     return (
         <div>
-            <Paginator pageSize={pageSize} totalUsersCount={totalUsersCount} currentPage={currentPage}
-                       changedPage={changedPage}/>
+            <Paginator pageSize={pageSize} totalItemsCount={totalUsersCount} currentPage={currentPage}
+                       changedPage={changedPage} portionSize={10}/>
             {
                 props.usersPage.map(user => {
                     const unFollowHandler = () => {
