@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import News from './components/news/news';
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {BrowserRouter, Route, withRouter} from 'react-router-dom';
-import DialogsContainer from "./components/dialogs/dialogsContainer";
+import {BrowserRouter, Route, Switch, withRouter} from 'react-router-dom';
+// import DialogsContainer from "./components/dialogs/dialogsContainer";
 import UsersContainer from './components/users/UsersContainer';
-import ProfileContainer from './components/profile/profileContainer';
+// import ProfileContainer from './components/profile/profileContainer';
 import HeaderContainer from "./components/header/headerContainer";
 import {Navbar} from "./components/nav/Navbar";
 import Login from "./components/login/Login";
@@ -16,6 +16,9 @@ import store, {AppRootState} from "./redux/redux-store";
 import {compose} from 'redux';
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./assets/preloader/Preloader";
+
+const DialogsContainer = React.lazy(() => import('./components/dialogs/dialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
 
 type PropsType = MapDispatchToProps & MapStatePropsType;
 
@@ -34,13 +37,17 @@ class App extends React.Component<PropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                    <Route path={'/music'} render={() => <Music/>}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/settings'} component={Settings}/>
-                    <Route path={'/users'} render={() => <UsersContainer/>}/>
-                    <Route path={'/login'} render={() => <Login/>}/>
+                    <Suspense fallback={<Preloader/>}>
+                        <Switch>
+                            <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                            <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                            <Route path={'/music'} render={() => <Music/>}/>
+                            <Route path={'/news'} component={News}/>
+                            <Route path={'/settings'} component={Settings}/>
+                            <Route path={'/users'} render={() => <UsersContainer/>}/>
+                            <Route path={'/login'} render={() => <Login/>}/>
+                        </Switch>
+                    </Suspense>
                 </div>
             </div>
         );
@@ -74,7 +81,7 @@ const SamuraiApp = () => {
     </Provider>
 }
 
-export default  SamuraiApp;
+export default SamuraiApp;
 
 
 
