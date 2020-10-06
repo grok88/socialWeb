@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
-import {ProfileInfoType} from "../profileInfo/profileInfo";
+import {ProfileType} from "../profileInfo/profileInfo";
 import {ObjPostType} from "../../../redux/redux-store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {required, maxLengthCreator} from "../../../utils/validators/validators";
@@ -10,7 +10,7 @@ import {Textarea} from '../../common/formsControls/FormsControls';
 type PropsType = {
     profilePage: {
         posts: Array<ObjPostType>;
-        profile: ProfileInfoType | null;
+        profile: ProfileType | null;
     };
     addPost: (value: string) => void;
 }

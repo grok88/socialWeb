@@ -25,12 +25,22 @@ export type UsersAPIComponentPropsType = {
 }
 
 class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
+    state = {
+        portionNumber: 1
+    }
+
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     changedPage = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize);
+    }
+
+    setPortionNumber = (portionNum: number) => {
+        this.setState({
+            portionNumber: portionNum
+        })
     }
 
     render() {
@@ -47,6 +57,9 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
                          followingInProgress={this.props.followingInProgress}
                          follow={this.props.follow}
                          unfollow={this.props.unfollow}
+                         portionNumber={this.state.portionNumber}
+                         setPortionNumber={this.setPortionNumber}
+
                 />}
         </>
     }
@@ -65,14 +78,17 @@ export type UsersPropsType = {
     followingInProgress: Array<string>;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
+    portionNumber: number;
+    setPortionNumber: (portionNum: number) => void;
 }
 
 const Users = (props: UsersPropsType) => {
-    const {pageSize, totalUsersCount, currentPage, changedPage} = props;
+    const {pageSize, totalUsersCount, currentPage, changedPage, portionNumber, setPortionNumber} = props;
     return (
         <div>
-            <Paginator pageSize={pageSize} totalItemsCount={totalUsersCount} currentPage={currentPage}
-                       changedPage={changedPage} portionSize={10}/>
+            <Paginator portionNumber={portionNumber} pageSize={pageSize} totalItemsCount={totalUsersCount}
+                       currentPage={currentPage}
+                       changedPage={changedPage} portionSize={10} setPortionNumber={setPortionNumber}/>
             {
                 props.usersPage.map(user => {
                     const unFollowHandler = () => {

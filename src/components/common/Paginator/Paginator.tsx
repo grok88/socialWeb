@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import style from "./Paginator.module.css";
 
 type PaginatorPropsType = {
@@ -7,6 +7,8 @@ type PaginatorPropsType = {
     currentPage: number;
     changedPage: (pageNumber: number) => void;
     portionSize: number;
+    portionNumber: number;
+    setPortionNumber: (portionNum: number) => void;
 }
 const Paginator: React.FC<PaginatorPropsType> = (props) => {
 
@@ -17,15 +19,15 @@ const Paginator: React.FC<PaginatorPropsType> = (props) => {
     }
 
     const portionCount = Math.ceil(pageCount / props.portionSize);
-    const [portionNumber, setPortionNumber] = useState<number>(1);
-    const leftPortionPageNumber = (portionNumber - 1) * props.portionSize + 1;
-    const rightPortionPageNumber = portionNumber * props.portionSize;
+    // const [portionNumber, setPortionNumber] = useState<number>(1);
+    const leftPortionPageNumber = (props.portionNumber - 1) * props.portionSize + 1;
+    const rightPortionPageNumber = props.portionNumber * props.portionSize;
 
 
     return (
         <div>
-            {portionNumber > 1 && <button onClick={() => {
-                setPortionNumber(portionNumber - 1)
+            {props.portionNumber > 1 && <button onClick={() => {
+                props.setPortionNumber(props.portionNumber - 1)
             }}>назад</button>}
             {
                 pages
@@ -38,9 +40,9 @@ const Paginator: React.FC<PaginatorPropsType> = (props) => {
                         </span>)
             }
             {
-                portionCount > portionNumber &&
+                portionCount > props.portionNumber &&
 				<button onClick={() => {
-                    setPortionNumber(portionNumber + 1)
+                    props.setPortionNumber(props.portionNumber + 1)
                 }}>вперед</button>
             }
         </div>

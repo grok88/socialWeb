@@ -35,9 +35,24 @@ export const profileApi = {
     },
     updateStatus(status: string) {
         return instance.put(`profile/status`, {status});
+    },
+    savePhoto(photo: any) {
+        let formData = new FormData();
+        formData.append('image', photo)
+        return instance.put<ResponseType<{photos: {small: string, large: string}}>>(`profile/photo`, formData, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }).then(res => res.data);
     }
 }
 
+export type ResponseType<T> = {
+    data: T
+    fieldErrors: string[]
+    messages: string[]
+    resultCode: number
+}
 export const authApi = {
     authMe() {
         return instance.get('auth/me')
