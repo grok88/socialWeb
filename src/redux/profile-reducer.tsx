@@ -4,6 +4,8 @@ import {AppRootState, ObjPostType} from "./redux-store";
 import {SWActionType, ThunkType} from "./users-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {profileApi, userApi} from "../api/api";
+import {ProfileDataFormType} from "../components/profile/profileInfo/ProfileDataForm/ProfileDataForm";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'profile/ADD-POST';
 const DELETE_POST = 'profile/DELETE-POST';
@@ -36,7 +38,7 @@ let InitialState: ProfileReducerInitialStateType = {
         {id: v1(), message: 'Hello, What are you doing?', likeCount: '5'},
         {id: v1(), message: 'Hi, I am learning TypeScript now.', likeCount: '13'},
     ],
-    profile: null ,
+    profile: null,
     status: ''
 }
 
@@ -134,10 +136,26 @@ export const savePhoto = (file: any): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, getState: () => AppRootState) => {
         try {
             const resp = await profileApi.savePhoto(file);
-            console.log(resp.data.photos)
             if (resp.resultCode === 0) {
                 const profile = getState().profilePage.profile
                 profile && dispatch(savePhotoSuccess({...profile, photos: resp.data.photos}));
+            }
+        } catch (e) {
+            console.log(e.name);
+        }
+    }
+}
+export const saveProfile = (profile: ProfileDataFormType): ThunkType => {
+    return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, getState: () => AppRootState) => {
+
+        const userId = String(getState().auth.id);
+        try {
+            const resp = await profileApi.saveProfile(profile);
+            if (resp.resultCode === 0) {
+                dispatch(getUserProfile(userId));
+            } else {
+                dispatch(stopSubmit('edit-profile', {_error:resp.messages[0]}));
+                return Promise.reject(resp.messages[0]);
             }
         } catch (e) {
             console.log(e.name);
