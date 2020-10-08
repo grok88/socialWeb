@@ -1,18 +1,20 @@
 import {SWActionType, ThunkType} from "./users-reducer";
-import {authApi, userApi} from "../api/api";
+import {authApi, securityApi, userApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'auth/SET-USER-DATA';
 const SET_AUTH_USER = 'auth/SET-AUTH-USER';
+const GET_CAPTCHA_URL = 'auth/GET-CAPTCHA-URL';
 
 export type AuthReducerTypeInitialStateType = {
     id: null | number,
     email: null | string,
     login: null | string,
     isAuth: boolean,
-    authUser: AuthUserType | null
+    authUser: AuthUserType | null,
+    captchaUrl: string | null
 }
 
 export type AuthUserType = {
@@ -35,17 +37,21 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    authUser: null
+    authUser: null,
+    captchaUrl: null
 }
+
 type SetUserDataACType = ReturnType<typeof setAuthUserData>;
 type SetAuthUserACType = ReturnType<typeof setAuthUser>;
+type GetCaptchaUrlACType = ReturnType<typeof getCaptchaUrl>;
 
 
-export type AuthReducerType = SetUserDataACType | SetAuthUserACType;
+export type AuthReducerType = SetUserDataACType | SetAuthUserACType | GetCaptchaUrlACType;
 
 const authReducer = (state: AuthReducerTypeInitialStateType = initialState, action: AuthReducerType): AuthReducerTypeInitialStateType => {
     switch (action.type) {
-        case SET_USER_DATA : {
+        case SET_USER_DATA:
+        case GET_CAPTCHA_URL : {
             return {
                 ...state,
                 ...action.payload
@@ -56,6 +62,7 @@ const authReducer = (state: AuthReducerTypeInitialStateType = initialState, acti
                 ...state,
                 authUser: action.authUser
             }
+
         default:
             return state;
     }
@@ -63,6 +70,7 @@ const authReducer = (state: AuthReducerTypeInitialStateType = initialState, acti
 
 export default authReducer;
 
+//actions
 export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: SET_USER_DATA,
@@ -80,7 +88,14 @@ export const setAuthUser = (authUser: AuthUserType) => {
         authUser
     } as const;
 }
+export const getCaptchaUrl = (captchaUrl: string) => {
+    return {
+        type: GET_CAPTCHA_URL,
+        payload: {captchaUrl}
+    } as const;
+}
 
+//thunk
 export const authMe = (): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         const res = await authApi.authMe();
@@ -93,13 +108,16 @@ export const authMe = (): ThunkType => {
         }
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean): ThunkType => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string | null): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        const res = await authApi.login(email, password, rememberMe);
+        const res = await authApi.login(email, password, rememberMe, captcha);
 
         if (res.data.resultCode === 0) {
             dispatch(authMe());
         } else {
+            if (res.data.resultCode === 10) {
+                dispatch(getCaptcha());
+            }
             const message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error occurred';
             // @ts-ignore
             dispatch(stopSubmit('login', {_error: message}));
@@ -113,6 +131,18 @@ export const logout = (): ThunkType => {
 
         if (res.data.resultCode === 0) {
             dispatch(setAuthUserData(null, null, null, false));
+        }
+    }
+}
+
+export const getCaptcha = (): ThunkType => {
+    return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
+        debugger
+        try {
+            const res = await securityApi.getCaptcha();
+            dispatch(getCaptchaUrl(res.data.url));
+        } catch (e) {
+            console.log(e.name)
         }
     }
 }

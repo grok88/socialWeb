@@ -12,9 +12,13 @@ export type FormDataType = {
     login: string;
     password: string;
     checkbox: boolean;
+    captcha: string | null;
 }
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    const {handleSubmit, error} = props;
+type LoginFormPropsType = {
+    captchaUrl: string | null;
+}
+export const LoginForm: React.FC<LoginFormPropsType & InjectedFormProps<FormDataType, LoginFormPropsType>> = (props) => {
+    const {handleSubmit, error, captchaUrl} = props;
     return <form onSubmit={handleSubmit}>
         <div>
             <Field name={'login'} placeholder={'Login'} component={Input}
@@ -28,6 +32,11 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         <div>
             <Field name={'checkbox'} type="checkbox" component={Input}/>
         </div>
+        {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
+        {captchaUrl && <Field name={'captcha'} placeholder={'captcha'} component={Input}
+							  validate={[required]}
+		/>}
+
         {error && <div className={styles.commonErrorField}>
             {error}
 		</div>}
@@ -37,19 +46,21 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     </form>
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm);
+const LoginReduxForm = reduxForm<FormDataType, LoginFormPropsType>({form: 'login'})(LoginForm);
 
 type MapStateToPropsType = {
     isAuth: boolean;
+    captchaUrl: string | null;
 }
 type MapDispatchToPropsType = {
-    login: (email: string, password: string, rememberMe: boolean) => void;
+    login: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void;
     logout: () => void;
 }
 
 type LoginPropsType = {
-    login: (email: string, password: string, rememberMe: boolean) => void;
+    login: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void;
     isAuth: boolean;
+    captchaUrl: string | null;
 }
 
 const Login = (props: LoginPropsType) => {
@@ -57,17 +68,18 @@ const Login = (props: LoginPropsType) => {
         return <Redirect to={'/profile'}/>
     }
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.login, formData.password, formData.checkbox);
+        props.login(formData.login, formData.password, formData.checkbox, formData.captcha);
     }
     return <div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>
 }
 
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootState>(mapStateToProps, {

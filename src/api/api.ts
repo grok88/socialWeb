@@ -58,14 +58,21 @@ export type ResponseType<T> = {
     messages: string[]
     resultCode: number
 }
+
 export const authApi = {
     authMe() {
         return instance.get('auth/me')
     },
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post('auth/login', {email, password, rememberMe});
+    login(email: string, password: string, rememberMe: boolean, captcha: string | null = null) {
+        return instance.post('auth/login', {email, password, rememberMe, captcha});
     },
     logout() {
         return instance.delete('auth/login');
     }
+}
+
+export const securityApi = {
+    getCaptcha() {
+        return instance.get<{ url: string }>('security/get-captcha-url')
+    },
 }
