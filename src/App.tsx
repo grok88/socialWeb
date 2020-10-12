@@ -4,7 +4,7 @@ import News from './components/news/news';
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {HashRouter, Route, Switch, withRouter} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 // import DialogsContainer from "./components/dialogs/dialogsContainer";
 import UsersContainer from './components/users/UsersContainer';
 // import ProfileContainer from './components/profile/profileContainer';
@@ -23,9 +23,16 @@ const ProfileContainer = React.lazy(() => import('./components/profile/profileCo
 type PropsType = MapDispatchToProps & MapStatePropsType;
 
 class App extends React.Component<PropsType> {
+    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
+        alert(promiseRejectionEvent.reason);
+    }
 
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }
 
     render() {
@@ -39,6 +46,7 @@ class App extends React.Component<PropsType> {
                 <div className='app-wrapper-content'>
                     <Suspense fallback={<Preloader/>}>
                         <Switch>
+                            <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
                             <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                             <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                             <Route path={'/music'} render={() => <Music/>}/>
@@ -46,6 +54,7 @@ class App extends React.Component<PropsType> {
                             <Route path={'/settings'} component={Settings}/>
                             <Route path={'/users'} render={() => <UsersContainer/>}/>
                             <Route path={'/login'} render={() => <Login/>}/>
+                            <Route path={'*'} render={() => <div>404 - NOT FOUND </div>}/>
                         </Switch>
                     </Suspense>
                 </div>
@@ -75,11 +84,11 @@ const AppContainer = compose<React.ComponentType>(
 
 const SamuraiApp = () => {
     return <Provider store={store}>
-        <HashRouter
+        <BrowserRouter
             // basename={process.env.PUBLIC_URL}
         >
             <AppContainer/>
-        </HashRouter>
+        </BrowserRouter>
     </Provider>
 }
 

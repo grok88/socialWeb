@@ -126,9 +126,14 @@ export const getUserStatus = (userID: string): ThunkType => {
 }
 export const updateUserStatus = (status: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        const resp = await profileApi.updateStatus(status);
-        if (resp.data.resultCode === 0) {
-            dispatch(setUserStatus(status));
+        try {
+            const resp = await profileApi.updateStatus(status);
+            if (resp.data.resultCode === 0) {
+                dispatch(setUserStatus(status));
+            }
+        } catch (error) {
+            debugger
+            console.log(error)
         }
     }
 }
@@ -154,7 +159,7 @@ export const saveProfile = (profile: ProfileDataFormType): ThunkType => {
             if (resp.resultCode === 0) {
                 dispatch(getUserProfile(userId));
             } else {
-                dispatch(stopSubmit('edit-profile', {_error:resp.messages[0]}));
+                dispatch(stopSubmit('edit-profile', {_error: resp.messages[0]}));
                 return Promise.reject(resp.messages[0]);
             }
         } catch (e) {
