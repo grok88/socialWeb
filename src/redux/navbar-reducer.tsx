@@ -1,4 +1,4 @@
-import {UserType} from "./users-reducer";
+import {UserType} from "../types/types";
 
 const SET_USERS = 'SW/FRIENDS/SET-USERS';
 const SET_STATUS = 'SW/FRIENDS/SET-STATUS';
@@ -31,7 +31,7 @@ type setUsersFriendsACType = {
 
 export type NavbarReducerAC = setStatusFriendsACType | setUsersFriendsACType;
 
-const navbarReducer = (state: NavbarReducerInitialState = initialState, action: NavbarReducerAC):NavbarReducerInitialState => {
+const navbarReducer = (state: NavbarReducerInitialState = initialState, action: NavbarReducerAC): NavbarReducerInitialState => {
 
     switch (action.type) {
         case SET_STATUS :

@@ -1,7 +1,7 @@
 import React from "react";
 import style from './Friend.module.css';
 import userImg from '../../../../assets/images/user.png';
-import {UserType} from "../../../../redux/users-reducer";
+import {UserType} from "../../../../types/types";
 
 type PropsType = {
     user: UserType;

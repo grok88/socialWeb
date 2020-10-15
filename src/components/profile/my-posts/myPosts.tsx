@@ -2,10 +2,10 @@ import React from 'react';
 import style from './myPosts.module.css';
 import Post from "./post/post";
 import {ProfileType} from "../profileInfo/profileInfo";
-import {ObjPostType} from "../../../redux/redux-store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {required, maxLengthCreator} from "../../../utils/validators/validators";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from '../../common/formsControls/FormsControls';
+import {ObjPostType} from "../../../types/types";
 
 type PropsType = {
     profilePage: {

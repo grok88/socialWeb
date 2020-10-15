@@ -1,9 +1,9 @@
 import React from "react";
 import style from './Friends.module.css';
 import Friend from "./friend/Friend";
-import {UserType} from "../../../redux/users-reducer";
 import axios from 'axios'
 import {statuses} from "../../../redux/navbar-reducer";
+import {UserType} from "../../../types/types";
 
 
 type PropsType = {

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import {UserType} from "../../redux/users-reducer";
 import axios from 'axios'
 import userPhoto from '../../assets/images/green.png'
+import {UserType} from "../../types/types";
 
 
 export type UsersPropsType = {

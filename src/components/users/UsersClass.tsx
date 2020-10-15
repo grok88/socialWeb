@@ -1,8 +1,8 @@
 import React from "react";
-import {UserType} from "../../redux/users-reducer";
 import Preloader from "../../assets/preloader/Preloader";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import {UserType} from "../../types/types";
 
 
 export type UsersAPIComponentPropsType = {

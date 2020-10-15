@@ -14,12 +14,6 @@ export type MessagesType = {
     message: string
 }
 
-// Для постов
-export type ObjPostType = {
-    id: string,
-    message: string,
-    likeCount: string
-}
 
 let reducers = combineReducers({
     profilePage: profileReducer,

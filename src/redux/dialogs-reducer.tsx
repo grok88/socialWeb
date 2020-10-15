@@ -8,10 +8,11 @@ export type addMessACType = ReturnType<typeof addMessAC>;
 
 export type dialogsReducerAC = addMessACType ;
 
-export type DialogsReducerInitialStateType = {
-    dialogs: Array<DialogItemType>;
-    messages: Array<MessagesType>;
-}
+// export type DialogsReducerInitialStateType = {
+//     dialogs: Array<DialogItemType>;
+//     messages: Array<MessagesType>;
+// }
+
 
 let initialState = {
     dialogs: [
@@ -45,19 +46,21 @@ let initialState = {
             name: "ergey",
             url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_yhvGXHtP8leB8fhWCAOke-8h5gRG1Wxo6fS814OFjX_g1qOl&usqp=CAU"
         }
-    ],
+    ] as Array<DialogItemType>,
     messages: [
         {id: v1(), message: 'E-ho-ho'},
         {id: v1(), message: 'And the bottle of rum'},
         {id: v1(), message: 'Yes!'}
-    ],
+    ] as Array<MessagesType>,
 }
 
-const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC) => {
+export type DialogsReducerInitialStateType = typeof initialState;
+
+const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC):DialogsReducerInitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE :
             let newMess = {
-                id: v1(),
+                id:v1(),
                 message: action.value
             }
             return {

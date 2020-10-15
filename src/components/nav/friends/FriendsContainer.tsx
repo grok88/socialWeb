@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import Friends from "./Friends";
 import {AppRootState} from "../../../redux/redux-store";
 import {setStatusFriends, setUsersFriends} from "../../../redux/navbar-reducer";
-import {UserType} from "../../../redux/users-reducer";
+import {UserType} from "../../../types/types";
 
 
 type MapStateToPropsType = {

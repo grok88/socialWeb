@@ -7,6 +7,7 @@ import {NavbarReducerAC} from "./navbar-reducer";
 import {profileReducerType} from "./profile-reducer";
 import {AppReducerType} from "./app-reducer";
 import {updateObjectInArray} from "../utils/object-helpers";
+import { UserType } from "../types/types";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -16,29 +17,30 @@ const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE-FOLLOWING-IN-PROGRESS';
 
-export type UserType = {
-    id: string;
-    userUrl: string;
-    photos: {
-        small: string | null;
-        large: string | null;
-    }
-    followed: boolean;
-    name: string;
-    status: string;
-    location: {
-        country: string;
-        city: string;
-    }
-}
-export type UsersReducerInitialStateType = {
-    users: Array<UserType>;
-    pageSize: number;
-    totalUsersCount: number;
-    currentPage: number;
-    isFetching: boolean;
-    followingInProgress: Array<string>;
-}
+// export type UserType = {
+//     id: string;
+//     userUrl: string;
+//     photos: {
+//         small: string | null;
+//         large: string | null;
+//     }
+//     followed: boolean;
+//     name: string;
+//     status: string;
+//     location: {
+//         country: string;
+//         city: string;
+//     }
+// }
+// export type UsersReducerInitialStateType = {
+//     users: Array<UserType>;
+//     pageSize: number;
+//     totalUsersCount: number;
+//     currentPage: number;
+//     isFetching: boolean;
+//     followingInProgress: Array<string>;
+// }
+
 
 export type FollowACType = ReturnType<typeof followSuccess>;
 export type UnFollowACType = ReturnType<typeof unFollowSuccess>;
@@ -63,15 +65,15 @@ export type SWActionType =
     | UsersReducerAC
     | AppReducerType;
 
-let initialState: UsersReducerInitialStateType = {
-    users: [],
+let initialState = {
+    users: [] as Array<UserType>,
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: []
+    followingInProgress: [] as Array<string>
 }
-
+export type   UsersReducerInitialStateType = typeof initialState;
 const usersReducer = (state: UsersReducerInitialStateType = initialState, action: UsersReducerAC): UsersReducerInitialStateType => {
     switch (action.type) {
         case FOLLOW:

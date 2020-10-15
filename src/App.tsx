@@ -24,7 +24,7 @@ type PropsType = MapDispatchToProps & MapStatePropsType;
 
 class App extends React.Component<PropsType> {
     catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
-        alert(promiseRejectionEvent.reason);
+        // alert(promiseRejectionEvent.reason);
     }
 
     componentDidMount() {
