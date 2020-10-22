@@ -1,5 +1,5 @@
 import {SWActionType, ThunkType} from "./users-reducer";
-import {authApi, securityApi, userApi} from "../api/api";
+import {authApi, ResultCodeEnum, ResultCodeForCaptcha, securityApi, userApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
 import {stopSubmit} from "redux-form";
@@ -98,10 +98,10 @@ export const getCaptchaUrl = (captchaUrl: string) => {
 //thunk
 export const authMe = (): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        const res = await authApi.authMe();
+        const meData = await authApi.authMe();
 
-        if (res.data.resultCode === 0) {
-            let {id, email, login} = res.data.data;
+        if (meData.resultCode === ResultCodeEnum.Success) {
+            let {id, email, login} = meData.data;
             dispatch(setAuthUserData(id, email, login, true));
             const userRes = await userApi.getUserProfileById(id);
             dispatch(setAuthUser(userRes.data));
@@ -110,15 +110,15 @@ export const authMe = (): ThunkType => {
 }
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string | null): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        const res = await authApi.login(email, password, rememberMe, captcha);
+        const data = await authApi.login(email, password, rememberMe, captcha);
 
-        if (res.data.resultCode === 0) {
+        if (data.resultCode === ResultCodeEnum.Success) {
             dispatch(authMe());
         } else {
-            if (res.data.resultCode === 10) {
+            if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
                 dispatch(getCaptcha());
             }
-            const message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error occurred';
+            const message = data.messages.length > 0 ? data.messages[0] : 'some error occurred';
             // @ts-ignore
             dispatch(stopSubmit('login', {_error: message}));
         }
@@ -127,9 +127,9 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 }
 export const logout = (): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        const res = await authApi.logout();
+        const data = await authApi.logout();
 
-        if (res.data.resultCode === 0) {
+        if (data.resultCode === ResultCodeEnum.Success) {
             dispatch(setAuthUserData(null, null, null, false));
         }
     }
@@ -137,7 +137,6 @@ export const logout = (): ThunkType => {
 
 export const getCaptcha = (): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-        debugger
         try {
             const res = await securityApi.getCaptcha();
             dispatch(getCaptchaUrl(res.data.url));

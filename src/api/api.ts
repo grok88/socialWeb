@@ -1,5 +1,6 @@
 import axios from "axios";
 import {ProfileDataFormType} from "../components/profile/profileInfo/ProfileDataForm/ProfileDataForm";
+import {UserType} from "../types/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,17 +10,23 @@ const instance = axios.create({
     }
 })
 
+type GetUsersRespType = {
+    items: Array<UserType>;
+    totalCount: number;
+    error: string;
+}
+
 export const userApi = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<GetUsersRespType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
     },
     follow(id: string) {
-        return instance.post(`follow/${id}`, {})
+        return instance.post<CommonRespType>(`follow/${id}`, {})
             .then(response => response.data);
     },
     unFollow(id: string) {
-        return instance.delete(`follow/${id}`)
+        return instance.delete<CommonRespType>(`follow/${id}`)
             .then(response => response.data);
     },
     getUserProfileById(id: string) {
@@ -34,7 +41,7 @@ export const profileApi = {
     getStatus(userId: string) {
         return instance.get(`profile/status/${userId}`);
     },
-    updateStatus(status: string) {
+    updateStatus<CommonRespType>(status: string) {
         return instance.put(`profile/status`, {status});
     },
     savePhoto(photo: any) {
@@ -46,7 +53,7 @@ export const profileApi = {
             }
         }).then(res => res.data);
     },
-    saveProfile(profile: ProfileDataFormType) {
+    saveProfile<CommonRespType>(profile: ProfileDataFormType) {
         return instance.put('profile', profile)
             .then(res => res.data);
     }
@@ -59,15 +66,48 @@ export type ResponseType<T> = {
     resultCode: number
 }
 
+type MeRespType = {
+    data: {
+        id: number;
+        email: string;
+        login: string;
+    },
+    resultCode: ResultCodeEnum;
+    messages: Array<string>;
+}
+type LoginRespType = {
+    data: {
+        userId: number;
+    },
+    resultCode: ResultCodeEnum | ResultCodeForCaptcha;
+    messages: Array<string>;
+}
+type CommonRespType = {
+    data: {},
+    resultCode: ResultCodeEnum;
+    messages: Array<string>;
+}
+
+export enum ResultCodeEnum {
+    Success = 0,
+    Error = 1,
+}
+
+export enum ResultCodeForCaptcha {
+    CaptchaIsRequired = 10
+}
+
 export const authApi = {
     authMe() {
-        return instance.get('auth/me')
+        return instance.get('auth/me').then(res => res.data);
     },
     login(email: string, password: string, rememberMe: boolean, captcha: string | null = null) {
-        return instance.post('auth/login', {email, password, rememberMe, captcha});
+        return instance.post<LoginRespType>('auth/login', {email, password, rememberMe, captcha})
+            .then(res => res.data);
     },
     logout() {
-        return instance.delete('auth/login');
+        return instance.delete<CommonRespType>('auth/login')
+            .then(res => res.data);
     }
 }
 
