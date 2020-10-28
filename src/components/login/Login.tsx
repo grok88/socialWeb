@@ -22,12 +22,12 @@ export const LoginForm: React.FC<LoginFormPropsType & InjectedFormProps<FormData
     return <form onSubmit={handleSubmit}>
         <div>
             <Field name={'login'} placeholder={'Login'} component={Input}
-                   validate={[required]} defaultValue={'free@samuraijs.com'}
+                   validate={[required]}
             />
         </div>
         <div>
             <Field name={'password'} placeholder={'Password'} type={'password'} component={Input}
-                   validate={[required]} defaultValue={'free'}/>
+                   validate={[required]}/>
         </div>
         <div>
             <Field name={'checkbox'} type="checkbox" component={Input}/>
@@ -72,7 +72,8 @@ const Login = (props: LoginPropsType) => {
     }
     return <div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} initialValues={{login: "free@samuraijs.com",password:'free'}}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}
+                        initialValues={{login: "free@samuraijs.com", password: 'free'}}/>
     </div>
 }
 

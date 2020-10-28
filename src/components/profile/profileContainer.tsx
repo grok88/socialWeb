@@ -7,6 +7,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import { ProfileType} from "./profileInfo/profileInfo";
 import {compose} from "redux";
 import {ProfileDataFormType} from "./profileInfo/ProfileDataForm/ProfileDataForm";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type PathParamsType = {
     userId: string;
@@ -80,7 +81,7 @@ export default compose<React.ComponentType>(
         saveProfile
     }),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 )(ProfileContainer);
 
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);

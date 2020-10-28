@@ -37,6 +37,8 @@ export const initializeApp = (): ThunkType => {
         Promise.all([promise])
             .then(() => {
                 dispatch(initializedSuccess());
-            })
+            }).catch(() => {
+            dispatch(initializedSuccess());
+        })
     }
 }

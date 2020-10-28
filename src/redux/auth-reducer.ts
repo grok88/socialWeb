@@ -103,8 +103,8 @@ export const authMe = (): ThunkType => {
         if (meData.resultCode === ResultCodeEnum.Success) {
             let {id, email, login} = meData.data;
             dispatch(setAuthUserData(id, email, login, true));
-            const userRes = await userApi.getUserProfileById(id);
-            dispatch(setAuthUser(userRes.data));
+            // const userRes = await userApi.getUserProfileById(id);
+            // dispatch(setAuthUser(userRes.data));
         }
     }
 }

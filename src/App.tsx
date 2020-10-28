@@ -4,7 +4,7 @@ import News from './components/news/news';
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 // import DialogsContainer from "./components/dialogs/dialogsContainer";
 import UsersContainer from './components/users/UsersContainer';
 // import ProfileContainer from './components/profile/profileContainer';
@@ -84,11 +84,11 @@ const AppContainer = compose<React.ComponentType>(
 
 const SamuraiApp = () => {
     return <Provider store={store}>
-        <BrowserRouter
+        <HashRouter
             // basename={process.env.PUBLIC_URL}
         >
             <AppContainer/>
-        </BrowserRouter>
+        </HashRouter>
     </Provider>
 }
 
