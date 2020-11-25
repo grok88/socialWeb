@@ -1,8 +1,10 @@
 import {SWActionType, ThunkType} from "./users-reducer";
-import {authApi, ResultCodeEnum, ResultCodeForCaptcha, securityApi, userApi} from "../api/api";
+import {ResultCodeEnum, ResultCodeForCaptcha, securityApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {userApi} from "../api/users-api";
+import {authApi} from "../api/auth-api";
 
 const SET_USER_DATA = 'auth/SET-USER-DATA';
 const SET_AUTH_USER = 'auth/SET-AUTH-USER';

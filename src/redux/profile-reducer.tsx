@@ -3,10 +3,11 @@ import {ProfileType} from "../components/profile/profileInfo/profileInfo";
 import {AppRootState} from "./redux-store";
 import {SWActionType, ThunkType} from "./users-reducer";
 import {ThunkDispatch} from "redux-thunk";
-import {profileApi, userApi} from "../api/api";
+import {profileApi} from "../api/api";
 import {ProfileDataFormType} from "../components/profile/profileInfo/ProfileDataForm/ProfileDataForm";
 import {stopSubmit} from "redux-form";
 import { ObjPostType } from "../types/types";
+import {userApi} from "../api/users-api";
 
 const ADD_POST = 'profile/ADD-POST';
 const DELETE_POST = 'profile/DELETE-POST';

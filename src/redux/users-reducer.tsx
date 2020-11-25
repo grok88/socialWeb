@@ -1,4 +1,3 @@
-import {userApi} from "../api/api";
 import {AppRootState, InferActionsType} from "./redux-store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AuthReducerType} from "./auth-reducer";
@@ -8,6 +7,7 @@ import {profileReducerType} from "./profile-reducer";
 import {AppReducerType} from "./app-reducer";
 import {updateObjectInArray} from "../utils/object-helpers";
 import {UserType} from "../types/types";
+import {userApi} from "../api/users-api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';

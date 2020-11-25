@@ -1,8 +1,7 @@
 import axios from "axios";
 import {ProfileDataFormType} from "../components/profile/profileInfo/ProfileDataForm/ProfileDataForm";
-import {UserType} from "../types/types";
 
-const instance = axios.create({
+export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
@@ -11,30 +10,8 @@ const instance = axios.create({
     }
 })
 
-type GetUsersRespType = {
-    items: Array<UserType>;
-    totalCount: number;
-    error: string;
-}
 
-export const userApi = {
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get<GetUsersRespType>(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data);
-    },
-    follow(id: string) {
-        return instance.post<CommonRespType>(`follow/${id}`, {})
-            .then(response => response.data);
-    },
-    unFollow(id: string) {
-        return instance.delete<CommonRespType>(`follow/${id}`)
-            .then(response => response.data);
-    },
-    getUserProfileById(id: string) {
-        console.warn('Obsolete method. Use profileApi object');
-        return profileApi.getUserProfileById(id);
-    }
-}
+
 export const profileApi = {
     getUserProfileById(id: string) {
         return instance.get(`profile/${id}`)
@@ -60,12 +37,12 @@ export const profileApi = {
     }
 }
 
-export type ResponseType<T> = {
-    data: T
-    fieldErrors: string[]
-    messages: string[]
-    resultCode: number
-}
+// export type ResponseType<T> = {
+//     data: T
+//     fieldErrors: string[]
+//     messages: string[]
+//     resultCode: number
+// }
 
 type MeRespType = {
     data: {
@@ -76,14 +53,8 @@ type MeRespType = {
     resultCode: ResultCodeEnum;
     messages: Array<string>;
 }
-type LoginRespType = {
-    data: {
-        userId: number;
-    },
-    resultCode: ResultCodeEnum | ResultCodeForCaptcha;
-    messages: Array<string>;
-}
-type CommonRespType = {
+
+export type CommonRespType = {
     data: {},
     resultCode: ResultCodeEnum;
     messages: Array<string>;
@@ -98,22 +69,13 @@ export enum ResultCodeForCaptcha {
     CaptchaIsRequired = 10
 }
 
-export const authApi = {
-    authMe() {
-        return instance.get('auth/me').then(res => res.data);
-    },
-    login(email: string, password: string, rememberMe: boolean, captcha: string | null = null) {
-        return instance.post<LoginRespType>('auth/login', {email, password, rememberMe, captcha})
-            .then(res => res.data);
-    },
-    logout() {
-        return instance.delete<CommonRespType>('auth/login')
-            .then(res => res.data);
-    }
-}
-
 export const securityApi = {
     getCaptcha() {
         return instance.get<{ url: string }>('security/get-captcha-url')
     },
+}
+export type ResponseType<D = {}, RC = ResultCodeEnum> = {
+    data: D
+    messages: Array<string>;
+    resultCode: RC
 }
