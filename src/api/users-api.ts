@@ -1,4 +1,4 @@
-import {instance, profileApi, CommonRespType} from "./api";
+import {instance} from "./api";
 import {UserType} from "../types/types";
 
 export type GetUsersRespType = {
@@ -13,15 +13,11 @@ export const userApi = {
             .then(response => response.data);
     },
     follow(id: string) {
-        return instance.post<CommonRespType>(`follow/${id}`, {})
+        return instance.post<ResponseType>(`follow/${id}`, {})
             .then(response => response.data);
     },
     unFollow(id: string) {
-        return instance.delete<CommonRespType>(`follow/${id}`)
+        return instance.delete<ResponseType>(`follow/${id}`)
             .then(response => response.data);
     },
-    getUserProfileById(id: string) {
-        console.warn('Obsolete method. Use profileApi object');
-        return profileApi.getUserProfileById(id);
-    }
 }

@@ -44,15 +44,15 @@ export const profileApi = {
 //     resultCode: number
 // }
 
-type MeRespType = {
-    data: {
-        id: number;
-        email: string;
-        login: string;
-    },
-    resultCode: ResultCodeEnum;
-    messages: Array<string>;
-}
+// type MeRespType = {
+//     data: {
+//         id: number;
+//         email: string;
+//         login: string;
+//     },
+//     resultCode: ResultCodeEnum;
+//     messages: Array<string>;
+// }
 
 export type CommonRespType = {
     data: {},

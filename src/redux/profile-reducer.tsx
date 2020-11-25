@@ -117,7 +117,8 @@ export const savePhotoSuccess = (profile: ProfileType) => {
 
 //thunk
 export const getUserProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
-    const res = await userApi.getUserProfileById(userId);
+    const res = await profileApi.getUserProfileById(userId);
+        // userApi.getUserProfileById(userId);
     dispatch(setUserProfile(res.data));
 }
 export const getUserStatus = (userID: string): ThunkType => {
