@@ -3,11 +3,10 @@ import {ProfileType} from "../components/profile/profileInfo/profileInfo";
 import {AppRootState} from "./redux-store";
 import {SWActionType, ThunkType} from "./users-reducer";
 import {ThunkDispatch} from "redux-thunk";
-import {profileApi} from "../api/api";
 import {ProfileDataFormType} from "../components/profile/profileInfo/ProfileDataForm/ProfileDataForm";
 import {stopSubmit} from "redux-form";
-import { ObjPostType } from "../types/types";
-import {userApi} from "../api/users-api";
+import {ObjPostType} from "../types/types";
+import {profileApi} from "../api/profile-api";
 
 const ADD_POST = 'profile/ADD-POST';
 const DELETE_POST = 'profile/DELETE-POST';
@@ -118,20 +117,19 @@ export const savePhotoSuccess = (profile: ProfileType) => {
 //thunk
 export const getUserProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
     const res = await profileApi.getUserProfileById(userId);
-        // userApi.getUserProfileById(userId);
-    dispatch(setUserProfile(res.data));
+    dispatch(setUserProfile(res));
 }
 export const getUserStatus = (userID: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         const resp = await profileApi.getStatus(userID);
-        dispatch(setUserStatus(resp.data));
+        dispatch(setUserStatus(resp));
     }
 }
 export const updateUserStatus = (status: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         try {
             const resp = await profileApi.updateStatus(status);
-            if (resp.data.resultCode === 0) {
+            if (resp.resultCode === 0) {
                 dispatch(setUserStatus(status));
             }
         } catch (error) {
@@ -155,7 +153,6 @@ export const savePhoto = (file: any): ThunkType => {
 }
 export const saveProfile = (profile: ProfileDataFormType): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, getState: () => AppRootState) => {
-
         const userId = String(getState().auth.id);
         try {
             const resp = await profileApi.saveProfile(profile);

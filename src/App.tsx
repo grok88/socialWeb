@@ -4,10 +4,8 @@ import News from './components/news/news';
 import Music from "./components/music/music";
 import Settings from "./components/settings/settings";
 
-import {BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
-// import DialogsContainer from "./components/dialogs/dialogsContainer";
+import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import UsersContainer from './components/users/UsersContainer';
-// import ProfileContainer from './components/profile/profileContainer';
 import HeaderContainer from "./components/header/headerContainer";
 import {Navbar} from "./components/nav/Navbar";
 import Login from "./components/login/Login";
@@ -31,6 +29,7 @@ class App extends React.Component<PropsType> {
         this.props.initializeApp();
         window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }
+
     componentWillUnmount() {
         window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }

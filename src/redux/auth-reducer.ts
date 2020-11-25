@@ -1,9 +1,8 @@
 import {SWActionType, ThunkType} from "./users-reducer";
-import {ResultCodeEnum, ResultCodeForCaptcha, securityApi} from "../api/api";
+import {ResultCodeEnum, ResultCodeForCaptchaEnum, securityApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
 import {stopSubmit} from "redux-form";
-import {userApi} from "../api/users-api";
 import {authApi} from "../api/auth-api";
 
 const SET_USER_DATA = 'auth/SET-USER-DATA';
@@ -117,7 +116,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
         if (data.resultCode === ResultCodeEnum.Success) {
             dispatch(authMe());
         } else {
-            if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
+            if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
                 dispatch(getCaptcha());
             }
             const message = data.messages.length > 0 ? data.messages[0] : 'some error occurred';
