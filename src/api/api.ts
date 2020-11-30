@@ -19,11 +19,6 @@ export enum ResultCodeForCaptchaEnum {
     CaptchaIsRequired = 10
 }
 
-export const securityApi = {
-    getCaptcha() {
-        return instance.get<{ url: string }>('security/get-captcha-url')
-    },
-}
 export type APIResponseType<D = {}, RC = ResultCodeEnum> = {
     data: D
     messages: Array<string>;

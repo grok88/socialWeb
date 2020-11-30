@@ -5,7 +5,7 @@ import {authMe} from "./auth-reducer";
 
 export type AppReducerTypeInitialStateType = typeof initialState;
 
-const INITIALIZED_SUCCESS = 'SET_INITIALIZED';
+const INITIALIZED_SUCCESS = 'APP/SET_INITIALIZED';
 
 let initialState = {
     initialized: false

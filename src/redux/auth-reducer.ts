@@ -1,9 +1,10 @@
 import {SWActionType, ThunkType} from "./users-reducer";
-import {ResultCodeEnum, ResultCodeForCaptchaEnum, securityApi} from "../api/api";
+import {ResultCodeEnum, ResultCodeForCaptchaEnum} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootState} from "./redux-store";
 import {stopSubmit} from "redux-form";
 import {authApi} from "../api/auth-api";
+import {securityApi} from "../api/security-api";
 
 const SET_USER_DATA = 'auth/SET-USER-DATA';
 const SET_AUTH_USER = 'auth/SET-AUTH-USER';
@@ -140,7 +141,7 @@ export const getCaptcha = (): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         try {
             const res = await securityApi.getCaptcha();
-            dispatch(getCaptchaUrl(res.data.url));
+            dispatch(getCaptchaUrl(res.url));
         } catch (e) {
             console.log(e.name)
         }
