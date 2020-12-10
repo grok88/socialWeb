@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import profileReducer, {deleteAC, ProfileReducerInitialStateType, setUserStatus} from "./profile-reducer";
 
 let startState: ProfileReducerInitialStateType;
+
 beforeEach(() => {
     startState = {
         posts: [
@@ -39,6 +40,12 @@ test('correct post should be deleted from  posts', () => {
 
     expect(endStart.posts.length).toBe(2);
     expect(endStart.posts[2]).toBeUndefined();
+});
+test('correct profile  should be added', () => {
 
+    const endStart = profileReducer(startState, deleteAC('1'));
+
+    expect(endStart.posts.length).toBe(2);
+    expect(endStart.posts[2]).toBeUndefined();
 });
 

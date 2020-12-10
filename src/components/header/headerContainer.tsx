@@ -23,7 +23,8 @@ class HeaderContainer extends React.Component<PropsType> {
     // }
 
     render() {
-        return <Header {...this.props} authUser={this.props.authUser}/>
+        return 'deprecate'
+        // return <Header {...this.props} authUser={this.props.authUser}/>
     }
 }
 
