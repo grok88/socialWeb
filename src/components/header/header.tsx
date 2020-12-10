@@ -10,10 +10,7 @@ import {AppRootState} from "../../redux/redux-store";
 
 
 type PropsType = {
-    // isAuth: boolean;
-    // login: string | null;
-    // authUser: AuthUserType | null;
-    // logout: () => void;
+
 }
 export const Header = (props: PropsType) => {
     const {Header} = Layout;
@@ -23,7 +20,6 @@ export const Header = (props: PropsType) => {
     const authUser = useSelector(getAuthUser);
 
     const userAvatar = useSelector<AppRootState, any>(state => state.auth.authUser);
-    console.log(userAvatar)
 
     const dispatch = useDispatch();
 
@@ -43,11 +39,7 @@ export const Header = (props: PropsType) => {
             {
                 isAuth ? <>
                         <Col span={1}>
-                            {/*<img*/}
-                            {/*    src={authUser ? 'https://i03.fotocdn.net/s121/f5452ede0f497c83/user_l/2769409821.jpg' : ""}*/}
-                            {/*    alt={'logo'}/>*/}
                             <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
-
                         </Col>
                         <Col span={5}>
                             <Button onClick={onLogout}>logOut</Button>
@@ -60,7 +52,6 @@ export const Header = (props: PropsType) => {
                         </Button>
                     </Col>
             }
-
         </Row>
     </Header>
 
