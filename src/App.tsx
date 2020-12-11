@@ -14,12 +14,12 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./assets/preloader/Preloader";
 //And Design
 import 'antd/dist/antd.css';
-import {Avatar, Breadcrumb, Col, Layout, Menu, Row} from 'antd';
+import {Breadcrumb, Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import Header from "./components/header/header";
 
 const {SubMenu} = Menu;
-const { Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 
 const DialogsContainer = React.lazy(() => import('./components/dialogs/dialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
@@ -47,24 +47,11 @@ class App extends React.Component<PropsType> {
         if (!this.props.initialized) {
             return <Preloader/>
         }
-        // const location = useLocation();
-        // const {pathname} = location;
+        const {match, location, history} = this.props
+
 
         return (
             <Layout>
-                {/*<Header className="header">*/}
-                {/*    <div className="logo"/>*/}
-                {/*    <Row>*/}
-                {/*        <Col span={20}>*/}
-                {/*            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>*/}
-                {/*                <Menu.Item key="1"><NavLink to='/users'>Users</NavLink></Menu.Item>*/}
-                {/*            </Menu>*/}
-                {/*        </Col>*/}
-                {/*        <Col span={4}>*/}
-                {/*            <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>*/}
-                {/*        </Col>*/}
-                {/*    </Row>*/}
-                {/*</Header>*/}
                 <Header/>
                 <Content style={{padding: '0 50px'}}>
                     <Breadcrumb style={{margin: '16px 0'}}>
@@ -80,20 +67,20 @@ class App extends React.Component<PropsType> {
                                 defaultOpenKeys={['sub1']}
                                 style={{height: '100%'}}
                                 // theme="dark"
-                                // selectedKeys={[pathname]}
+                                selectedKeys={[location.pathname]}
                             >
                                 <SubMenu key="sub1" icon={<UserOutlined/>} title="My Profile">
-                                    <Menu.Item key="1"> <NavLink to='/profile'>Profile</NavLink></Menu.Item>
-                                    <Menu.Item key="2"> <NavLink to='/dialogs'>Messages</NavLink></Menu.Item>
+                                    <Menu.Item key="/profile"> <NavLink to='/profile'>Profile</NavLink></Menu.Item>
+                                    <Menu.Item key="/dialogs"> <NavLink to='/dialogs'>Messages</NavLink></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" icon={<LaptopOutlined/>} title="News">
-                                    <Menu.Item key="3"> <NavLink to='/news'>News</NavLink></Menu.Item>
+                                    <Menu.Item key="/news"> <NavLink to='/news'>News</NavLink></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" icon={<NotificationOutlined/>} title="Music">
-                                    <Menu.Item key="4"> <NavLink to='/music'>Music</NavLink></Menu.Item>
+                                    <Menu.Item key="/music"> <NavLink to='/music'>Music</NavLink></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub4" icon={<NotificationOutlined/>} title="Users">
-                                    <Menu.Item key="5"> <NavLink to='/users'>Users</NavLink></Menu.Item>
+                                    <Menu.Item key="/users"> <NavLink to='/users'>Users</NavLink></Menu.Item>
                                 </SubMenu>
                             </Menu>
                         </Sider>
@@ -114,7 +101,7 @@ class App extends React.Component<PropsType> {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Footer style={{textAlign: 'center'}}> Social network ©2020</Footer>
             </Layout>
             //old
             // <div className='app-wrapper'>
