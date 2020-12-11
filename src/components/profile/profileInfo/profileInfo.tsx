@@ -4,6 +4,7 @@ import Preloader from "../../../assets/preloader/Preloader";
 import userPhoto from '../../../assets/images/green.png'
 import {ProfileStatus} from './profilestatus/ProfileStatus';
 import ProfileDataFormRedux, {ProfileDataFormType} from "./ProfileDataForm/ProfileDataForm";
+import { Image } from 'antd';
 
 export type ProfileType = {
     aboutMe: string,
@@ -52,16 +53,17 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
     return (
         <div className={style.profileInfo}>
-            {/*<div>*/}
-            {/*    <img*/}
-            {/*        src="https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg"*/}
-            {/*        alt="main-fon"/>*/}
-            {/*</div>*/}
+
 
             <div className={style.description}>
                 <div>
-                    <img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"
-                         width={100}/>
+                    {/*<img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"*/}
+                    {/*     width={100}/>*/}
+                    <Image
+                        width={200}
+                        src={profile.photos.large !== null ? profile.photos.large : userPhoto}
+                        alt='User avator'
+                    />
                 </div>
                 {
                     props.isOwner &&

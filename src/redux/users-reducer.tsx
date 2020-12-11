@@ -9,53 +9,8 @@ import {updateObjectInArray} from "../utils/object-helpers";
 import {UserType} from "../types/types";
 import {userApi} from "../api/users-api";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET-USERS';
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
-const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
-const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE-FOLLOWING-IN-PROGRESS';
-
-// export type UserType = {
-//     id: string;
-//     userUrl: string;
-//     photos: {
-//         small: string | null;
-//         large: string | null;
-//     }
-//     followed: boolean;
-//     name: string;
-//     status: string;
-//     location: {
-//         country: string;
-//         city: string;
-//     }
-// }
-// export type UsersReducerInitialStateType = {
-//     users: Array<UserType>;
-//     pageSize: number;
-//     totalUsersCount: number;
-//     currentPage: number;
-//     isFetching: boolean;
-//     followingInProgress: Array<string>;
-// }
-
-
-// export type FollowACType = ReturnType<typeof followSuccess>;
-// export type UnFollowACType = ReturnType<typeof unFollowSuccess>;
-// export type SetUsersACType = ReturnType<typeof setUsers>;
-// export type SetCurrentPageACType = ReturnType<typeof setCurrentPage>;
-// export type SetUsersTotalCountACType = ReturnType<typeof setUsersTotalCount>;
-// export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>;
-// export type toggleFollowingInProgressACType = ReturnType<typeof toggleFollowingInProgress>;
 
 export type UsersReducerAC = InferActionsType<typeof actions>;
-// FollowACType
-// | UnFollowACType
-// | SetUsersACType
-// | SetCurrentPageACType
-// | SetUsersTotalCountACType | ToggleIsFetchingACType | toggleFollowingInProgressACType;
 
 export type SWActionType =
     AuthReducerType
@@ -78,37 +33,37 @@ export type   UsersReducerInitialStateType = typeof initialState;
 
 const usersReducer = (state: UsersReducerInitialStateType = initialState, action: UsersReducerAC): UsersReducerInitialStateType => {
     switch (action.type) {
-        case FOLLOW:
+        case "FOLLOW":
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
             }
-        case UNFOLLOW:
+        case "UNFOLLOW":
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
             }
-        case SET_USERS :
+        case "SET-USERS" :
             return {
                 ...state,
                 users: action.users
             }
-        case SET_CURRENT_PAGE :
+        case "SET-CURRENT-PAGE" :
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case SET_TOTAL_COUNT :
+        case "SET-TOTAL-COUNT" :
             return {
                 ...state,
                 totalUsersCount: action.totalCount
             }
-        case TOGGLE_IS_FETCHING :
+        case "TOGGLE-IS-FETCHING" :
             return {
                 ...state,
                 isFetching: action.isFetching
             }
-        case TOGGLE_FOLLOWING_IN_PROGRESS:
+        case "TOGGLE-FOLLOWING-IN-PROGRESS":
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -119,46 +74,47 @@ const usersReducer = (state: UsersReducerInitialStateType = initialState, action
             return state
     }
 }
+
 export const actions = {
     followSuccess: (userId: string) => {
         return {
-            type: FOLLOW,
+            type: 'FOLLOW',
             userId
         } as const;
     },
     unFollowSuccess: (userId: string) => {
         return {
-            type: UNFOLLOW,
+            type: 'UNFOLLOW',
             userId
         } as const;
     },
     setUsers: (users: Array<UserType>) => {
         return {
-            type: SET_USERS,
+            type: 'SET-USERS',
             users
         } as const;
     },
     setCurrentPage: (currentPage: number) => {
         return {
-            type: SET_CURRENT_PAGE,
+            type: 'SET-CURRENT-PAGE',
             currentPage
         } as const;
     },
     setUsersTotalCount: (totalCount: number) => {
         return {
-            type: SET_TOTAL_COUNT,
+            type: 'SET-TOTAL-COUNT',
             totalCount
         } as const;
     },
     toggleIsFetching: (isFetching: boolean) => {
         return {
-            type: TOGGLE_IS_FETCHING,
+            type: 'TOGGLE-IS-FETCHING',
             isFetching
         } as const;
     },
     toggleFollowingInProgress: (isFetching: boolean, userId: string) => {
         return {
-            type: TOGGLE_FOLLOWING_IN_PROGRESS,
+            type: 'TOGGLE-FOLLOWING-IN-PROGRESS',
             isFetching,
             userId
         } as const;

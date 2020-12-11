@@ -1,18 +1,8 @@
 import {v1} from "uuid";
 import {DialogItemType} from "../components/dialogs/dialogItem/dialogItem";
-import {MessagesType} from "./redux-store";
+import {InferActionsType, MessagesType} from "./redux-store";
 
-const ADD_MESSAGE = 'dialogs/ADD-MESSAGE';
-
-export type addMessACType = ReturnType<typeof addMessAC>;
-
-export type dialogsReducerAC = addMessACType ;
-
-// export type DialogsReducerInitialStateType = {
-//     dialogs: Array<DialogItemType>;
-//     messages: Array<MessagesType>;
-// }
-
+export type dialogsReducerAC = InferActionsType<typeof actions>;
 
 let initialState = {
     dialogs: [
@@ -56,11 +46,11 @@ let initialState = {
 
 export type DialogsReducerInitialStateType = typeof initialState;
 
-const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC):DialogsReducerInitialStateType => {
+export const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, action: dialogsReducerAC): DialogsReducerInitialStateType => {
     switch (action.type) {
-        case ADD_MESSAGE :
+        case "dialogs/ADD-MESSAGE" :
             let newMess = {
-                id:v1(),
+                id: v1(),
                 message: action.value
             }
             return {
@@ -72,11 +62,14 @@ const dialogsReducer = (state: DialogsReducerInitialStateType = initialState, ac
     }
 }
 
-export const addMessAC = (value: string) => {
-    return {
-        type: ADD_MESSAGE,
-        value
-    } as const;
+export const actions = {
+    addMessAC: (value: string) => {
+        return {
+            type: 'dialogs/ADD-MESSAGE',
+            value
+        } as const;
+    }
 }
+
 
 export default dialogsReducer;

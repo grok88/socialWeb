@@ -1,13 +1,17 @@
-import style from "../dialogs.module.css";
 import React, {createElement, useState} from "react";
-import { Comment, Tooltip, Avatar } from 'antd';
-import { DislikeOutlined, LikeOutlined, DislikeFilled, LikeFilled } from '@ant-design/icons';
+import {Avatar, Col, Comment, Tooltip} from 'antd';
+import {DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined} from '@ant-design/icons';
+import userPhotos from '../../../assets/images/green.png';
+import {useSelector} from "react-redux";
+import {AppRootState} from "../../../redux/redux-store";
 
 type MessageType = {
     message: string
 }
 
 export const Message = (props: MessageType) => {
+    const userPhoto = useSelector<AppRootState, any>(state => state.profilePage.profile?.photos.small);
+
     const [likes, setLikes] = useState<number>(0);
     const [dislikes, setDislikes] = useState<number>(0);
     const [action, setAction] = useState<null | string>(null);
@@ -48,10 +52,7 @@ export const Message = (props: MessageType) => {
             actions={actions}
             author={<a>Alex Gor</a>}
             avatar={
-                <Avatar
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                    alt="Han Solo"
-                />
+                userPhoto ? <Avatar src={userPhoto}/> : <Avatar src={userPhotos}/>
             }
             content={
                 <p>
