@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {logout} from "../../redux/auth-reducer";
+import userPhotos from '../../assets/images/green.png'
 
 import {Avatar, Button, Col, Layout, Menu, Row} from "antd";
 import {UserOutlined} from '@ant-design/icons';
@@ -9,9 +10,7 @@ import {getAuthUser, getIsAuth, getLogin} from "../../redux/auth-selectors";
 import {AppRootState} from "../../redux/redux-store";
 
 
-type PropsType = {
-
-}
+type PropsType = {}
 export const Header = (props: PropsType) => {
     const {Header} = Layout;
 
@@ -19,7 +18,7 @@ export const Header = (props: PropsType) => {
     const login = useSelector(getLogin);
     const authUser = useSelector(getAuthUser);
 
-    const userAvatar = useSelector<AppRootState, any>(state => state.auth.authUser);
+    const userPhoto = useSelector<AppRootState, any>(state => state.profilePage.profile?.photos.small);
 
     const dispatch = useDispatch();
 
@@ -39,7 +38,9 @@ export const Header = (props: PropsType) => {
             {
                 isAuth ? <>
                         <Col span={1}>
-                            <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
+                            {
+                                userPhoto ? <Avatar src={userPhoto}/> : <Avatar src={userPhotos}/>
+                            }
                         </Col>
                         <Col span={5}>
                             <Button onClick={onLogout}>logOut</Button>

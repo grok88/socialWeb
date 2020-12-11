@@ -1,6 +1,10 @@
 import React from "react";
-import userPhoto from '../../assets/images/green.png'
+import userPhoto from '../../assets/images/green.png';
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppRootState} from "../../redux/redux-store";
+import {Avatar} from "antd";
+import {UserOutlined} from '@ant-design/icons';
 
 
 export type UsersPropsType = {
@@ -10,6 +14,9 @@ export type UsersPropsType = {
 
 }
 const User = (props: UsersPropsType) => {
+
+    // const userPhoto = useSelector<AppRootState,any>(state => state.profilePage.profile?.photos.small);
+
     const {user, unfollow, follow} = props;
     return (
         <div>
@@ -18,6 +25,7 @@ const User = (props: UsersPropsType) => {
                     <NavLink to={'/profile/' + user.id}>
                         <img src={user.photos.small !== null ? user.photos.small : userPhoto}
                              alt="user-avatar" width={100} height={100}/>
+                        {/*userPhoto ?  <Avatar src={userPhoto} /> :  <Avatar style={{backgroundColor: '#87d068'}} icon={userPhoto}/>*/}
                     </NavLink>
                 </div>
                 {user.followed
