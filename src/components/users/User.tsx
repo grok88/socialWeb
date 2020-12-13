@@ -1,10 +1,11 @@
 import React from "react";
 import userPhoto from '../../assets/images/green.png';
 import {NavLink} from "react-router-dom";
+import {UserType} from "../../types/types";
 
 
 export type UsersPropsType = {
-    user: any;
+    user: UserType;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
 

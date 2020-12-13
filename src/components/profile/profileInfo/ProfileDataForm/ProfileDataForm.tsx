@@ -18,7 +18,7 @@ type PropsType = {
 const ProfileDataForm: React.FC<PropsType & InjectedFormProps<ProfileDataFormType,PropsType >> = (props) => {
 
     return <form onSubmit={props.handleSubmit}>
-
+         {/*обработка ошибок в redux-form*/}
         {props.error && <div className={styles.commonErrorField}>
             {props.error}
 		</div>}

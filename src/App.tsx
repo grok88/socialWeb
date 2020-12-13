@@ -14,7 +14,7 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./assets/preloader/Preloader";
 //And Design
 import 'antd/dist/antd.css';
-import {Breadcrumb, Layout, Menu} from 'antd';
+import {Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import Header from "./components/header/header";
 
@@ -30,8 +30,8 @@ type PropsType = RouteComponentProps & OwnPropsType;
 
 class App extends React.Component<PropsType> {
 
-    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
-        // alert(promiseRejectionEvent.reason);
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+        alert(e.reason);
     }
 
     componentDidMount() {

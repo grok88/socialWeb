@@ -21,7 +21,7 @@ type MapDispatchToProps = {
     getUserProfile: (userId: string) => void;
     getUserStatus: (userId: string) => void;
     updateUserStatus: (status: string) => void;
-    savePhoto: (file: any) => void;
+    savePhoto: (file: File) => void;
     saveProfile: (profile: ProfileDataFormType) => void;
 }
 type OwnPropsType = MapStatePropsType & MapDispatchToProps;

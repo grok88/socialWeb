@@ -45,7 +45,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             .then(() => {
                 setEditMode(false);
             });
-
     }
 
     if (!profile) {
