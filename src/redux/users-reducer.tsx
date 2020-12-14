@@ -1,13 +1,14 @@
-import {AppRootState, InferActionsType} from "./redux-store";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AuthReducerType} from "./auth-reducer";
-import {dialogsReducerAC} from "./dialogs-reducer";
-import {NavbarReducerAC} from "./navbar-reducer";
-import {profileReducerType} from "./profile-reducer";
-import {AppReducerType} from "./app-reducer";
-import {updateObjectInArray} from "../utils/object-helpers";
-import {UserType} from "../types/types";
-import {userApi} from "../api/users-api";
+import {AppRootState, InferActionsType} from './redux-store';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {AuthReducerType} from './auth-reducer';
+import {dialogsReducerAC} from './dialogs-reducer';
+import {NavbarReducerAC} from './navbar-reducer';
+import {profileReducerType} from './profile-reducer';
+import {AppReducerType} from './app-reducer';
+import {updateObjectInArray} from '../utils/object-helpers';
+import {UserType} from '../types/types';
+import {userApi} from '../api/users-api';
+import {APIResponseType} from '../api/api';
 
 
 export type UsersReducerAC = InferActionsType<typeof actions>;
@@ -33,37 +34,37 @@ export type   UsersReducerInitialStateType = typeof initialState;
 
 const usersReducer = (state: UsersReducerInitialStateType = initialState, action: UsersReducerAC): UsersReducerInitialStateType => {
     switch (action.type) {
-        case "FOLLOW":
+        case 'FOLLOW':
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
             }
-        case "UNFOLLOW":
+        case 'UNFOLLOW':
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
             }
-        case "SET-USERS" :
+        case 'SET-USERS' :
             return {
                 ...state,
                 users: action.users
             }
-        case "SET-CURRENT-PAGE" :
+        case 'SET-CURRENT-PAGE' :
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case "SET-TOTAL-COUNT" :
+        case 'SET-TOTAL-COUNT' :
             return {
                 ...state,
                 totalUsersCount: action.totalCount
             }
-        case "TOGGLE-IS-FETCHING" :
+        case 'TOGGLE-IS-FETCHING' :
             return {
                 ...state,
                 isFetching: action.isFetching
             }
-        case "TOGGLE-FOLLOWING-IN-PROGRESS":
+        case 'TOGGLE-FOLLOWING-IN-PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -180,25 +181,26 @@ export const requestUsers = (requestPage: number, pageSize: number): ThunkType =
         dispatch(actions.setUsersTotalCount(data.totalCount));
     }
 }
-const followUnfollowFlow = async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, userId: string, apiMethod: any, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, userId: string, apiMethod: (userId:string) =>Promise<APIResponseType>, actionCreator: any) => {
 
     dispatch(actions.toggleFollowingInProgress(true, userId));
     const data = await apiMethod(userId);
-    dispatch(actions.toggleFollowingInProgress(false, userId));
+
     if (data.resultCode === 0) {
         dispatch(actionCreator(userId));
     }
+    dispatch(actions.toggleFollowingInProgress(false, userId));
 }
 export const follow = (userId: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         let apiMethod = userApi.follow.bind(userApi);
-        followUnfollowFlow(dispatch, userId, apiMethod, actions.followSuccess);
+        await followUnfollowFlow(dispatch, userId, apiMethod, actions.followSuccess);
     }
 }
 export const unfollow = (userId: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         let apiMethod = userApi.unFollow.bind(userApi);
-        followUnfollowFlow(dispatch, userId, apiMethod, actions.unFollowSuccess);
+       await followUnfollowFlow(dispatch, userId, apiMethod, actions.unFollowSuccess);
     }
 }
 

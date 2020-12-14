@@ -1,4 +1,4 @@
-import {AppRootState} from "./redux-store";
+import {AppRootState} from './redux-store';
 import {createSelector} from 'reselect'
 
 export const getIsFetching = (state: AppRootState) => {
@@ -10,7 +10,7 @@ export const getUsersSelector = (state: AppRootState) => {
 // export const getUsersSelectorTest = (state: AppRootState) => {
 //     return getUsersSelector(state).filter(user => true);
 // }
-export const getUsers = createSelector(getUsersSelector,getIsFetching, (users, isFetching) => {
+export const getUsers = createSelector(getUsersSelector, getIsFetching, (users, isFetching) => {
     return users.filter(user => true);
 });
 

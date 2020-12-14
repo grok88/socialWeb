@@ -17,6 +17,8 @@ import 'antd/dist/antd.css';
 import {Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import Header from "./components/header/header";
+import {Navbar} from './components/nav/Navbar';
+import FriendsContainer from './components/nav/friends/FriendsContainer';
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
@@ -61,6 +63,7 @@ class App extends React.Component<PropsType> {
                     {/*</Breadcrumb>*/}
                     <Layout className="site-layout-background" style={{padding: '24px 0'}}>
                         <Sider className="site-layout-background" width={200}>
+                            {/*<FriendsContainer />*/}
                             <Menu
                                 mode="inline"
                                 defaultSelectedKeys={['1']}
@@ -83,6 +86,7 @@ class App extends React.Component<PropsType> {
                                     <Menu.Item key="/users"> <NavLink to='/users'>Users</NavLink></Menu.Item>
                                 </SubMenu>
                             </Menu>
+                            {/*<FriendsContainer />*/}
                         </Sider>
                         <Content style={{padding: '0 24px', minHeight: 280}}>
                             <Suspense fallback={<Preloader/>}>

@@ -1,7 +1,7 @@
-import {v1} from "uuid";
-import usersReducer, {followSuccess, UsersReducerInitialStateType, unFollowSuccess, setUsers, UserType} from "./users-reducer";
+import usersReducer, {actions, UsersReducerInitialStateType} from './users-reducer';
+import {UserType} from '../types/types';
 
-let startState : UsersReducerInitialStateType;
+let startState: UsersReducerInitialStateType;
 beforeEach(() => {
     startState = {
         users: [
@@ -9,9 +9,9 @@ beforeEach(() => {
                 id: '1',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: false,
-                photos:{
+                photos: {
                     small: null,
-                    large:  null
+                    large: null
                 },
                 name: 'Alex',
                 status: 'I am big',
@@ -21,25 +21,27 @@ beforeEach(() => {
                 id: '2',
                 userUrl: 'https://www.dw.com/image/47372909_303.jpg',
                 followed: true,
-                photos:{
+                photos: {
                     small: null,
-                    large:  null
+                    large: null
                 },
                 name: 'Sergey',
                 status: 'I am big too',
                 location: {country: 'Belarus', city: 'Pinsk'}
             },
         ],
-        pageSize:0,
+        pageSize: 0,
         totalUsersCount: 0,
-        currentPage: 0
+        currentPage: 0,
+        isFetching: false,
+        followingInProgress: []
     }
 })
 
 test('Status unfollow should be changed to follow', () => {
 
     const id = '1';
-    const endState = usersReducer(startState, followSuccess(id));
+    const endState = usersReducer(startState, actions.followSuccess(id));
 
     expect(endState.users[1]).toEqual(endState.users[1]);
     expect(endState.users[0].followed).toBe(true);
@@ -48,7 +50,7 @@ test('Status unfollow should be changed to follow', () => {
 test('Status follow should be changed to unfollow', () => {
 
     const id = '2';
-    const endState = usersReducer(startState, unFollowSuccess(id));
+    const endState = usersReducer(startState, actions.unFollowSuccess(id));
 
     expect(endState.users[0]).toEqual(endState.users[0]);
     expect(endState.users[1].followed).toBe(false);
@@ -62,9 +64,9 @@ test('Sets correct user to usersReducer.users', () => {
             id: '3',
             userUrl: 'https://www.dw.com/image/47372909_303.jpg',
             followed: true,
-            photos:{
+            photos: {
                 small: null,
-                large:  null
+                large: null
             },
             name: 'Sergey',
             status: 'I am big too',
@@ -72,7 +74,7 @@ test('Sets correct user to usersReducer.users', () => {
         }
     ]
 
-    const endState = usersReducer(startState, setUsers(newUsers));
+    const endState = usersReducer(startState, actions.setUsers(newUsers));
 
     expect(endState.users[0]).toBeDefined();
     expect(endState.users[0].id).toBe('3');
