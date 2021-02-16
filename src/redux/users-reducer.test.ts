@@ -90,7 +90,7 @@ test('Sets totalCount to usersReducer', () => {
 
     expect(endState.totalUsersCount).toBe(5);
 });
-test('isFetching should ne correct toggle (true-false)', () => {
+test('isFetching should be correct toggle (true-false)', () => {
     const endState = usersReducer(startState, actions.toggleIsFetching(true));
 
     expect(endState.isFetching).toBe(true);

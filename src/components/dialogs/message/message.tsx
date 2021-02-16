@@ -1,9 +1,9 @@
-import React, {createElement, useState} from "react";
-import {Avatar, Col, Comment, Tooltip} from 'antd';
+import React, {createElement, useState} from 'react';
+import {Avatar, Comment, Tooltip} from 'antd';
 import {DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined} from '@ant-design/icons';
 import userPhotos from '../../../assets/images/green.png';
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../redux/redux-store";
+import {useSelector} from 'react-redux';
+import {AppRootState} from '../../../redux/redux-store';
 
 type MessageType = {
     message: string

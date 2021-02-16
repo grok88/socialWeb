@@ -1,13 +1,12 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {logout} from "../../redux/auth-reducer";
+import {logout} from '../../redux/auth-reducer';
 import userPhotos from '../../assets/images/green.png'
 
-import {Avatar, Button, Col, Layout, Menu, Row} from "antd";
-import {UserOutlined} from '@ant-design/icons';
-import {useDispatch, useSelector} from "react-redux";
-import {getAuthUser, getIsAuth, getLogin} from "../../redux/auth-selectors";
-import {AppRootState} from "../../redux/redux-store";
+import {Avatar, Button, Col, Layout, Menu, Row} from 'antd';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIsAuth} from '../../redux/auth-selectors';
+import {AppRootState} from '../../redux/redux-store';
 
 
 type PropsType = {}
@@ -15,8 +14,8 @@ export const Header = (props: PropsType) => {
     const {Header} = Layout;
 
     const isAuth = useSelector(getIsAuth);
-    const login = useSelector(getLogin);
-    const authUser = useSelector(getAuthUser);
+    // const login = useSelector(getLogin);
+    // const authUser = useSelector(getAuthUser);
 
     const userPhoto = useSelector<AppRootState, any>(state => state.profilePage.profile?.photos.small);
 
