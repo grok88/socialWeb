@@ -1,24 +1,22 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import News from './components/news/news';
-import Music from "./components/music/music";
-import Settings from "./components/settings/settings";
+import Music from './components/music/music';
+import Settings from './components/settings/settings';
 
 import {HashRouter, NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter} from 'react-router-dom';
 import UsersContainer from './components/users/UsersContainer';
-import Login from "./components/login/Login";
-import {connect, Provider} from "react-redux";
-import store, {AppRootState} from "./redux/redux-store";
+import Login from './components/login/Login';
+import {connect, Provider} from 'react-redux';
+import store, {AppRootState} from './redux/redux-store';
 import {compose} from 'redux';
-import {initializeApp} from "./redux/app-reducer";
-import Preloader from "./assets/preloader/Preloader";
+import {initializeApp} from './redux/app-reducer';
+import Preloader from './assets/preloader/Preloader';
 //And Design
 import 'antd/dist/antd.css';
 import {Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
-import Header from "./components/header/header";
-import {Navbar} from './components/nav/Navbar';
-import FriendsContainer from './components/nav/friends/FriendsContainer';
+import Header from './components/header/header';
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
