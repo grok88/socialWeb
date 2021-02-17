@@ -27,10 +27,14 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [] as Array<string>
+    followingInProgress: [] as Array<string>,
+    filter: {
+        term: ''
+    }
 }
 
 export type   UsersReducerInitialStateType = typeof initialState;
+export type   UsersReducerFilterType = typeof initialState.filter;
 
 const usersReducer = (state: UsersReducerInitialStateType = initialState, action: UsersReducerAC): UsersReducerInitialStateType => {
     switch (action.type) {
@@ -53,6 +57,11 @@ const usersReducer = (state: UsersReducerInitialStateType = initialState, action
             return {
                 ...state,
                 currentPage: action.currentPage
+            }
+        case 'SW/USERS/SET-FILTER':
+            return {
+                ...state,
+                filter: action.payload
             }
         case 'SET-TOTAL-COUNT' :
             return {
@@ -99,6 +108,14 @@ export const actions = {
         return {
             type: 'SET-CURRENT-PAGE',
             currentPage
+        } as const;
+    },
+    setFilter: (term: string) => {
+        return {
+            type: 'SW/USERS/SET-FILTER',
+            payload: {
+                term
+            }
         } as const;
     },
     setUsersTotalCount: (totalCount: number) => {
@@ -170,18 +187,19 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: string) =
 
 export type ThunkType = ThunkAction<void, AppRootState, unknown, SWActionType>;
 
-export const requestUsers = (requestPage: number, pageSize: number): ThunkType => {
+export const requestUsers = (requestPage: number, pageSize: number, term: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         dispatch(actions.toggleIsFetching(true));
         dispatch(actions.setCurrentPage(requestPage));
+        dispatch(actions.setFilter(term));
 
-        const data = await userApi.getUsers(requestPage, pageSize);
+        const data = await userApi.getUsers(requestPage, pageSize, term);
         dispatch(actions.toggleIsFetching(false));
         dispatch(actions.setUsers(data.items));
         dispatch(actions.setUsersTotalCount(data.totalCount));
     }
 }
-const followUnfollowFlow = async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, userId: string, apiMethod: (userId:string) =>Promise<APIResponseType>, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>, userId: string, apiMethod: (userId: string) => Promise<APIResponseType>, actionCreator: any) => {
 
     dispatch(actions.toggleFollowingInProgress(true, userId));
     const data = await apiMethod(userId);
@@ -200,7 +218,7 @@ export const follow = (userId: string): ThunkType => {
 export const unfollow = (userId: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         let apiMethod = userApi.unFollow.bind(userApi);
-       await followUnfollowFlow(dispatch, userId, apiMethod, actions.unFollowSuccess);
+        await followUnfollowFlow(dispatch, userId, apiMethod, actions.unFollowSuccess);
     }
 }
 

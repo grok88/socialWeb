@@ -1,8 +1,10 @@
-import React from "react";
-import Preloader from "../../assets/preloader/Preloader";
-import Paginator from "../common/Paginator/Paginator";
-import User from "./User";
-import {UserType} from "../../types/types";
+import React from 'react';
+import Preloader from '../../assets/preloader/Preloader';
+import Paginator from '../common/Paginator/Paginator';
+import User from './User';
+import {UserType} from '../../types/types';
+import {UsersSearchForm} from './UsersSearchForm';
+import { UsersReducerFilterType } from '../../redux/users-reducer';
 
 
 export type UsersAPIComponentPropsType = {
@@ -19,9 +21,10 @@ export type UsersAPIComponentPropsType = {
     // toggleIsFetching: (isFetching: boolean) => void;
     followingInProgress: Array<string>;
     // toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
-    getUsers: (currentPage: number, pageSize: number) => void;
+    getUsers: (currentPage: number, pageSize: number, term: string) => void;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
+    filter:UsersReducerFilterType
 }
 
 class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
@@ -30,17 +33,20 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
     }
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize, this.props.filter.term);
     }
 
     changedPage = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.getUsers(pageNumber, this.props.pageSize, this.props.filter.term);
     }
 
     setPortionNumber = (portionNum: number) => {
         this.setState({
             portionNumber: portionNum
         })
+    }
+    changeFilter = (term: string) => {
+        this.props.getUsers(this.props.currentPage, this.props.pageSize, term);
     }
 
     render() {
@@ -59,7 +65,7 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
                          unfollow={this.props.unfollow}
                          portionNumber={this.state.portionNumber}
                          setPortionNumber={this.setPortionNumber}
-
+                         changeUsersFilter={this.changeFilter}
                 />}
         </>
     }
@@ -80,12 +86,14 @@ export type UsersPropsType = {
     unfollow: (userId: string) => void;
     portionNumber: number;
     setPortionNumber: (portionNum: number) => void;
+    changeUsersFilter: (term: string) => void;
 }
 
 const Users = (props: UsersPropsType) => {
-    const {pageSize, totalUsersCount, currentPage, changedPage, portionNumber, setPortionNumber} = props;
+    const {pageSize, totalUsersCount, currentPage, changedPage, portionNumber, setPortionNumber, changeUsersFilter} = props;
     return (
         <div>
+            <UsersSearchForm changeFilter={changeUsersFilter}/>
             <Paginator portionNumber={portionNumber} pageSize={pageSize} totalItemsCount={totalUsersCount}
                        currentPage={currentPage}
                        changedPage={changedPage} portionSize={10} setPortionNumber={setPortionNumber}/>
@@ -105,3 +113,6 @@ const Users = (props: UsersPropsType) => {
         </div>
     );
 }
+
+
+

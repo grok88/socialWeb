@@ -26,3 +26,6 @@ export const getCurrentPage = (state: AppRootState) => {
 export const getFollowingInProgress = (state: AppRootState) => {
     return state.usersPage.followingInProgress;
 }
+export const getFilter = (state: AppRootState) => {
+    return state.usersPage.filter;
+}
