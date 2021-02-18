@@ -4,7 +4,7 @@ import Paginator from '../common/Paginator/Paginator';
 import User from './User';
 import {UserType} from '../../types/types';
 import {UsersSearchForm} from './UsersSearchForm';
-import { UsersReducerFilterType } from '../../redux/users-reducer';
+import {UsersReducerFilterType} from '../../redux/users-reducer';
 
 
 export type UsersAPIComponentPropsType = {
@@ -21,10 +21,10 @@ export type UsersAPIComponentPropsType = {
     // toggleIsFetching: (isFetching: boolean) => void;
     followingInProgress: Array<string>;
     // toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
-    getUsers: (currentPage: number, pageSize: number, term: string) => void;
+    getUsers: (currentPage: number, pageSize: number, filter: UsersReducerFilterType) => void;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
-    filter:UsersReducerFilterType
+    filter: UsersReducerFilterType
 }
 
 class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
@@ -33,11 +33,11 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
     }
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize, this.props.filter.term);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize, this.props.filter);
     }
 
     changedPage = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize, this.props.filter.term);
+        this.props.getUsers(pageNumber, this.props.pageSize, this.props.filter);
     }
 
     setPortionNumber = (portionNum: number) => {
@@ -45,8 +45,8 @@ class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
             portionNumber: portionNum
         })
     }
-    changeFilter = (term: string) => {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize, term);
+    changeFilter = (filter: UsersReducerFilterType) => {
+        this.props.getUsers(1, this.props.pageSize, filter);
     }
 
     render() {
@@ -86,7 +86,7 @@ export type UsersPropsType = {
     unfollow: (userId: string) => void;
     portionNumber: number;
     setPortionNumber: (portionNum: number) => void;
-    changeUsersFilter: (term: string) => void;
+    changeUsersFilter: (filter: UsersReducerFilterType) => void;
 }
 
 const Users = (props: UsersPropsType) => {

@@ -29,7 +29,8 @@ let initialState = {
     isFetching: true,
     followingInProgress: [] as Array<string>,
     filter: {
-        term: ''
+        term: '',
+        friend: null as null | boolean
     }
 }
 
@@ -110,12 +111,10 @@ export const actions = {
             currentPage
         } as const;
     },
-    setFilter: (term: string) => {
+    setFilter: (filter: UsersReducerFilterType) => {
         return {
             type: 'SW/USERS/SET-FILTER',
-            payload: {
-                term
-            }
+            payload: filter
         } as const;
     },
     setUsersTotalCount: (totalCount: number) => {
@@ -139,61 +138,16 @@ export const actions = {
     }
 }
 
-/*
-export const followSuccess = (userId: string) => {
-    return {
-        type: FOLLOW,
-        userId
-    } as const;
-}
-export const unFollowSuccess = (userId: string) => {
-    return {
-        type: UNFOLLOW,
-        userId
-    } as const;
-}
-export const setUsers = (users: Array<UserType>) => {
-    return {
-        type: SET_USERS,
-        users
-    } as const;
-}
-export const setCurrentPage = (currentPage: number) => {
-    return {
-        type: SET_CURRENT_PAGE,
-        currentPage
-    } as const;
-}
-export const setUsersTotalCount = (totalCount: number) => {
-    return {
-        type: SET_TOTAL_COUNT,
-        totalCount
-    } as const;
-}
-export const toggleIsFetching = (isFetching: boolean) => {
-    return {
-        type: TOGGLE_IS_FETCHING,
-        isFetching
-    } as const;
-}
-export const toggleFollowingInProgress = (isFetching: boolean, userId: string) => {
-    return {
-        type: TOGGLE_FOLLOWING_IN_PROGRESS,
-        isFetching,
-        userId
-    } as const;
-}*/
-
 
 export type ThunkType = ThunkAction<void, AppRootState, unknown, SWActionType>;
 
-export const requestUsers = (requestPage: number, pageSize: number, term: string): ThunkType => {
+export const requestUsers = (requestPage: number, pageSize: number, filter: UsersReducerFilterType): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         dispatch(actions.toggleIsFetching(true));
         dispatch(actions.setCurrentPage(requestPage));
-        dispatch(actions.setFilter(term));
+        dispatch(actions.setFilter(filter));
 
-        const data = await userApi.getUsers(requestPage, pageSize, term);
+        const data = await userApi.getUsers(requestPage, pageSize, filter.term, filter.friend);
         dispatch(actions.toggleIsFetching(false));
         dispatch(actions.setUsers(data.items));
         dispatch(actions.setUsersTotalCount(data.totalCount));

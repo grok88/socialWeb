@@ -8,8 +8,8 @@ export type GetUsersRespType = {
 }
 
 export const userApi = {
-    getUsers(currentPage: number = 1, pageSize: number = 10,term:string = '' ) {
-        return instance.get<GetUsersRespType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
+    getUsers(currentPage: number = 1, pageSize: number = 10,term:string = '', friend: null | boolean ) {
+        return instance.get<GetUsersRespType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`))
             .then(response => response.data);
     },
     follow(id: string) {

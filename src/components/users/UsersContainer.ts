@@ -6,7 +6,8 @@ import {
     requestUsers,
     unfollow,
     actions,
-    UsersReducerInitialStateType
+    UsersReducerInitialStateType,
+    UsersReducerFilterType
 } from "../../redux/users-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
@@ -28,7 +29,7 @@ type MapDispatchToPropsType = {
     setUsersTotalCount: (totalCount: number) => void;
     // toggleIsFetching: (isFetching: boolean) => void;
     toggleFollowingInProgress: (isFetching: boolean, userId: string) => void;
-    getUsers: (currentPage: number, pageSize: number,term: string) => void;
+    getUsers: (currentPage: number, pageSize: number,filter: UsersReducerFilterType) => void;
     follow: (userId: string) => void;
     unfollow: (userId: string) => void;
 }
