@@ -26,7 +26,7 @@ let initialState = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true,
+    isFetching: false,
     followingInProgress: [] as Array<string>,
     filter: {
         term: '',

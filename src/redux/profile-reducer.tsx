@@ -116,7 +116,6 @@ export const updateUserStatus = (status: string): ThunkType => {
                 dispatch(actions.setUserStatus(status));
             }
         } catch (error) {
-            debugger
             console.log(error)
         }
     }

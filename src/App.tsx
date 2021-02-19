@@ -5,7 +5,7 @@ import Music from './components/music/music';
 import Settings from './components/settings/settings';
 
 import {HashRouter, NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter} from 'react-router-dom';
-import UsersContainer from './components/users/UsersContainer';
+import {UsersPage} from './components/users/UsersContainer';
 import Login from './components/login/Login';
 import {connect, Provider} from 'react-redux';
 import store, {AppRootState} from './redux/redux-store';
@@ -95,7 +95,7 @@ class App extends React.Component<PropsType> {
                                     <Route path={'/music'} render={() => <Music/>}/>
                                     <Route path={'/news'} component={News}/>
                                     <Route path={'/settings'} component={Settings}/>
-                                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                                    <Route path={'/users'} render={() => <UsersPage/>}/>
                                     <Route path={'/login'} render={() => <Login/>}/>
                                     <Route path={'*'} render={() => <div>404 - NOT FOUND </div>}/>
                                 </Switch>
