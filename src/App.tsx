@@ -6,7 +6,7 @@ import Settings from './components/settings/settings';
 
 import {HashRouter, NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter} from 'react-router-dom';
 import {UsersPage} from './components/users/UsersContainer';
-import Login from './components/login/Login';
+import {LoginPage} from './components/login/Login';
 import {connect, Provider} from 'react-redux';
 import store, {AppRootState} from './redux/redux-store';
 import {compose} from 'redux';
@@ -96,7 +96,7 @@ class App extends React.Component<PropsType> {
                                     <Route path={'/news'} component={News}/>
                                     <Route path={'/settings'} component={Settings}/>
                                     <Route path={'/users'} render={() => <UsersPage/>}/>
-                                    <Route path={'/login'} render={() => <Login/>}/>
+                                    <Route path={'/login'} render={() => <LoginPage/>}/>
                                     <Route path={'*'} render={() => <div>404 - NOT FOUND </div>}/>
                                 </Switch>
                             </Suspense>
