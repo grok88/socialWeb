@@ -102,6 +102,7 @@ export const getUserProfile = (userId: string): ThunkType => async (dispatch: Th
     const res = await profileApi.getUserProfileById(userId);
     dispatch(actions.setUserProfile(res));
 }
+
 export const getUserStatus = (userID: string): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootState, unknown, SWActionType>) => {
         const resp = await profileApi.getStatus(userID);
