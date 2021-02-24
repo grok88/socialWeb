@@ -6,6 +6,9 @@ import {follow, requestUsers, unfollow, UsersReducerFilterType} from '../../redu
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentPage, getFilter, getPageSize, getTotalUsersCount, getUsers} from '../../redux/users-selectors';
 import {useHistory} from 'react-router-dom';
+import * as queryString from 'querystring';
+
+type QueryParamType = { page?: string, term?: string, friend?: string }
 
 export const Users = () => {
     const [portionNumber, setPortionNumber] = useState<number>(1);
@@ -19,16 +22,46 @@ export const Users = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(() => {
-        history.push({
-            pathname: '/users',
-            search: `?term=${filter.term}&friend=${filter.friend}`
-        })
-    }, [filter])
 
     useEffect(() => {
-        dispatch(requestUsers(currentPage, pageSize, filter));
-    }, []);
+            const search = history.location.search.substr(1);
+            const parsed = queryString.parse(search) as QueryParamType
+
+            let actualPage = currentPage;
+            if (!!parsed.page) actualPage = Number(parsed.page);
+
+            let actualFilter = filter;
+            if (!!parsed.term) actualFilter = {...actualFilter, term: parsed.term}
+            switch (parsed.friend) {
+                case 'null' :
+                    actualFilter = {...actualFilter, friend: null}
+                    break;
+                case 'true' :
+                    actualFilter = {...actualFilter, friend: true}
+                    break;
+                case 'false' :
+                    actualFilter = {...actualFilter, friend: false}
+                    break;
+            }
+            dispatch(requestUsers(actualPage, pageSize, actualFilter));
+        }, []
+    )
+    ;
+
+    useEffect(() => {
+        let query: QueryParamType = {};
+        if (!!filter.term) query.term = filter.term;
+        if (filter.friend !== null) query.friend = String(filter.friend);
+        if (currentPage !== 1) query.page = String(currentPage);
+
+        history.push({
+            pathname: '/users',
+            // 1 variant
+            // search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+            //2 variant
+            search: queryString.stringify(query)
+        })
+    }, [filter, currentPage])
 
     const changeFilter = (filter: UsersReducerFilterType) => {
         dispatch(requestUsers(1, pageSize, filter));
