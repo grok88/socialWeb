@@ -12,17 +12,20 @@ import store, {AppRootState} from './redux/redux-store';
 import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer';
 import Preloader from './assets/preloader/Preloader';
+
 //And Design
 import 'antd/dist/antd.css';
 import {Layout, Menu} from 'antd';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import Header from './components/header/header';
 
+
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
 const DialogsContainer = React.lazy(() => import('./components/dialogs/dialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
+const ChatPagesContainer = React.lazy(() => import('./pages/chat/ChatPages'));
 
 
 type OwnPropsType = MapDispatchToProps & MapStatePropsType;
@@ -82,6 +85,7 @@ class App extends React.Component<PropsType> {
                                 </SubMenu>
                                 <SubMenu key="sub4" icon={<NotificationOutlined/>} title="Users">
                                     <Menu.Item key="/users"> <NavLink to='/users'>Users</NavLink></Menu.Item>
+                                    <Menu.Item key="/chat"> <NavLink to='/chat'>Chat</NavLink></Menu.Item>
                                 </SubMenu>
                             </Menu>
                             {/*<FriendsContainer />*/}
@@ -97,6 +101,7 @@ class App extends React.Component<PropsType> {
                                     <Route path={'/settings'} component={Settings}/>
                                     <Route path={'/users'} render={() => <UsersPage/>}/>
                                     <Route path={'/login'} render={() => <LoginPage/>}/>
+                                    <Route path={'/chat'} render={() => <ChatPagesContainer/>}/>
                                     <Route path={'*'} render={() => <div>404 - NOT FOUND </div>}/>
                                 </Switch>
                             </Suspense>
