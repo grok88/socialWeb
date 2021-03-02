@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+
+type WSMessageType = {
+    message: string
+    photo: string
+    userId: number
+    userName: string
+}
+
+const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
 
 const ChatPages = () => {
     return <div>
         <Chat/>
     </div>
 }
+
 const Chat: React.FC = () => {
     return <div>
         <Messages/>
@@ -13,36 +23,48 @@ const Chat: React.FC = () => {
 }
 
 const AddMessForm: React.FC = () => {
+    const [value, setValue] = useState<string>('');
+
+    const sendMess = () => {
+        if (!value) return;
+        wsChannel.send(value);
+        setValue('');
+    }
 
     return <div>
         <div>
-            <textarea></textarea>
+            <textarea value={value} onChange={e => setValue(e.currentTarget.value)}></textarea>
         </div>
         <div>
-            <button>Send</button>
+            <button onClick={sendMess}>Send</button>
         </div>
     </div>
 }
 
 const Messages: React.FC = () => {
-    let messages = [1, 2, 3, 4,5,6,7,8,9,10];
+    const [messages, setMessages] = useState<WSMessageType[]>([]);
 
-    return <div style={{height:'400px', overflowY:'scroll'}}>
-        {messages.map((m, i) => <Message key={i}/>)}
+    useEffect(() => {
+        wsChannel.addEventListener('message', (e: MessageEvent) => {
+            console.log(JSON.parse(e.data));
+            const newMess = JSON.parse(e.data);
+            setMessages((prevState) => [...prevState, ...newMess,]);
+        })
+    }, [])
+
+    return <div style={{height: '400px', overflowY: 'scroll'}}>
+        {messages.map((m, i) => <Message key={i} message={m}/>)}
     </div>
 }
-const Message: React.FC = () => {
-    let message = {
-        url: 'https://via.placeholder.com/50',
-        author: 'Alex',
-        text: `I'd like to speak English correctly`
 
-    }
-
+type MessagePropsType = {
+    message: WSMessageType
+}
+const Message: React.FC<MessagePropsType> = ({message}) => {
     return <div>
-        <img src={message.url} alt="mess"/> <b>{message.author}</b>
+        <img src={message.photo} alt="mess"/> <b>{message.userName}</b>
         <br/>
-        {message.text}
+        {message.message}
         <hr/>
     </div>
 }
