@@ -2,11 +2,12 @@ import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {Input} from '../common/formsControls/FormsControls';
 import {required} from '../../utils/validators/validators';
-import {connect, useSelector, useDispatch} from 'react-redux';
-import {login, logout} from '../../redux/auth-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {login} from '../../redux/auth-reducer';
 import {AppRootState} from '../../redux/redux-store';
 import {Redirect} from 'react-router-dom';
-import styles from './../common/formsControls/FormsControls.module.css'
+// import styles from './../common/formsControls/FormsControls.module.css';
+import styles from './Login.module.css'
 
 export type FormDataType = {
     login: string;
@@ -19,29 +20,41 @@ type LoginFormPropsType = {
 }
 export const LoginForm: React.FC<LoginFormPropsType & InjectedFormProps<FormDataType, LoginFormPropsType>> = (props) => {
     const {handleSubmit, error, captchaUrl} = props;
-    return <form onSubmit={handleSubmit}>
-        <div>
+    return <form onSubmit={handleSubmit} className={styles.loginForm}>
+        <div className={styles.userBox}>
             <Field name={'login'} placeholder={'Login'} component={Input}
                    validate={[required]}
             />
         </div>
-        <div>
+        <div className={styles.userBox}>
             <Field name={'password'} placeholder={'Password'} type={'password'} component={Input}
                    validate={[required]}/>
         </div>
-        <div>
-            <Field name={'checkbox'} type="checkbox" component={Input}/>
+        <div className={styles.checkBox}>
+            <Field name={'checkbox'} type="checkbox" component={Input} id={'checkbox'}/>
+            <label htmlFor="checkbox">Remember me</label>
         </div>
         {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
-        {captchaUrl && <Field name={'captcha'} placeholder={'captcha'} component={Input}
-                              validate={[required]}
-        />}
+        {captchaUrl &&
+        <div className={styles.userBox}>
+            <Field name={'captcha'} placeholder={'captcha'} component={Input}
+                   validate={[required]}
+            />
+        </div>
+        }
 
         {error && <div className={styles.commonErrorField}>
             {error}
         </div>}
         <div>
-            <button type={'submit'}>Login</button>
+            <button type={'submit'} className={styles.btn}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Login
+            </button>
+            {/*<Button type={'primary'} htmlType="submit" className={`${styles.btn} ${styles.btnPrimary} ${styles.ghost}`}>Login</Button>*/}
         </div>
     </form>
 }
@@ -58,11 +71,12 @@ export const LoginPage = () => {
         return <Redirect to={'/profile'}/>
     }
     const onSubmit = (formData: FormDataType) => {
-       dispatch(login(formData.login, formData.password, formData.checkbox, formData.captcha));
+        dispatch(login(formData.login, formData.password, formData.checkbox, formData.captcha));
     }
-    return <div>
-        <h1>Login</h1>
+    return <div className={styles.loginBox}>
+        <h2>Login</h2>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}
                         initialValues={{login: 'free@samuraijs.com', password: 'free'}}/>
     </div>
+
 }
