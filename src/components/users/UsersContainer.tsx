@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {Users} from './UsersClass';
+import {Users} from './Users';
 
 import {getIsFetching} from '../../redux/users-selectors';
 import Preloader from '../../assets/preloader/Preloader';

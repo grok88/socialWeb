@@ -3,6 +3,8 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/formsControls/FormsControls";
 import {ProfileType} from "../profileInfo";
 import styles from "../../../common/formsControls/FormsControls.module.css";
+import {Col} from 'antd';
+import {UserButton} from '../../../common/userButton/UserButton';
 
 
 //Profile FORM
@@ -47,6 +49,7 @@ const ProfileDataForm: React.FC<PropsType & InjectedFormProps<ProfileDataFormTyp
         </div>)}
         </div>
         <div>
+            {/*<UserButton label={'logOut'}/>*/}
             <button >save</button>
         </div>
     </form>

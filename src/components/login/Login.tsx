@@ -8,6 +8,7 @@ import {AppRootState} from '../../redux/redux-store';
 import {Redirect} from 'react-router-dom';
 // import styles from './../common/formsControls/FormsControls.module.css';
 import styles from './Login.module.css'
+import { UserButton } from '../common/userButton/UserButton';
 
 export type FormDataType = {
     login: string;
@@ -47,14 +48,15 @@ export const LoginForm: React.FC<LoginFormPropsType & InjectedFormProps<FormData
             {error}
         </div>}
         <div>
-            <button type={'submit'} className={styles.btn}>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Login
-            </button>
-            {/*<Button type={'primary'} htmlType="submit" className={`${styles.btn} ${styles.btnPrimary} ${styles.ghost}`}>Login</Button>*/}
+            {/*<button type={'submit'} className={styles.btn}>*/}
+            {/*    <span></span>*/}
+            {/*    <span></span>*/}
+            {/*    <span></span>*/}
+            {/*    <span></span>*/}
+            {/*    Login*/}
+            {/*</button>*/}
+
+            <UserButton label={'Login'}/>
         </div>
     </form>
 }

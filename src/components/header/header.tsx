@@ -7,6 +7,7 @@ import {Avatar, Button, Col, Layout, Menu, Row} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIsAuth} from '../../redux/auth-selectors';
 import {AppRootState} from '../../redux/redux-store';
+import {UserButton} from '../common/userButton/UserButton';
 
 
 type PropsType = {}
@@ -42,6 +43,7 @@ export const Header = (props: PropsType) => {
                             }
                         </Col>
                         <Col span={5}>
+
                             <Button onClick={onLogout}>logOut</Button>
                         </Col>
                     </>

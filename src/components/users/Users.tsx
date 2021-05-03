@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentPage, getFilter, getPageSize, getTotalUsersCount, getUsers} from '../../redux/users-selectors';
 import {useHistory} from 'react-router-dom';
 import * as queryString from 'querystring';
+import {Col, Divider, Row} from 'antd';
 
 type QueryParamType = { page?: string, term?: string, friend?: string }
 
@@ -78,19 +79,36 @@ export const Users = () => {
             <Paginator portionNumber={portionNumber} pageSize={pageSize} totalItemsCount={totalUsersCount}
                        currentPage={currentPage}
                        changedPage={changedPage} portionSize={10} setPortionNumber={setPortionNumber}/>
-            {
-                users.map(user => {
-                    const unFollowHandler = () => {
-                        dispatch(unfollow(user.id));
+            <div className="site-card-wrapper">
+                <Divider orientation="left">Users</Divider>
+                <Row gutter={
+                    // { xs: 8, sm: 16, md: 24, lg: 32 }
+                    [{xs: 8, sm: 16, md: 24, lg: 32}, {xs: 8, sm: 16, md: 24, lg: 32}]
+                }>
+                    {
+                        users.map(user => {
+                            const unFollowHandler = () => {
+                                dispatch(unfollow(user.id));
+                            }
+                            const followHandler = () => {
+                                dispatch(follow(user.id));
+                            }
+                            return (
+                                <Col className="gutter-row"
+                                    // span={8}
+                                     xs={{span: 24}}
+                                     sm={{span: 12}}
+                                     md={{span: 8}}
+                                     lg={{span: 6}}
+                                     xxl={{span: 4}}
+                                >
+                                    <User user={user} follow={followHandler} unfollow={unFollowHandler} key={user.id}/>
+                                </Col>
+                            );
+                        })
                     }
-                    const followHandler = () => {
-                        dispatch(follow(user.id));
-                    }
-                    return (
-                        <User user={user} follow={followHandler} unfollow={unFollowHandler} key={user.id}/>
-                    );
-                })
-            }
+                </Row>
+            </div>
         </div>
     );
 }
