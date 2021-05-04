@@ -1,10 +1,8 @@
-import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input, Textarea} from "../../../common/formsControls/FormsControls";
-import {ProfileType} from "../profileInfo";
-import styles from "../../../common/formsControls/FormsControls.module.css";
-import {Col} from 'antd';
-import {UserButton} from '../../../common/userButton/UserButton';
+import React from 'react';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {Input, Textarea} from '../../../common/formsControls/FormsControls';
+import {ProfileType} from '../profileInfo';
+import styles from '../../../common/formsControls/FormsControls.module.css';
 
 
 //Profile FORM
@@ -14,16 +12,16 @@ export type ProfileDataFormType = {
     lookingForAJobDescription: string;
 }
 type PropsType = {
-    profile:ProfileType;
+    profile: ProfileType;
 }
 
-const ProfileDataForm: React.FC<PropsType & InjectedFormProps<ProfileDataFormType,PropsType >> = (props) => {
+const ProfileDataForm: React.FC<PropsType & InjectedFormProps<ProfileDataFormType, PropsType>> = (props) => {
 
     return <form onSubmit={props.handleSubmit}>
-         {/*обработка ошибок в redux-form*/}
+        {/*обработка ошибок в redux-form*/}
         {props.error && <div className={styles.commonErrorField}>
             {props.error}
-		</div>}
+        </div>}
         <div>
             <b>Full name </b>: <Field name={'fullName'} placeholder={'Full name '} component={Input}/>
         </div>
@@ -45,15 +43,15 @@ const ProfileDataForm: React.FC<PropsType & InjectedFormProps<ProfileDataFormTyp
         <div>
             <b>Contacts </b>: {Object.keys(props.profile.contacts).map(key => <div key={key}>
             <b>{key}</b>:
-            <Field name={'contacts.' + key} placeholder={key} component={Input} />
+            <Field name={'contacts.' + key} placeholder={key} component={Input}/>
         </div>)}
         </div>
         <div>
             {/*<UserButton label={'logOut'}/>*/}
-            <button >save</button>
+            <button>save</button>
         </div>
     </form>
 }
-const ProfileDataFormRedux = reduxForm< ProfileDataFormType, PropsType>({form: 'edit-profile'})(ProfileDataForm);
+const ProfileDataFormRedux = reduxForm<ProfileDataFormType, PropsType>({form: 'edit-profile'})(ProfileDataForm);
 
 export default ProfileDataFormRedux;

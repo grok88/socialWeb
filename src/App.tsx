@@ -12,7 +12,6 @@ import store, {AppRootState} from './redux/redux-store';
 import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer';
 import Preloader from './assets/preloader/Preloader';
-
 //And Design
 import 'antd/dist/antd.css';
 import {Layout, Menu} from 'antd';
@@ -50,7 +49,7 @@ class App extends React.Component<PropsType> {
         if (!this.props.initialized) {
             return <Preloader/>
         }
-        const {match, location, history} = this.props
+        const {location} = this.props
 
 
         return (

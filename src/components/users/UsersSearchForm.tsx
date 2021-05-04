@@ -3,6 +3,8 @@ import {Field, Form, Formik} from 'formik'
 import {UsersReducerFilterType} from '../../redux/users-reducer';
 import {useSelector} from 'react-redux';
 import {getFilter} from '../../redux/users-selectors';
+import styles from './UsersSearchForm.module.css'
+import {UserButton} from '../common/userButton/UserButton';
 
 const usersSearchFormValidate = (values: UsersSearchFormType) => {
     const errors = {};
@@ -27,7 +29,7 @@ export const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((p
         setSubmitting(false);
     }
 
-    return <div>
+    return <div className={styles.searchFormBox}>
         <Formik
             enableReinitialize
             initialValues={{term: filter.term, friend: filter.friend as null | string}}
@@ -35,18 +37,20 @@ export const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((p
             onSubmit={submit}
         >
             {({isSubmitting}) => (
-                <Form>
-                    <Field type="text" name="term"/>
-                    <Field name="friend" as="select">
+                <Form className={styles.searchForm}>
+                    <Field type="text" name="term" className={styles.nameBox}/>
+                    <Field name="friend" as="select" className={styles.selectBox} >
                         <option value="null">All</option>
                         <option value="true">Only followed</option>
                         <option value="false">Only unfollowed</option>
                     </Field>
-                    <button type="submit" disabled={isSubmitting}>
-                        Find
-                    </button>
+                    <UserButton label={'Find'}/>
+                    {/*<button type="submit" disabled={isSubmitting}>*/}
+                    {/*    Find*/}
+                    {/*</button>*/}
                 </Form>
             )}
         </Formik>
     </div>
 })
+

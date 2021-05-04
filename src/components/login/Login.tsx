@@ -48,14 +48,6 @@ export const LoginForm: React.FC<LoginFormPropsType & InjectedFormProps<FormData
             {error}
         </div>}
         <div>
-            {/*<button type={'submit'} className={styles.btn}>*/}
-            {/*    <span></span>*/}
-            {/*    <span></span>*/}
-            {/*    <span></span>*/}
-            {/*    <span></span>*/}
-            {/*    Login*/}
-            {/*</button>*/}
-
             <UserButton label={'Login'}/>
         </div>
     </form>

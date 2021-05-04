@@ -1,0 +1,31 @@
+.searchFormBox {
+    padding: 10px;
+    background: linear-gradient(#141e30, #243b55);
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.searchForm {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.searchForm .nameBox {
+    /*width: 100%;*/
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    /*margin-bottom: 30px;*/
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+    margin-right: 10px;
+}
+
+.searchForm .selectBox {
+    /*padding: 0;*/
+    margin-right: 10px;
+}

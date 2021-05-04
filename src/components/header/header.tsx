@@ -7,7 +7,6 @@ import {Avatar, Button, Col, Layout, Menu, Row} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIsAuth} from '../../redux/auth-selectors';
 import {AppRootState} from '../../redux/redux-store';
-import {UserButton} from '../common/userButton/UserButton';
 
 
 type PropsType = {}
