@@ -77,18 +77,27 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                     md={{span: 24}}
                     lg={{span: 16}}
                 >
-                    {
-                        props.isOwner &&
-                        <div>
-                            <input type="file" onChange={onUploadImg}/>
+                    <div className={`${style.panel}`}>
+                        <div className={`${style.panelBody}`}>
+                            <div className={`${style.panelBtn}`}>
+                                {
+                                    props.isOwner &&
+                                    <div>
+                                        <h3>Изменить аватар пользователя</h3>
+                                        <input type="file" onChange={onUploadImg}/>
+                                    </div>
+                                }
+                                <hr/>
+                            </div>
+                            {
+                                editMode ?
+                                    <ProfileDataFormRedux onSubmit={onSubmit} initialValues={profile}
+                                                          profile={profile}/> :
+                                    <ProfileData profile={profile} isOwner={props.isOwner}
+                                                 goToEditMode={() => setEditMode(true)}/>
+                            }
                         </div>
-                    }
-                    {
-                        editMode ?
-                            <ProfileDataFormRedux onSubmit={onSubmit} initialValues={profile} profile={profile}/> :
-                            <ProfileData profile={profile} isOwner={props.isOwner}
-                                         goToEditMode={() => setEditMode(true)}/>
-                    }
+                    </div>
                 </Col>
             </Row>
 
@@ -108,14 +117,7 @@ type ProfileDataPropsType = {
 
 export const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
     return <div>
-        {isOwner &&
-        <div>
-            <button onClick={goToEditMode}>Edit profile</button>
-        </div>
-        }
-        {/*<div>*/}
-        {/*    <b>Full name </b>: {profile.fullName}*/}
-        {/*</div>*/}
+        <h3>Профайл пользователя</h3>
         <div>
             <b>Looking for a job </b>: {profile.lookingForAJob ? 'yes' : 'no'}
         </div>
@@ -133,7 +135,11 @@ export const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, g
                                                                                  contactValue={profile.contacts[key]}
                                                                                  key={key}/>)}
         </div>
-
+        {isOwner &&
+        <div>
+            <button onClick={goToEditMode}>Edit profile</button>
+        </div>
+        }
     </div>
 }
 
@@ -146,6 +152,6 @@ type ContactPropsType = {
 export const Contact: React.FC<ContactPropsType> = (props) => {
     const {contactTitle, contactValue} = props;
     return <div className={style.contact}>
-        <b>{contactTitle}</b>: {contactValue}
+        <b>{contactTitle}</b>: {contactValue ? contactValue : 'Пользователь не зарегистрирован'}
     </div>
 }
