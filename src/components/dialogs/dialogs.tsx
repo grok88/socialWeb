@@ -1,11 +1,13 @@
 import React from 'react';
-import {DialogItem, DialogItemType} from "./dialogItem/dialogItem";
-import {Message} from "./message/message";
-import style from "./dialogs.module.css";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {DialogItem, DialogItemType} from './dialogItem/dialogItem';
+import {Message} from './message/message';
+import style from './dialogs.module.css';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {Textarea} from '../common/formsControls/FormsControls';
-import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {Form} from 'antd';
+import {maxLengthCreator, required} from '../../utils/validators/validators';
+import {Col, Form, Row} from 'antd';
+import {UserButton} from '../common/userButton/UserButton';
+
 
 export type MessagesType = {
     id: string,
@@ -26,8 +28,9 @@ const maxLength30 = maxLengthCreator(30);
 const Dialogs = (props: propsType) => {
     const {addMess, dialogsPage} = props;
 
-    let dialogsElements = dialogsPage.dialogs.map(({name, id, url}) => <DialogItem name={name} id={id} key={id}
-                                                                                   url={url}/>);
+    let dialogsElements = dialogsPage.dialogs.map(({name, id, url}) => <Col span={24}>
+        <DialogItem name={name} id={id} key={id} url={url}/>
+    </Col>)
     let messagesElements = dialogsPage.messages.map(({id, message}) => <Message message={message} key={id}/>);
 
     const onSubmit = (formData: FormDataType) => {
@@ -36,15 +39,17 @@ const Dialogs = (props: propsType) => {
 
     return (
         <div className={style.dialogs}>
-            <div className={style.dialogItems}>
+            <Row className={style.dialogItems} gutter={[16, 16]}>
                 {
                     dialogsElements
                 }
-            </div>
+            </Row>
             <div className={style.messages}>
-                {
-                    messagesElements
-                }
+                <div>
+                    {
+                        messagesElements
+                    }
+                </div>
                 <AddMessageFormRedux onSubmit={onSubmit}/>
             </div>
         </div>
@@ -57,13 +62,16 @@ type FormDataType = {
 
 export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <Form.Item>
-                <Field name={'newMessageBody'} placeholder={'enter you message'} component={Textarea}
-                       validate={[required, maxLength30]}
-                />
-            </Form.Item>
-            <button>Add message</button>
+        <form onSubmit={props.handleSubmit} className={style.AddMessageForm}>
+            <div className={style.areaBox}>
+                <Form.Item>
+                    <Field name={'newMessageBody'} placeholder={'enter you message'} component={Textarea}
+                           validate={[required, maxLength30]}
+                    />
+                </Form.Item>
+            </div>
+            <UserButton label={'Add message'}/>
+            {/*<button className={style.btn}>Add message</button>*/}
         </form>
     );
 }

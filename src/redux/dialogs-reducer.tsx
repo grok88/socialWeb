@@ -31,11 +31,6 @@ let initialState = {
             name: "Sveta",
             url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQb0QBmlGsym_SIuH6d-OrApu0iX0j8K4bxOufsI9D9GeKv7h1i&usqp=CAU"
         },
-        {
-            id: v1(),
-            name: "ergey",
-            url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_yhvGXHtP8leB8fhWCAOke-8h5gRG1Wxo6fS814OFjX_g1qOl&usqp=CAU"
-        }
     ] as Array<DialogItemType>,
     messages: [
         {id: v1(), message: 'Hello'},

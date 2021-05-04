@@ -8,17 +8,64 @@
 }
 
 .dialogItems .active {
-    color : gold;
+    color: gold;
 }
 
 .dialog {
+    border-radius: 5px;
+    background: rgba(0, 0, 0, .3);
+}
 
+.dialog a {
+    font-size: 24px;
+    text-decoration: none;
+    color: #fff;
 }
 
 .messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
 }
 
 .message {
 
+}
+
+/*AddMessageForm*/
+.AddMessageForm {
+    max-width: 300px;
+    padding: 40px;
+    background: linear-gradient(#141e30, #243b55);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+.btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    background: linear-gradient(#141e30, #243b55);
+    border: none;
+}
+
+.AddMessageForm .areaBox textarea {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
 }

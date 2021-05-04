@@ -1,19 +1,24 @@
-import style from "../dialogs.module.css";
-import {NavLink} from "react-router-dom";
-import React from "react";
+import style from '../dialogs.module.css';
+import {NavLink} from 'react-router-dom';
+import React from 'react';
+import {Avatar, Card, Row} from 'antd';
 
- export type DialogItemType = {
+const {Meta} = Card;
+
+export type DialogItemType = {
     name: string,
     id: string
-    url:string
+    url: string
 }
 
 export const DialogItem = (props: DialogItemType) => {
     const {name, id, url} = props;
     return (
-        <div className={style.dialog + ' ' + style.active}>
-            <img src={url} alt="userAvatar" width={40} height={40}/>
-            <NavLink to={`/dialogs/${id}`}>{name}</NavLink>
-        </div>
+        <Card className={style.dialog + ' ' + style.active} bordered>
+            <Row>
+                <Meta avatar={<Avatar src={url} size={48}/>}/>
+                <NavLink to={`/dialogs/${id}`} style={{}}>{name}</NavLink>
+            </Row>
+        </Card>
     );
 }
