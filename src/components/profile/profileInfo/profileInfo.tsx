@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './profileInfo.module.css';
-import Preloader from "../../../assets/preloader/Preloader";
+import Preloader from '../../../assets/preloader/Preloader';
 import userPhoto from '../../../assets/images/green.png'
 import {ProfileStatus} from './profilestatus/ProfileStatus';
-import ProfileDataFormRedux, {ProfileDataFormType} from "./ProfileDataForm/ProfileDataForm";
-import { Image } from 'antd';
+import ProfileDataFormRedux, {ProfileDataFormType} from './ProfileDataForm/ProfileDataForm';
+import {Col, Image, Row} from 'antd';
 
 export type ProfileType = {
     aboutMe: string,
@@ -46,37 +46,53 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 setEditMode(false);
             });
     }
-
     if (!profile) {
         return <Preloader/>
     }
     return (
-        <div className={style.profileInfo}>
+        <Col span={24} className={style.profileInfo}>
+            <Row gutter={8}>
+                <Col
+                    md={{span: 24}}
+                    lg={{span: 8}}
+                >
+                    <div className={`${style.panel} ${style.panelDefault}`}>
+                        <div className={`${style.panelHeading}`}>
+                            <header className={`${style.panelTitle}`}>
+                                <strong>Пользователь сайта</strong>
+                            </header>
+                        </div>
+                        <div className={`${style.panelBody}`}>
+                            <Image
+                                // width={200}
+                                src={profile.photos.large !== null ? profile.photos.large : userPhoto}
+                                alt='User avator'
+                            />
+                            <h3>{profile.fullName}</h3>
+                            <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+                        </div>
+                    </div>
+                </Col>
+                <Col
+                    md={{span: 24}}
+                    lg={{span: 16}}
+                >
+                    {
+                        props.isOwner &&
+                        <div>
+                            <input type="file" onChange={onUploadImg}/>
+                        </div>
+                    }
+                    {
+                        editMode ?
+                            <ProfileDataFormRedux onSubmit={onSubmit} initialValues={profile} profile={profile}/> :
+                            <ProfileData profile={profile} isOwner={props.isOwner}
+                                         goToEditMode={() => setEditMode(true)}/>
+                    }
+                </Col>
+            </Row>
 
-
-            <div className={style.description}>
-                <div>
-                    {/*<img src={profile.photos.small !== null ? profile.photos.small : userPhoto} alt="user avator"*/}
-                    {/*     width={100}/>*/}
-                    <Image
-                        width={200}
-                        src={profile.photos.large !== null ? profile.photos.large : userPhoto}
-                        alt='User avator'
-                    />
-                </div>
-                {
-                    props.isOwner &&
-					<div>
-						<input type="file" onChange={onUploadImg}/>
-					</div>
-                }
-                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
-                {
-                    editMode ? <ProfileDataFormRedux onSubmit={onSubmit} initialValues={profile} profile={profile}/> :
-                        <ProfileData profile={profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>
-                }
-            </div>
-        </div>
+        </Col>
     );
 }
 
@@ -93,21 +109,21 @@ type ProfileDataPropsType = {
 export const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
     return <div>
         {isOwner &&
-		<div>
-			<button onClick={goToEditMode}>Edit profile</button>
-		</div>
-        }
         <div>
-            <b>Full name </b>: {profile.fullName}
+            <button onClick={goToEditMode}>Edit profile</button>
         </div>
+        }
+        {/*<div>*/}
+        {/*    <b>Full name </b>: {profile.fullName}*/}
+        {/*</div>*/}
         <div>
             <b>Looking for a job </b>: {profile.lookingForAJob ? 'yes' : 'no'}
         </div>
         {
             profile.lookingForAJob &&
-			<div>
-				<b>Looking for a job description </b>: {profile.lookingForAJobDescription}
-			</div>
+            <div>
+                <b>Looking for a job description </b>: {profile.lookingForAJobDescription}
+            </div>
         }
         <div>
             <b>About me </b>: {profile.aboutMe}

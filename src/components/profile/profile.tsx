@@ -3,6 +3,7 @@ import style from './profile.module.css';
 import ProfileInfo from "./profileInfo/profileInfo";
 import MyPostsContainer from "./my-posts/myPostsContainer";
 import {ProfileDataFormType} from "./profileInfo/ProfileDataForm/ProfileDataForm";
+import { Row } from 'antd';
 
 type propsType = {
     getUserProfile: (userId: string) => void,
@@ -17,11 +18,11 @@ type propsType = {
 // FC<ProfileContainerProps>
 const Profile = (props: propsType) => {
     return (
-        <section className={style.content}>
+        <Row className={style.content}>
             <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}
                          isOwner={props.isOwner} onUploadImg={props.onUploadImg} saveProfile={props.saveProfile}/>
             <MyPostsContainer/>
-        </section>
+        </Row>
     );
 }
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import style from './myPosts.module.css';
-import Post from "./post/post";
-import {ProfileType} from "../profileInfo/profileInfo";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import Post from './post/post';
+import {ProfileType} from '../profileInfo/profileInfo';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {maxLengthCreator, required} from '../../../utils/validators/validators';
 import {Textarea} from '../../common/formsControls/FormsControls';
-import {ObjPostType} from "../../../types/types";
+import {ObjPostType} from '../../../types/types';
+import {Col} from 'antd';
 
 type PropsType = {
     profilePage: {
@@ -25,7 +26,7 @@ const MyPosts = React.memo((props: PropsType) => {
     }
 
     return (
-        <div className={style.postsBlock}>
+        <Col span={24} className={style.postsBlock}>
             My Posts
             <div>
                 <AddPostMessageFormRedux onSubmit={onSubmit}/>
@@ -37,7 +38,7 @@ const MyPosts = React.memo((props: PropsType) => {
                                                                               key={id}/>)
                 }
             </div>
-        </div>
+        </Col>
     );
 });
 
