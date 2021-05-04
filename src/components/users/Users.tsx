@@ -94,7 +94,7 @@ export const Users = () => {
                                 dispatch(follow(user.id));
                             }
                             return (
-                                <Col className="gutter-row"  key={user.id}
+                                <Col className="gutter-row" key={user.id}
                                     // span={8}
                                      xs={{span: 24}}
                                      sm={{span: 12}}
