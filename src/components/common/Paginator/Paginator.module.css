@@ -1,4 +1,73 @@
-.selectedPage {
-    font-weight: bold;
-    font-size: 30px;
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+/*.selectedPage {*/
+/*    font-weight: bold;*/
+/*    font-size: 30px;*/
+/*}*/
+.paginationContainer {
+    margin-top: 1em;
+    padding-top: 2em;
+    border-top: 1px solid #d7dadb;
+    text-align: center;
+}
+
+.paginationItem {
+    display: inline-block;
+    border-right: 1px solid #d7dadb;
+
+    transform: scale(1) rotate(19deg) translateX(0px) translateY(0px) skewX(-10deg) skewY(-20deg);
+
+    padding: 1.1em 1.6em;
+    color: #8b969c;
+}
+
+.paginationItem:hover,
+.paginationItem.selectedPage {
+    background-color: #fa4248;
+    border-right: 1px solid #fff;
+    color: #fff;
+
+}
+
+.paginationItemWide {
+    display: inline-block;
+    color: #8b969c;
+    padding: 1.1em 1.6em;
+    border: none;
+    background-color: transparent;
+}
+
+.paginationItemWide:hover {
+    color: #fa4248;
+}
+
+.paginationItemWide.first {
+    margin: 0 20px 0 0;
+}
+
+.paginationItemWide.last {
+    margin: 0 0 0 20px;
+}
+
+.paginationItemWide.first:before,
+.paginationItemWide.last:after {
+    font-family: 'entypo';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.paginationItemWide.first::before {
+    content: "\E765";
+    margin-right: 0.5em;
+}
+
+.paginationItemWide.last::after {
+    content: "\E766";
+    margin-left: 0.5em;
 }

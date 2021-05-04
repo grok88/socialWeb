@@ -1,5 +1,5 @@
-import React from "react";
-import style from "./Paginator.module.css";
+import React from 'react';
+import style from './Paginator.module.css';
 
 type PaginatorPropsType = {
     pageSize: number;
@@ -25,26 +25,32 @@ const Paginator: React.FC<PaginatorPropsType> = (props) => {
 
 
     return (
-        <div>
-            {props.portionNumber > 1 && <button onClick={() => {
-                props.setPortionNumber(props.portionNumber - 1)
-            }}>назад</button>}
-            {
-                pages
-                    .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                    .map(p => <span key={p}
-                                    className={props.currentPage === p ? style.selectedPage : ''}
-                                    onClick={(e) => {
-                                        props.changedPage(p);
-                                    }}>{p}
+        <div className={style.paginationContainer}>
+            <div className={style.pagination}>
+                {props.portionNumber > 1 && <button
+                    className={`${style.paginationItemWide} ${style.first}`}
+                    onClick={() => {
+                        props.setPortionNumber(props.portionNumber - 1)
+                    }}>назад</button>}
+                {
+                    pages
+                        .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                        .map(p => <span key={p}
+                                        className={`${style.paginationItem} ${props.currentPage === p ? style.selectedPage : ''}`}
+                                        onClick={(e) => {
+                                            props.changedPage(p);
+                                        }}>{p}
                         </span>)
-            }
-            {
-                portionCount > props.portionNumber &&
-				<button onClick={() => {
-                    props.setPortionNumber(props.portionNumber + 1)
-                }}>вперед</button>
-            }
+                }
+                {
+                    portionCount > props.portionNumber &&
+                    <button className={`${style.paginationItemWide} ${style.last}`}
+                            onClick={() => {
+                                props.setPortionNumber(props.portionNumber + 1)
+                            }}>вперед</button>
+                }
+            </div>
+
         </div>
     );
 }

@@ -94,7 +94,7 @@ export const Users = () => {
                                 dispatch(follow(user.id));
                             }
                             return (
-                                <Col className="gutter-row"
+                                <Col className="gutter-row"  key={user.id}
                                     // span={8}
                                      xs={{span: 24}}
                                      sm={{span: 12}}
@@ -102,7 +102,7 @@ export const Users = () => {
                                      lg={{span: 6}}
                                      xxl={{span: 4}}
                                 >
-                                    <User user={user} follow={followHandler} unfollow={unFollowHandler} key={user.id}/>
+                                    <User user={user} follow={followHandler} unfollow={unFollowHandler}/>
                                 </Col>
                             );
                         })
