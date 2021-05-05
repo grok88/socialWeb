@@ -1,3 +1,133 @@
-.postsBlock{
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+.postsBlock {
     outline: 1px solid black;
+}
+
+/* form styles */
+
+.postsFormBlock {
+    display: block;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 25px;
+    padding: 35px 15px;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 2px 3px 4px -2px rgb(0 0 0.55);
+    /*background: #f3f0f1;*/
+}
+
+.postsFormBlock h2 {
+    font-family: 'Skranji', 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1.7em;
+    margin-bottom: 7px;
+    color: #5b5463;
+    text-shadow: 0 2px white, 1px 3px #666;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid #bbb;
+}
+
+.postsForm .row {
+    padding: 7px 8px;
+    margin-bottom: 7px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.postsForm .row:hover {
+    background: #f1f7fa;
+}
+
+.postsForm label {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: bold;
+    width: 120px;
+    padding: 6px 0;
+    color: #464646;
+    vertical-align: top;
+}
+
+.postsForm .req {
+    color: #ca5354;
+}
+
+.postsForm .note {
+    font-size: 1.2em;
+    line-height: 1.33em;
+    font-weight: normal;
+    padding: 2px 7px;
+    margin-bottom: 10px;
+}
+
+.postsForm textarea {
+    display: inline-block;
+    padding: 8px 11px;
+    padding-right: 30px;
+    /*width: 320px;*/
+    /*height: 120px;*/
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1.35em;
+    font-weight: normal;
+    color: #898989;
+    background-color: #f0f0f0;
+    background-position: 110% 4%;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    text-shadow: 0 1px 0 rgb(255 255 255);
+    border-radius: 3px;
+    box-shadow: 0 1px 4px -1px #a8a8a8 inset;
+    transition: all 0.3s linear;
+}
+
+.postsForm textarea:focus {
+    outline: none;
+}
+
+
+.postsBtn {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.postsBtn button {
+    /*width: 400px;*/
+    /*height: 100px;*/
+    padding: 10px 80px;
+    background: #f3f0f1;
+    position: relative;
+    background: #f3f0f1;
+    margin-bottom: 25px;
+    border-radius: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
+    6px 6px 10px rgba(0, 0, 0, 0.2);
+    color: #6f6cde;
+    border: none;
+}
+
+.postsBtn span {
+    /*line-height: 100px;*/
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.postsBtn :hover {
+    opacity: 0.3;
+    box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
+    6px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.postsBtn :active {
+    opacity: 1;
+    box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5),
+    inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+    color: #79e3b6;
 }

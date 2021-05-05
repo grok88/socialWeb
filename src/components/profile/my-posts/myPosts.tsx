@@ -27,8 +27,8 @@ const MyPosts = React.memo((props: PropsType) => {
 
     return (
         <Col span={24} className={style.postsBlock}>
-            My Posts
-            <div>
+            <div className={style.postsFormBlock}>
+                <h2>Написать пост</h2>
                 <AddPostMessageFormRedux onSubmit={onSubmit}/>
             </div>
             <div className={style.posts}>
@@ -49,13 +49,17 @@ type FormDataType = {
 export const AddPostMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
+        <form onSubmit={props.handleSubmit} className={style.postsForm}>
+            <p className={style.note}><span className={style.req}>*</span> Поля со звездочкой обязательны для заполнения
+            </p>
+            <div className={style.row}>
+                <label htmlFor="message">Сообщение <span className={style.req}>*</span></label>
                 <Field name='newMessageBody' placeholder='Enter you Post message' component={Textarea}
+                       id={'message'}
                        validate={[required, maxLength30]}/>
             </div>
-            <div>
-                <button>Send</button>
+            <div className={style.postsBtn}>
+                <button><span>Send</span></button>
             </div>
         </form>
     );
