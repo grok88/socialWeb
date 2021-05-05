@@ -10,7 +10,7 @@ import {UserButton} from '../common/userButton/UserButton';
 
 
 export type MessagesType = {
-    id: string,
+    id: string
     message: string
 }
 
