@@ -19,9 +19,9 @@ const Post = (props: propsType) => {
                 <Meta avatar={<Avatar
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmHvlQey7sRB-lIKvwZQHlY-Gwi0TIDWloz6LZcCYwdubZ5-nV&usqp=CAU"
                     size={60}/>}/>
-                <div>
+                <div className={style.postText}>
                     {message}
-                    <p> {likeCount} - likes</p>
+                    <span> {likeCount} - likes</span>
                 </div>
             </Row>
 

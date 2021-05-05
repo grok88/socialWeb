@@ -1,4 +1,44 @@
 
-.post{
+.post {
     box-shadow: 2px 3px 4px -2px rgb(0 0 0.55);
+}
+
+.postText {
+    padding: 5px;
+    position: relative;
+    min-height: 10px;
+    width: 70%;
+    font-family: sans-serif;
+    background: rgb(188, 207, 216);
+    border: 2px solid rgb(72, 117, 117);
+}
+
+
+.postText:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 15px;
+    border: 10px solid #fdfcfc;
+    border-bottom: 10px solid rgb(94, 122, 136);
+    border-left: 10px solid rgb(90, 123, 123);
+    z-index: 1;
+}
+
+.postText:after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 17px;
+    border: 10px solid hsla(0, 0%, 0%, 0);
+    border-bottom: 10px solid rgb(188, 207, 216);
+    border-left: 10px solid rgb(188, 207, 216);
+    z-index: 1;
+}
+
+.postText > span {
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+    color: #ca5354;
 }
