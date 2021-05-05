@@ -1,7 +1,4 @@
 
-.item{
-    color: greenyellow;
-}
-.item img {
-    width: 50px;
+.post{
+    box-shadow: 2px 3px 4px -2px rgb(0 0 0.55);
 }

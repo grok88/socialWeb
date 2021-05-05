@@ -1,21 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
 .postsBlock {
-    outline: 1px solid black;
+
 }
 
 /* form styles */
 
 .postsFormBlock {
-    display: block;
-    max-width: 500px;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
-    margin-top: 25px;
     padding: 35px 15px;
     background: #fff;
     border-radius: 7px;
     box-shadow: 2px 3px 4px -2px rgb(0 0 0.55);
-    /*background: #f3f0f1;*/
 }
 
 .postsFormBlock h2 {
@@ -68,8 +66,6 @@
     display: inline-block;
     padding: 8px 11px;
     padding-right: 30px;
-    /*width: 320px;*/
-    /*height: 120px;*/
     font-family: 'Oxygen', sans-serif;
     font-size: 1.35em;
     font-weight: normal;
@@ -95,8 +91,6 @@
 }
 
 .postsBtn button {
-    /*width: 400px;*/
-    /*height: 100px;*/
     padding: 10px 80px;
     background: #f3f0f1;
     position: relative;
@@ -113,7 +107,6 @@
 }
 
 .postsBtn span {
-    /*line-height: 100px;*/
     font-family: "Montserrat", sans-serif;
     font-size: 32px;
     font-weight: 500;

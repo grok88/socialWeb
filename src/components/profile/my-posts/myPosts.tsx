@@ -6,7 +6,7 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, required} from '../../../utils/validators/validators';
 import {Textarea} from '../../common/formsControls/FormsControls';
 import {ObjPostType} from '../../../types/types';
-import {Col} from 'antd';
+import {Col, Row} from 'antd';
 
 type PropsType = {
     profilePage: {
@@ -27,17 +27,21 @@ const MyPosts = React.memo((props: PropsType) => {
 
     return (
         <Col span={24} className={style.postsBlock}>
-            <div className={style.postsFormBlock}>
-                <h2>Написать пост</h2>
-                <AddPostMessageFormRedux onSubmit={onSubmit}/>
-            </div>
-            <div className={style.posts}>
-                {
-                    profilePage.posts.map(({id, message, likeCount}) => <Post message={message}
-                                                                              likeCount={likeCount}
-                                                                              key={id}/>)
-                }
-            </div>
+            <Row gutter={8}>
+                <Col md={{span: 24}} lg={{span: 12}}>
+                    <Row gutter={[16, 16]}>
+                        {
+                            profilePage.posts.map(({id, message, likeCount}) => <Col span={24} key={id}>
+                                <Post message={message} likeCount={likeCount} key={id}/></Col>)}
+                    </Row>
+                </Col>
+                <Col md={{span: 24}} lg={{span: 12}}>
+                    <div className={style.postsFormBlock}>
+                        <h2>Написать пост</h2>
+                        <AddPostMessageFormRedux onSubmit={onSubmit}/>
+                    </div>
+                </Col>
+            </Row>
         </Col>
     );
 });

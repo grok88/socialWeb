@@ -28,8 +28,8 @@ const maxLength30 = maxLengthCreator(30);
 const Dialogs = (props: propsType) => {
     const {addMess, dialogsPage} = props;
 
-    let dialogsElements = dialogsPage.dialogs.map(({name, id, url}) => <Col span={24}>
-        <DialogItem name={name} id={id} key={id} url={url}/>
+    let dialogsElements = dialogsPage.dialogs.map(({name, id, url}) => <Col span={24} key={id}>
+        <DialogItem name={name} id={id}  url={url}/>
     </Col>)
     let messagesElements = dialogsPage.messages.map(({id, message}) => <Message message={message} key={id}/>);
 
